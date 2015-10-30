@@ -1,0 +1,34 @@
+{
+  "name": "apiship/php-sdk",
+  "description": "Inegration (SDK) with Apiship API",
+  "keywords": [
+    "Apiship",
+    "sdk",
+    "integration",
+    "REST"
+  ],
+  "minimum-stability": "dev",
+  "license": "proprietary",
+  "type": "extension",
+  "authors": [
+    {
+      "name": "Medvedev Dmitry",
+      "email": "mr.vidmed@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Apiship\\": "src"
+    },
+    "files": ["src/functions.php"]
+  },
+  "require": {
+    "php": ">=5.5.0"
+  },
+  "require-dev": {
+    "guzzle/guzzle": "3.9.*@dev"
+  },
+  "suggest": {
+    "guzzle/guzzle": "To use GuzzleAdapter, require guzzle/guzzle:3.9.*@dev"
+  }
+}

@@ -1,0 +1,45 @@
+<?php
+
+namespace Apiship;
+
+/**
+ * Transform snake_case to camelCase.
+ *
+ * @param string $property
+ *
+ * @return string
+ */
+function convert_to_camel_case($property)
+{
+    return lcfirst(preg_replace_callback(
+        '/(^|_)([a-z])/',
+        function ($match) {
+            return strtoupper($match[2]);
+        },
+        $property
+    ));
+}
+
+/**
+ * Transform camelCase to snake_case.
+ *
+ * @param string $property
+ *
+ * @return string
+ */
+function convert_to_snake_case($property)
+{
+    return strtolower(preg_replace('/([A-Z])/', '_$1', $property));
+}
+
+/**
+ * Returns a string representation of a boolean.
+ *
+ * @param bool $value
+ *
+ * @return string
+ */
+function bool_to_string($value)
+{
+    return $value ? 'true' : 'false';
+}
