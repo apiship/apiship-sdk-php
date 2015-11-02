@@ -24,24 +24,46 @@ class ResponseException extends \RuntimeException implements ExceptionInterface
      */
     public static function create($message, $code = 0, \Exception $previous = null)
     {
-        return new self($message, $code, $previous);
-    }
-
-    /**
-     * @param bool $includeCodeId (optional)
-     *
-     * @return string
-     */
-    public function getErrorMessage($includeCodeId = false)
-    {
-        return $this->exception->getMessage($includeCodeId);
+        return new self($message, $code, null);
     }
 
     /**
      * @return string
      */
-    public function getErrorId()
+    public function getErrorMessage()
     {
-        return strtoupper($this->exception->getId());
+        return $this->exception->getMessage();
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrorApishipCode()
+    {
+        return $this->exception->getApishipCode();
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrorDescription()
+    {
+        return $this->exception->getDescription();
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrorMoreInfo()
+    {
+        return $this->exception->getMoreInfo();
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrors()
+    {
+        return $this->exception->getErrors();
     }
 }

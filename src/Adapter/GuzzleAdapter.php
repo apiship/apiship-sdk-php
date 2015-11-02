@@ -3,6 +3,7 @@
 namespace Apiship\Adapter;
 
 use Apiship\Exception\ExceptionInterface;
+use Apiship\Exception\ResponseException;
 use Guzzle\Common\Event;
 use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
@@ -38,10 +39,10 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
 
         $that            = $this;
         $this->client    = $client ?: new Client();
-        $this->exception = $exception;
+        $this->exception = isset($exception) ? $exception : new ResponseException();
 
         $this->client
-            // Set default Bearer header for all request
+            // Set default Authorization header for all request
             ->setDefaultOption('headers/Authorization', $this->getAccessToken())
             // Subscribe completed request event
             ->setDefaultOption('events/request.complete', function (Event $event) use ($that) {
@@ -55,7 +56,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function get($url)
     {
-        $this->response = $this->client->get($url)->send();
+        $this->response = $this->client->get($this->getUrl() . $url)->send();
 
         return $this->response->getBody(true);
     }
@@ -65,7 +66,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function delete($url, array $headers = [])
     {
-        $this->response = $this->client->delete($url, $headers)->send();
+        $this->response = $this->client->delete($this->getUrl() . $url, $headers)->send();
 
         return $this->response->getBody(true);
     }
@@ -76,7 +77,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     public function put($url, array $headers = [], $content = '')
     {
         $headers['content-type'] = 'application/json';
-        $request                 = $this->client->put($url, $headers, $content);
+        $request                 = $this->client->put($this->getUrl() . $url, $headers, $content);
         $this->response          = $request->send();
 
         return $this->response->getBody(true);
@@ -88,7 +89,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     public function post($url, array $headers = [], $content = '')
     {
         $headers['content-type'] = 'application/json';
-        $request                 = $this->client->post($url, $headers, $content);
+        $request                 = $this->client->post($this->getUrl() . $url, $headers, $content);
         $this->response          = $request->send();
 
         return $this->response->getBody(true);
@@ -130,9 +131,13 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
             throw $this->exception->create($body, $code);
         }
 
+        /** @var \StdClass $content */
         $content = json_decode($body);
 
-        throw new \RuntimeException(sprintf('[%d] %s (%s)', $code, $content->message, $content->id), $code);
+        throw new \RuntimeException(
+            sprintf('[%d]: %s (%s. %s)', $content->code, $content->message, $content->description, $content->moreInfo),
+            $code
+        );
     }
 
     /**
@@ -145,7 +150,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
             'password' => $this->password,
         ]);
 
-        $loginData = $this->post($this->getUrl() . 'login', [], $authRequestData);
+        $loginData = $this->post('login', [], $authRequestData);
 
         return json_decode($loginData);
     }
