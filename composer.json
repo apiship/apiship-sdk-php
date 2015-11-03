@@ -19,8 +19,7 @@
   "autoload": {
     "psr-4": {
       "Apiship\\": "src"
-    },
-    "files": ["src/functions.php"]
+    }
   },
   "require": {
     "php": ">=5.5.0"

@@ -8,12 +8,14 @@ interface AdapterInterface
 {
     /**
      * @param string $url
+     * @param array  $headers (optional)
+     * @param array  $query   (optional)
      *
      * @throws \RuntimeException|ExceptionInterface
      *
      * @return string
      */
-    public function get($url);
+    public function get($url, array $headers = [], array $query = []);
 
     /**
      * @param string $url
@@ -21,18 +23,7 @@ interface AdapterInterface
      *
      * @throws \RuntimeException|ExceptionInterface
      */
-    public function delete($url, array $headers = array());
-
-    /**
-     * @param string $url
-     * @param array  $headers (optional)
-     * @param string $content (optional)
-     *
-     * @throws \RuntimeException|ExceptionInterface
-     *
-     * @return string
-     */
-    public function put($url, array $headers = array(), $content = '');
+    public function delete($url, array $headers = []);
 
     /**
      * @param string $url
@@ -43,7 +34,18 @@ interface AdapterInterface
      *
      * @return string
      */
-    public function post($url, array $headers = array(), $content = '');
+    public function put($url, array $headers = [], $content = '');
+
+    /**
+     * @param string $url
+     * @param array  $headers (optional)
+     * @param string $content (optional)
+     *
+     * @throws \RuntimeException|ExceptionInterface
+     *
+     * @return string
+     */
+    public function post($url, array $headers = [], $content = '');
 
     /**
      * @return null|array

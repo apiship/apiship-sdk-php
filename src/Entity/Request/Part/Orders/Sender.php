@@ -2,10 +2,10 @@
 
 namespace Apiship\Entity\Request\Part\Orders;
 
-use Apiship\Entity\AbstractPart;
+use Apiship\Entity\AbstractRequestPart;
 use Apiship\Exception\RequiredParameterException;
 
-class Sender extends AbstractPart
+class Sender extends AbstractRequestPart
 {
     /**
      * @var string Индекс

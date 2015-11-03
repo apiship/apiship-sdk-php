@@ -2,10 +2,10 @@
 
 namespace Apiship\Entity\Request\Part\Orders;
 
-use Apiship\Entity\AbstractPart;
+use Apiship\Entity\AbstractRequestPart;
 use Apiship\Exception\RequiredParameterException;
 
-class Order extends AbstractPart
+class Order extends AbstractRequestPart
 {
     /**
      * @var string Номер заказа в системе клиента

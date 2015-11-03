@@ -54,9 +54,13 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     /**
      * {@inheritdoc}
      */
-    public function get($url)
+    public function get($url, array $headers = [], array $query = [])
     {
-        $this->response = $this->client->get($this->getUrl() . $url)->send();
+        $this->response = $this->client->get(
+            $this->getUrl() . $url,
+            $headers,
+            ['query' => $query]
+        )->send();
 
         return $this->response->getBody(true);
     }
