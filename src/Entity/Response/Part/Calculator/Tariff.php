@@ -2,7 +2,9 @@
 
 namespace Apiship\Entity\Response\Part\Calculator;
 
-class Tariff
+use Apiship\Entity\AbstractResponsePart;
+
+class Tariff extends AbstractResponsePart
 {
     /**
      * @var int ID тарифа

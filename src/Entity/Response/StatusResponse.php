@@ -11,11 +11,11 @@ class StatusResponse extends AbstractResponse
     /**
      * @var OrderInfo
      */
-    public $orderInfo;
+    protected $orderInfo;
     /**
      * @var OrderStatus
      */
-    public $status;
+    protected $status;
 
     /**
      * @return OrderInfo
@@ -28,7 +28,7 @@ class StatusResponse extends AbstractResponse
     /**
      * @param OrderInfo $orderInfo
      *
-     * @return $this
+     * @return StatusResponse
      */
     public function setOrderInfo(OrderInfo $orderInfo)
     {
@@ -47,7 +47,7 @@ class StatusResponse extends AbstractResponse
     /**
      * @param OrderStatus $status
      *
-     * @return $this
+     * @return StatusResponse
      */
     public function setStatus(OrderStatus $status)
     {

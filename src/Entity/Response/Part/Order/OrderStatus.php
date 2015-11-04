@@ -2,40 +2,42 @@
 
 namespace Apiship\Entity\Response\Part\Order;
 
-class OrderStatus
+use Apiship\Entity\AbstractResponsePart;
+
+class OrderStatus extends AbstractResponsePart
 {
     /**
      * @var string Идентификатор статуса заказа
      */
-    public $key;
+    protected $key;
     /**
      * @var string Название статуса
      */
-    public $name;
+    protected $name;
     /**
      * @var string Описание статуса
      */
-    public $description;
+    protected $description;
     /**
      * @var string Дата и время установки данного статуса
      */
-    public $created;
+    protected $created;
     /**
      * @var string Код статуса в системе службы доставки
      */
-    public $providerCode;
+    protected $providerCode;
     /**
      * @var string Название статуса в системе службы доставки
      */
-    public $providerName;
+    protected $providerName;
     /**
      * @var string Описание статуса в системе службы доставки
      */
-    public $providerDescription;
+    protected $providerDescription;
     /**
      * @var string Дата создания статуса в системе службы доставки
      */
-    public $createdProvider;
+    protected $createdProvider;
 
     /**
      * @return string

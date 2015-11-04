@@ -2,20 +2,22 @@
 
 namespace Apiship\Entity\Response\Part\Order;
 
-class OrderInfo
+use Apiship\Entity\AbstractResponsePart;
+
+class OrderInfo extends AbstractResponsePart
 {
     /**
      * @var int ID заказа
      */
-    public $orderId;
+    protected $orderId;
     /**
      * @var string Ключ провайдера (СД)
      */
-    public $providerNumber;
+    protected $providerNumber;
     /**
      * @var string Номер заказа клиента
      */
-    public $clientNumber;
+    protected $clientNumber;
 
     /**
      * @return int

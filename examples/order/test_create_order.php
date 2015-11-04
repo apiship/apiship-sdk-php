@@ -1,5 +1,5 @@
 <?php
-require('vendor/autoload.php');
+require('../../vendor/autoload.php');
 use Apiship\Adapter\GuzzleAdapter;
 use Apiship\Apiship;
 use Apiship\Exception\ResponseException;
@@ -81,7 +81,7 @@ try {
 
     $createOrderResult = $apiship->orders()->create($orderRequest);
 
-    print_r($createOrderResult);exit;
+    print_r($createOrderResult);
 
 } catch (ResponseException $e) {
     echo $e->getErrorApishipCode() . PHP_EOL;

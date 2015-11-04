@@ -26,7 +26,7 @@ class CreateOrderResponse extends AbstractResponse
     /**
      * @param int $orderId
      *
-     * @return CreateOrderRequest
+     * @return CreateOrderResponse
      */
     public function setOrderId($orderId)
     {
@@ -45,7 +45,7 @@ class CreateOrderResponse extends AbstractResponse
     /**
      * @param string $created
      *
-     * @return CreateOrderRequest
+     * @return CreateOrderResponse
      */
     public function setCreated($created)
     {

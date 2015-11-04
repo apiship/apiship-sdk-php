@@ -5,6 +5,7 @@ namespace Apiship;
 use Apiship\Adapter\AdapterInterface;
 use Apiship\Api\Orders;
 use Apiship\Api\Calculator;
+use Apiship\Api\Autocomplete;
 
 class Apiship
 {
@@ -35,5 +36,13 @@ class Apiship
     public function calculator()
     {
         return new Calculator($this->adapter);
+    }
+
+    /**
+     * @return Autocomplete
+     */
+    public function autocomplete()
+    {
+        return new Autocomplete($this->adapter);
     }
 }

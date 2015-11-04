@@ -4,10 +4,15 @@ namespace Apiship\Api;
 
 use Apiship\Entity\Request\CreateOrderRequest;
 use Apiship\Entity\Response\CreateOrderResponse;
+use Apiship\Entity\Response\Part\Meta;
 use Apiship\Entity\Response\Part\Order\FailedOrder;
 use Apiship\Entity\Response\Part\Order\OrderInfo;
 use Apiship\Entity\Response\Part\Order\OrderStatus;
+use Apiship\Entity\Response\Part\Order\StatusHistory;
 use Apiship\Entity\Response\Part\Order\SucceedOrder;
+use Apiship\Entity\Response\StatusesByDateResponse;
+use Apiship\Entity\Response\StatusHistoryByDateResponse;
+use Apiship\Entity\Response\StatusHistoryResponse;
 use Apiship\Entity\Response\StatusResponse;
 use Apiship\Entity\Response\StatusesResponse;
 
@@ -44,7 +49,7 @@ class Orders extends AbstractApi
      *
      * @param int $orderId ID заказа
      *
-     * @return CreateOrderResponse
+     * @return StatusResponse
      */
     public function getStatusByOrderId($orderId)
     {
@@ -86,7 +91,7 @@ class Orders extends AbstractApi
      *
      * @param string $clientNumber Номер заказа клиента
      *
-     * @return CreateOrderResponse
+     * @return StatusResponse
      */
     public function getStatusByClientNumber($clientNumber)
     {
@@ -128,7 +133,7 @@ class Orders extends AbstractApi
      *
      * @param array $orderIds Массив ID заказов
      *
-     * @return CreateOrderResponse
+     * @return StatusesResponse
      */
     public function getStatuses(array $orderIds)
     {
@@ -185,6 +190,208 @@ class Orders extends AbstractApi
 
                 $response->addFailedOrders($failedOrderResult);
             }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Получение измененных статусов по всем заказам клиента (company) после указанной в методе даты
+     *
+     * @param string $date Дата (в формате '2015-07-30T13:14:37+03:00'), после которой запрашиваются статусы
+     *
+     * @return StatusesByDateResponse
+     */
+    public function getStatusesByDate($date)
+    {
+        $resultJson = $this->adapter->get('orders/statuses/date/' . urlencode(trim($date)));
+        $result     = json_decode($resultJson);
+
+        $response = new StatusesByDateResponse();
+        $response->setOriginJson($resultJson);
+
+        if (!empty($result)) {
+            foreach ($result as $order) {
+                $orderResult = new SucceedOrder();
+
+                if (!empty($order->orderInfo)) {
+                    $orderInfo = new OrderInfo();
+                    foreach ($order->orderInfo as $key => $value) {
+                        try {
+                            $orderInfo->$key = $value;
+                        } catch (\Exception $e) {
+                            continue;
+                        }
+                    }
+                    $orderResult->setOrderInfo($orderInfo);
+                }
+
+
+                if (!empty($order->status)) {
+                    $orderStatus = new OrderStatus();
+                    foreach ($order->status as $key => $value) {
+                        try {
+                            $orderStatus->$key = $value;
+                        } catch (\Exception $e) {
+                            continue;
+                        }
+                    }
+                    $orderResult->setStatus($orderStatus);
+                }
+
+                $response->addOrder($orderResult);
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Получение истории изменения всех статусов с определенной даты
+     *
+     * @param string $date   Дата заказов (в формате '2015-07-30T13:14:37+03:00'), с которой необходимо получить историю статусов
+     * @param int    $limit  Лимит выборки
+     * @param int    $offset Смещение выборки
+     *
+     * @return StatusHistoryByDateResponse
+     */
+    public function getStatusHistoryByDate($date, $limit = null, $offset = null)
+    {
+        $queryParams = [];
+        if (isset($limit)) {
+            $queryParams['limit'] = $limit;
+        }
+        if (isset($offset)) {
+            $queryParams['offset'] = $offset;
+        }
+
+        $resultJson = $this->adapter->get('orders/statuses/history/date/' . urlencode(trim($date)), [], $queryParams);
+        $result     = json_decode($resultJson);
+
+        $response = new StatusHistoryByDateResponse();
+        $response->setOriginJson($resultJson);
+
+        if (!empty($result->rows)) {
+            foreach ($result->rows as $statusHistory) {
+                $statusHistoryResult = new StatusHistory();
+
+                if (!empty($statusHistory->orderInfo)) {
+                    $orderInfo = new OrderInfo();
+                    foreach ($statusHistory->orderInfo as $key => $value) {
+                        try {
+                            $orderInfo->$key = $value;
+                        } catch (\Exception $e) {
+                            continue;
+                        }
+                    }
+                    $statusHistoryResult->setOrderInfo($orderInfo);
+                }
+
+
+                if (!empty($statusHistory->statuses)) {
+                    foreach ($statusHistory->statuses as $status) {
+                        $orderStatus = new OrderStatus();
+                        foreach ($status as $key => $value) {
+                            try {
+                                $orderStatus->$key = $value;
+                            } catch (\Exception $e) {
+                                continue;
+                            }
+                        }
+                        $statusHistoryResult->addStatus($orderStatus);
+                    }
+                }
+
+                $response->addRow($statusHistoryResult);
+            }
+        }
+
+        if (!empty($result->meta)) {
+            $meta = new Meta();
+
+            foreach ($result->meta as $key => $value) {
+                try {
+                    $meta->$key = $value;
+                } catch (\Exception $e) {
+                    continue;
+                }
+            }
+
+            $response->setMeta($meta);
+        }
+
+        return $response;
+    }
+
+    /**
+     * Получение истории изменения всех статусов с определенной даты
+     *
+     * @param int    $orderId ID заказа
+     * @param int    $limit   Лимит выборки
+     * @param int    $offset  Смещение выборки
+     * @param string $filter  Возможна фильтрация по полям created
+     *
+     * @return StatusHistoryResponse
+     */
+    public function getStatusHistory($orderId, $limit = null, $offset = null, $filter = null)
+    {
+        $queryParams = [];
+        if (isset($limit)) {
+            $queryParams['limit'] = $limit;
+        }
+        if (isset($offset)) {
+            $queryParams['offset'] = $offset;
+        }
+        if (isset($filter)) {
+            $queryParams['filter'] = $filter;
+        }
+
+        $resultJson = $this->adapter->get('orders/' . trim($orderId) . '/statusHistory', [], $queryParams);
+        $result     = json_decode($resultJson);
+
+        $response = new StatusHistoryResponse();
+        $response->setOriginJson($resultJson);
+
+        if (!empty($result->orderInfo)) {
+            $orderInfo = new OrderInfo();
+            foreach ($result->orderInfo as $key => $value) {
+                try {
+                    $orderInfo->$key = $value;
+                } catch (\Exception $e) {
+                    continue;
+                }
+            }
+            $response->setOrderInfo($orderInfo);
+        }
+
+        if (!empty($result->rows)) {
+            foreach ($result->rows as $status) {
+                $statusResult = new OrderStatus();
+
+                foreach ($status as $key => $value) {
+                    try {
+                        $statusResult->$key = $value;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                }
+
+                $response->addRow($statusResult);
+            }
+        }
+
+        if (!empty($result->meta)) {
+            $meta = new Meta();
+
+            foreach ($result->meta as $key => $value) {
+                try {
+                    $meta->$key = $value;
+                } catch (\Exception $e) {
+                    continue;
+                }
+            }
+
+            $response->setMeta($meta);
         }
 
         return $response;

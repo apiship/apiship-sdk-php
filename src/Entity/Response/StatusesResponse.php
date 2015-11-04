@@ -11,11 +11,11 @@ class StatusesResponse extends AbstractResponse
     /**
      * @var SucceedOrder[]
      */
-    public $succeedOrders;
+    protected $succeedOrders;
     /**
      * @var FailedOrder[]
      */
-    public $failedOrders;
+    protected $failedOrders;
 
     /**
      * @return SucceedOrder[]

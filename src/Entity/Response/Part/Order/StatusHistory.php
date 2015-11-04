@@ -4,16 +4,16 @@ namespace Apiship\Entity\Response\Part\Order;
 
 use Apiship\Entity\AbstractResponsePart;
 
-class SucceedOrder extends AbstractResponsePart
+class StatusHistory extends AbstractResponsePart
 {
     /**
      * @var OrderInfo
      */
     protected $orderInfo;
     /**
-     * @var OrderStatus
+     * @var OrderStatus[]
      */
-    protected $status;
+    protected $statuses;
 
     /**
      * @return OrderInfo
@@ -35,11 +35,25 @@ class SucceedOrder extends AbstractResponsePart
     }
 
     /**
-     * @return OrderStatus
+     * @return OrderStatus[]
      */
     public function getStatus()
     {
-        return $this->status;
+        return $this->statuses;
+    }
+
+    /**
+     * @param OrderStatus[] $statuses
+     *
+     * @return $this
+     */
+    public function setStatus(array $statuses)
+    {
+        foreach ($statuses as $status) {
+            $this->addStatus($status);
+        }
+
+        return $this;
     }
 
     /**
@@ -47,9 +61,9 @@ class SucceedOrder extends AbstractResponsePart
      *
      * @return $this
      */
-    public function setStatus(OrderStatus $status)
+    public function addStatus(OrderStatus $status)
     {
-        $this->status = $status;
+        $this->statuses[] = $status;
         return $this;
     }
 }

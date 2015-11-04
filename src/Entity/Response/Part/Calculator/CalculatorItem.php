@@ -2,7 +2,9 @@
 
 namespace Apiship\Entity\Response\Part\Calculator;
 
-class CalculatorItem
+use Apiship\Entity\AbstractResponsePart;
+
+class CalculatorItem extends AbstractResponsePart
 {
     /**
      * @var string Ключ провайдера

@@ -1,5 +1,5 @@
 <?php
-require('vendor/autoload.php');
+require('../../vendor/autoload.php');
 use Apiship\Adapter\GuzzleAdapter;
 use Apiship\Apiship;
 use Apiship\Exception\ResponseException;
@@ -36,7 +36,7 @@ try {
 
     $calculatorResult = $apiship->calculator()->calculate($calculatorRequest);
 
-    print_r($calculatorResult);exit;
+    print_r($calculatorResult);
 
 } catch (ResponseException $e) {
     echo $e->getErrorApishipCode() . PHP_EOL;

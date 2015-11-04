@@ -2,16 +2,18 @@
 
 namespace Apiship\Entity\Response\Part\Order;
 
-class FailedOrder
+use Apiship\Entity\AbstractResponsePart;
+
+class FailedOrder extends AbstractResponsePart
 {
     /**
      * @var int
      */
-    public $orderId;
+    protected $orderId;
     /**
      * @var string
      */
-    public $message;
+    protected $message;
 
     /**
      * @return int
