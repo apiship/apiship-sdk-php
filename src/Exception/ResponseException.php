@@ -60,7 +60,7 @@ class ResponseException extends \RuntimeException implements ExceptionInterface
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getErrors()
     {
