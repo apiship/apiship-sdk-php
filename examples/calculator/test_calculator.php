@@ -32,7 +32,7 @@ try {
         ->setPickupDate('2015-11-30')
         ->setSelfPickup(true)
         ->setSelfDelivery(true)
-        ->setProviderKeys(['dpd', 'box2box', 'iml']);
+        ->setProviderKeys(['spsr']);
 
     $calculatorResult = $apiship->calculator()->calculate($calculatorRequest);
 

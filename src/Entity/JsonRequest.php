@@ -29,14 +29,19 @@ trait JsonRequest
             }
 
             if (is_array($value)) {
-                foreach ($value as $sub_key => $sub_value){
-                    $value[$sub_key] = method_exists($sub_value, 'asArrayRecursive') ? $sub_value->asArrayRecursive() : $sub_value;
+                foreach ($value as $sub_key => $sub_value) {
+                    if (is_object($sub_value)) {
+                        $value[$sub_key] = method_exists($sub_value, 'asArrayRecursive') ? $sub_value->asArrayRecursive() : (array)$sub_value;
+                    } else {
+                        $value[$sub_key] = $sub_value;
+                    }
                 }
                 $asArray[$key] = $value;
             }
 
-            if (!isset($value))
+            if (!isset($value)) {
                 unset($asArray[$key]);
+            }
         }
 
         return $asArray;
