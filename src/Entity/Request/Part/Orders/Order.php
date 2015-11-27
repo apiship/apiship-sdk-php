@@ -12,6 +12,10 @@ class Order extends AbstractRequestPart
      */
     protected $clientNumber;
     /**
+     * @var string Номер заказа в системе службы доставки. Если СД выдает диапазон номеров заказа
+     */
+    protected $providerNumber;
+    /**
      * @var string Описание заказа
      */
     protected $description;
@@ -99,6 +103,25 @@ class Order extends AbstractRequestPart
     public function setClientNumber($clientNumber)
     {
         $this->clientNumber = $clientNumber;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProviderNumber()
+    {
+        return $this->providerNumber;
+    }
+
+    /**
+     * @param string $providerNumber
+     *
+     * @return Order
+     */
+    public function setProviderNumber($providerNumber)
+    {
+        $this->providerNumber = $providerNumber;
         return $this;
     }
 
