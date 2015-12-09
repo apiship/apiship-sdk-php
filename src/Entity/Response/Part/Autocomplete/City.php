@@ -9,47 +9,47 @@ class City extends AbstractResponsePart
     /**
      * @var string GUID региона в системе ФИАС
      */
-    public $regionGuid;
+    protected $regionGuid;
 
     /**
      * @var string Тип региона
      */
-    public $regionType;
+    protected $regionType;
 
     /**
      * @var string Название региона
      */
-    public $region;
+    protected $region;
 
     /**
      * @var string GUID района в системе ФИАС
      */
-    public $areaGuid;
+    protected $areaGuid;
 
     /**
      * @var string Тип района
      */
-    public $areaType;
+    protected $areaType;
 
     /**
      * @var string Название района
      */
-    public $area;
+    protected $area;
 
     /**
      * @var string GUID населенного пункта в системе ФИАС
      */
-    public $cityGuid;
+    protected $cityGuid;
 
     /**
      * @var string Тип населенного пункта
      */
-    public $cityType;
+    protected $cityType;
 
     /**
      * @var string Название населенного пункта
      */
-    public $city;
+    protected $city;
 
     /**
      * @return string

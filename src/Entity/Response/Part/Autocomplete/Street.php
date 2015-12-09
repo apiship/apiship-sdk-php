@@ -9,32 +9,32 @@ class Street extends AbstractResponsePart
     /**
      * @var string GUID населенного пункта в системе ФИАС
      */
-    public $cityGuid;
+    protected $cityGuid;
 
     /**
      * @var string Тип населенного пункта
      */
-    public $cityType;
+    protected $cityType;
 
     /**
      * @var string Название населенного пункта
      */
-    public $city;
+    protected $city;
 
     /**
      * @var string GUID улицы в системе ФИАС
      */
-    public $streetGuid;
+    protected $streetGuid;
 
     /**
      * @var string Тип улицы (ул., переулок итп)
      */
-    public $streetType;
+    protected $streetType;
 
     /**
      * @var string Улица
      */
-    public $street;
+    protected $street;
 
     /**
      * @return string
