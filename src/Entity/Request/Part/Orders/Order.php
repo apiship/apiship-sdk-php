@@ -207,12 +207,6 @@ class Order extends AbstractRequestPart
      */
     public function getWeight()
     {
-        if (!$this->weight) {
-            throw new RequiredParameterException(
-                'Property "' . get_class($this) . '::weight" is required.
-                ');
-        }
-
         return $this->weight;
     }
 
