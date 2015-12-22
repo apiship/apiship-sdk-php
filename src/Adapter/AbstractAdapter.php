@@ -28,7 +28,7 @@ abstract class AbstractAdapter
      * Whether to use test api url
      * @var bool
      */
-    protected $GuzzleAdapter;
+    protected $test;
 
     /**
      * @param string $login
