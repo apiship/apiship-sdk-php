@@ -5,7 +5,7 @@ use Apiship\Apiship;
 use Apiship\Exception\ResponseException;
 
 try {
-    $adapter = new GuzzleAdapter('admin', 'admin', true);
+    $adapter = new GuzzleAdapter('test', 'test', true);
     $apiship = new Apiship($adapter);
 
     $statusResult = $apiship->orders()->getStatuses([798]);

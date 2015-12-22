@@ -5,7 +5,7 @@ use Apiship\Apiship;
 use Apiship\Exception\ResponseException;
 
 try {
-    $adapter = new GuzzleAdapter('admin', 'admin', true);
+    $adapter = new GuzzleAdapter('test', 'test', true);
     $apiship = new Apiship($adapter);
 
     $autocompleteResult = $apiship->autocomplete()->getStreet('садов', '0c5b2444-70a0-4932-980c-b4dc0d3f02b5');
