@@ -370,12 +370,6 @@ class Recipient extends AbstractRequestPart
      */
     public function getEmail()
     {
-        if (!$this->email) {
-            throw new RequiredParameterException(
-                'Property "' . get_class($this) . '::email" is required.
-                ');
-        }
-
         return $this->email;
     }
 
