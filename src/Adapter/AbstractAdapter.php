@@ -62,9 +62,13 @@ abstract class AbstractAdapter
     public function getAccessToken()
     {
         if (!$this->accessToken) {
-            /** @var \StdClass $loginData */
-            $loginData         = $this->login();
-            $this->accessToken = $loginData->accessToken;
+            if(!$this->accessToken = $this->getToken())
+            {
+                /** @var \StdClass $loginData */
+                $loginData         = $this->login();
+                $this->accessToken = $loginData->accessToken;
+                $this->saveToken();
+            }
         }
 
         return $this->accessToken;
@@ -84,4 +88,37 @@ abstract class AbstractAdapter
     {
         return $this->isTest() ? self::TEST_API_URL : self::API_URL;
     }
+
+    /**
+     *
+     */
+    protected function saveToken()
+    {
+        $handle = fopen($this->getTmpFileName(), 'w+');
+        fwrite($handle, $this->accessToken);
+        fclose($handle);
+    }
+
+    protected function getToken()
+    {
+        if (!file_exists($this->getTmpFileName())) {
+            return false;
+        }
+
+        $time = time() - filemtime($this->getTmpFileName());
+
+        if ($time > 60 * 5) {
+            return false;
+        }
+
+        $token = file_get_contents($this->getTmpFileName());
+
+        return $token;
+    }
+
+    protected function getTmpFileName()
+    {
+        return sys_get_temp_dir() . DIRECTORY_SEPARATOR . md5($this->login . 'accessToken');
+    }
+
 }
