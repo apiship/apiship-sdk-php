@@ -55,7 +55,6 @@ try {
         ->setComment('Comment');
 
     $cost = (new \Apiship\Entity\Request\Part\Orders\Cost())
-        ->setInsuranceCost(0)
         ->setAssessedCost(40)
         ->setDeliveryCost(255.05)
         ->setCodCost(0);

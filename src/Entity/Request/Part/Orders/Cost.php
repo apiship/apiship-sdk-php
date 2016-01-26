@@ -8,10 +8,6 @@ use Apiship\Exception\RequiredParameterException;
 class Cost extends AbstractRequestPart
 {
     /**
-     * @var float Стоимость страховки
-     */
-    protected $insuranceCost;
-    /**
      * @var float Оценочная стоимость
      */
     protected $assessedCost;
@@ -27,25 +23,6 @@ class Cost extends AbstractRequestPart
      * @var bool Флаг для указания стороны которая платит за услуги доставки (false-отправитель, true-получатель)
      */
     protected $isDeliveryPayedByRecipient;
-
-    /**
-     * @return float
-     */
-    public function getInsuranceCost()
-    {
-        return $this->insuranceCost;
-    }
-
-    /**
-     * @param float $insuranceCost
-     *
-     * @return Cost
-     */
-    public function setInsuranceCost($insuranceCost)
-    {
-        $this->insuranceCost = $insuranceCost;
-        return $this;
-    }
 
     /**
      * @return float
