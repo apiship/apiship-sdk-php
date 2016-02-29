@@ -3,6 +3,7 @@
 namespace Apiship;
 
 use Apiship\Adapter\AdapterInterface;
+use Apiship\Api\Lists;
 use Apiship\Api\Orders;
 use Apiship\Api\Calculator;
 use Apiship\Api\Autocomplete;
@@ -44,5 +45,13 @@ class Apiship
     public function autocomplete()
     {
         return new Autocomplete($this->adapter);
+    }
+
+    /**
+     * @return Lists
+     */
+    public function lists()
+    {
+        return new Lists($this->adapter);
     }
 }
