@@ -8,13 +8,13 @@ use Apiship\Entity\Response\Part\Calculator\CalculatorItem;
 class CalculatorResponse extends AbstractResponse
 {
     /**
-     * @var CalculatorItem[]|null объект доставки до двери
+     * @var CalculatorItem[] объект доставки до двери
      */
-    protected $deliveryToDoor;
+    protected $deliveryToDoor = [];
     /**
-     * @var CalculatorItem[]|null объект доставки до точки
+     * @var CalculatorItem[] объект доставки до точки
      */
-    protected $deliveryToPoint;
+    protected $deliveryToPoint = [];
 
     /**
      * @return CalculatorItem[]|null

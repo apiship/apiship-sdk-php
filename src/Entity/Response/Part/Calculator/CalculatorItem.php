@@ -13,7 +13,7 @@ class CalculatorItem extends AbstractResponsePart
     /**
      * @var Tariff[] Массив тарифов
      */
-    protected $tariffs;
+    protected $tariffs = [];
 
     /**
      * @return string
