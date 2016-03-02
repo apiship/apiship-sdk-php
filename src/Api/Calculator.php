@@ -57,7 +57,8 @@ class Calculator extends AbstractApi
                                              ->setFrom(isset($itemTariff->from) ? $itemTariff->from : null)
                                              ->setDeliveryCost(isset($itemTariff->deliveryCost) ? $itemTariff->deliveryCost : null)
                                              ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
-                                             ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null);
+                                             ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
+                                             ->setPointIds(isset($itemTariff->pointIds) ? $itemTariff->pointIds : []);
 
                         $calculatorItem->addTariff($calculatorItemTariff);
                     }

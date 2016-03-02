@@ -32,6 +32,11 @@ class Tariff extends AbstractResponsePart
      */
     protected $daysMax;
 
+    /*
+     * @var array Список ID ПВЗ
+     */
+    protected $pointIds = [];
+
     /**
      * @return int
      */
@@ -86,6 +91,26 @@ class Tariff extends AbstractResponsePart
     public function setFrom($from)
     {
         $this->from = $from;
+        return $this;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getPointIds()
+    {
+        return $this->pointIds;
+    }
+
+    /**
+     * @param array $pointIds
+     *
+     * @return Tariff
+     */
+    public function setPointIds(array $pointIds)
+    {
+        $this->pointIds = $pointIds;
         return $this;
     }
 

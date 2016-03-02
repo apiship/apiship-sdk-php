@@ -29,10 +29,7 @@ try {
         ->setLength(30)
         ->setAssessedCost(100.6)
         ->setCodCost(0)
-        ->setPickupDate('2015-11-30')
-        ->setSelfPickup(true)
-        ->setSelfDelivery(true)
-        ->setProviderKeys(['spsr']);
+        ->setProviderKeys(['cdek']);
 
     $calculatorResult = $apiship->calculator()->calculate($calculatorRequest);
 
