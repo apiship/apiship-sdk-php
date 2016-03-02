@@ -26,6 +26,7 @@ abstract class AbstractAdapter
     private $accessToken;
     /**
      * Whether to use test api url
+     *
      * @var bool
      */
     protected $test;
@@ -62,8 +63,7 @@ abstract class AbstractAdapter
     public function getAccessToken()
     {
         if (!$this->accessToken) {
-            if(!$this->accessToken = $this->getToken())
-            {
+            if (!$this->accessToken = $this->getToken()) {
                 /** @var \StdClass $loginData */
                 $loginData         = $this->login();
                 $this->accessToken = $loginData->accessToken;
@@ -76,12 +76,14 @@ abstract class AbstractAdapter
 
     /**
      * Performs login request and returns auth result data
+     *
      * @return mixed
      */
     abstract protected function login();
 
     /**
      * Returns api url depends on test param
+     *
      * @return string
      */
     public function getUrl()
@@ -94,9 +96,11 @@ abstract class AbstractAdapter
      */
     protected function saveToken()
     {
-        $handle = fopen($this->getTmpFileName(), 'w+');
-        fwrite($handle, $this->accessToken);
-        fclose($handle);
+        if (is_writable($this->getTmpFileName())) {
+            $handle = fopen($this->getTmpFileName(), 'w+');
+            fwrite($handle, $this->accessToken);
+            fclose($handle);
+        }
     }
 
     protected function getToken()
