@@ -17,7 +17,7 @@ class Lists extends AbstractApi
      *
      * @param int    $offset
      * @param string $filter Возможна фильтрация по полям key, name
-     * @return GetRegionResponse
+     * @return ListsProvidersResponse
      */
     public function getProviders($limit = 20, $offset = 0, $filter = '')
     {
@@ -65,7 +65,7 @@ class Lists extends AbstractApi
      *
      * @param int    $offset
      * @param string $filter Возможна фильтрация по полям key, name
-     * @return GetRegionResponse
+     * @return ListsPointsResponse
      */
     public function getPoints($limit = 20, $offset = 0, $filter = '')
     {
