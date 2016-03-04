@@ -3,17 +3,17 @@
 namespace Apiship\Entity\Response;
 
 use Apiship\Entity\AbstractResponse;
-use Apiship\Entity\Response\Part\Lists\Provider;
+use Apiship\Entity\Response\Part\Lists\Point;
 
-class ListsProvidersResponse extends AbstractResponse
+class ListsPointsResponse extends AbstractResponse
 {
     /**
-     * @var Provider[] Массив результатов
+     * @var Point[] Массив результатов
      */
     protected $results = [];
 
     /**
-     * @return Provider[]|null
+     * @return Point[]
      */
     public function getResults()
     {
@@ -21,9 +21,9 @@ class ListsProvidersResponse extends AbstractResponse
     }
 
     /**
-     * @param Provider[] $results
+     * @param Point[] $results
      *
-     * @return ListsProvidersResponse
+     * @return ListsPointsResponse
      */
     public function setResults($results)
     {
@@ -35,13 +35,14 @@ class ListsProvidersResponse extends AbstractResponse
     }
 
     /**
-     * @param Provider $result
+     * @param Point $result
      *
-     * @return ListsProvidersResponse
+     * @return ListsPointsResponse
      */
-    public function addResult(Provider $result)
+    public function addResult(Point $result)
     {
         $this->results[] = $result;
+
         return $this;
     }
 }
