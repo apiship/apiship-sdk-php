@@ -32,8 +32,9 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      * @param bool               $test      (optional)
      * @param ClientInterface    $client    (optional)
      * @param ExceptionInterface $exception (optional)
+     * @param string             $platform  (optional)
      */
-    public function __construct($login, $password, $test = false, ClientInterface $client = null, ExceptionInterface $exception = null)
+    public function __construct($login, $password, $test = false, ClientInterface $client = null, ExceptionInterface $exception = null, $platform = null)
     {
         parent::__construct($login, $password, $test);
 
@@ -49,6 +50,10 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
                 $that->handleResponse($event);
                 $event->stopPropagation();
             });
+
+        if($platform){
+            $this->client->setDefaultOption('headers/platform', $platform);
+        }
     }
 
     /**
