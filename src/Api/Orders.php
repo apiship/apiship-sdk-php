@@ -72,6 +72,34 @@ class Orders extends AbstractApi
     }
 
     /**
+     * Изменение заказа в системе
+     *
+     * @param int $orderId
+     *
+     * @param CreateOrderRequest $request
+     *
+     * @return CreateOrderResponse
+     */
+    public function update($orderId, CreateOrderRequest $request)
+    {
+        $resultJson = $this->adapter->put('orders/'.$orderId, [], $request->asJson());
+        $result     = json_decode($resultJson);
+
+        $response = new CreateOrderResponse();
+        $response->setOriginJson($resultJson);
+
+        foreach ($result as $key => $value) {
+            try {
+                $response->$key = $value;
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        return $response;
+    }
+
+    /**
      * Получение статуса заказа
      *
      * @param int $orderId ID заказа
