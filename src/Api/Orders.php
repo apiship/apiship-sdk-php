@@ -3,6 +3,7 @@
 namespace Apiship\Api;
 
 use Apiship\Entity\Request\CreateOrderRequest;
+use Apiship\Entity\Response\CancelOrderResponse;
 use Apiship\Entity\Response\CreateOrderResponse;
 use Apiship\Entity\Response\Part\Meta;
 use Apiship\Entity\Response\Part\Order\FailedOrder;
@@ -18,6 +19,32 @@ use Apiship\Entity\Response\StatusesResponse;
 
 class Orders extends AbstractApi
 {
+    /**
+     * Метод пытается удалить или отменить заказа из системы провайдера.
+     *
+     * @param int $orderId
+     *
+     * @return CancelOrderResponse
+     */
+    public function cancel($orderId)
+    {
+        $resultJson = $this->adapter->get('orders/'.$orderId.'/cancel', []);
+        $result     = json_decode($resultJson);
+
+        $response = new CancelOrderResponse();
+        $response->setOriginJson($resultJson);
+
+        foreach ($result as $key => $value) {
+            try {
+                $response->$key = $value;
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        return $response;
+    }
+
     /**
      * Создание заказа в системе
      *
