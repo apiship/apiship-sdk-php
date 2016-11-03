@@ -51,6 +51,10 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
                 $event->stopPropagation();
             });
 
+        if (isset($_SERVER['X-Tracing-Id'])) {
+            $this->client->setDefaultOption('query/X-Tracing-Id', $_SERVER['X-Tracing-Id']);
+        }
+
         if($platform){
             $this->client->setDefaultOption('headers/platform', $platform);
         }
