@@ -9,7 +9,7 @@ use Guzzle\Http\Client;
 use Guzzle\Http\ClientInterface;
 use Guzzle\Http\Message\Response;
 
-class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
+class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
 {
     /**
      * @var ClientInterface
@@ -27,29 +27,25 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     protected $exception;
 
     /**
-     * @param string $login
-     * @param string $password
+     * @param string $accessToken
      * @param bool $test (optional)
      * @param ClientInterface $client (optional)
      * @param ExceptionInterface $exception (optional)
      * @param string $platform (optional)
-     * @throws \InvalidArgumentException
      */
-    public function __construct($login, $password, $test = false, ClientInterface $client = null, ExceptionInterface $exception = null, $platform = null)
-    {
-        if (is_string($login) && $login && is_string($password) && $password) {
-            $this->login = trim($login);
-            $this->password = trim($password);
-        } else {
-            throw new \InvalidArgumentException(
-                'Property "' . get_class($this) . '::login" and "' . get_class($this) . '::password" might be a non empty string.'
-            );
-        }
+    public function __construct(
+        $accessToken,
+        $test = false,
+        ClientInterface $client = null,
+        ExceptionInterface $exception = null,
+        $platform = null
+    ) {
+        $this->setToken($accessToken);
 
         $this->test = (bool)$test;
 
-        $that            = $this;
-        $this->client    = $client ?: new Client();
+        $that = $this;
+        $this->client = $client ?: new Client();
         $this->exception = isset($exception) ? $exception : new ResponseException();
 
         $this->client
@@ -65,13 +61,14 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
             $this->client->setDefaultOption('query/X-Tracing-Id', $_SERVER['X-Tracing-Id']);
         }
 
-        if($platform){
+        if ($platform) {
             $this->client->setDefaultOption('headers/platform', $platform);
         }
     }
 
     /**
      * {@inheritdoc}
+     * @throws \Guzzle\Http\Exception\RequestException
      */
     public function get($url, array $headers = [], array $query = [])
     {
@@ -100,8 +97,8 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     public function put($url, array $headers = [], $content = '')
     {
         $headers['content-type'] = 'application/json';
-        $request                 = $this->client->put($this->getUrl() . $url, $headers, $content);
-        $this->response          = $request->send();
+        $request = $this->client->put($this->getUrl() . $url, $headers, $content);
+        $this->response = $request->send();
 
         return $this->response->getBody(true);
     }
@@ -112,8 +109,8 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     public function post($url, array $headers = [], $content = '')
     {
         $headers['content-type'] = 'application/json';
-        $request                 = $this->client->post($this->getUrl() . $url, $headers, $content);
-        $this->response          = $request->send();
+        $request = $this->client->post($this->getUrl() . $url, $headers, $content);
+        $this->response = $request->send();
 
         return $this->response->getBody(true);
     }
@@ -124,7 +121,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     public function getLatestResponseHeaders()
     {
         if (null === $this->response) {
-            return;
+            return null;
         }
 
         return [
@@ -164,17 +161,20 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * @inheritdoc
+     * Performs login request and returns auth result data
+     *
+     * @return mixed
      */
     protected function login()
     {
-        $authRequestData = json_encode([
-            'login'    => $this->login,
-            'password' => $this->password,
-        ]);
+        return $this->accessToken;
+    }
 
-        $loginData = $this->post('login', [], $authRequestData);
-
-        return json_decode($loginData);
+    /**
+     * @return string
+     */
+    public function getAccessToken()
+    {
+        return $this->accessToken;
     }
 }
