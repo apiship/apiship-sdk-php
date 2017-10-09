@@ -27,18 +27,24 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     protected $exception;
 
     /**
-     * @param string $login
-     * @param string $password
-     * @param bool $test (optional)
-     * @param ClientInterface $client (optional)
+     * @param string             $login
+     * @param string             $password
+     * @param bool               $test      (optional)
+     * @param ClientInterface    $client    (optional)
      * @param ExceptionInterface $exception (optional)
-     * @param string $platform (optional)
+     * @param string             $platform  (optional)
      * @throws \InvalidArgumentException
      */
-    public function __construct($login, $password, $test = false, ClientInterface $client = null, ExceptionInterface $exception = null, $platform = null)
-    {
+    public function __construct(
+        $login,
+        $password,
+        $test = false,
+        ClientInterface $client = null,
+        ExceptionInterface $exception = null,
+        $platform = null
+    ) {
         if (is_string($login) && $login && is_string($password) && $password) {
-            $this->login = trim($login);
+            $this->login    = trim($login);
             $this->password = trim($password);
         } else {
             throw new \InvalidArgumentException(
@@ -65,7 +71,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
             $this->client->setDefaultOption('query/X-Tracing-Id', $_SERVER['X-Tracing-Id']);
         }
 
-        if($platform){
+        if ($platform) {
             $this->client->setDefaultOption('headers/platform', $platform);
         }
     }
@@ -119,22 +125,6 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getLatestResponseHeaders()
-    {
-        if (null === $this->response) {
-            return;
-        }
-
-        return [
-            'reset'     => (int)(string)$this->response->getHeader('RateLimit-Reset'),
-            'remaining' => (int)(string)$this->response->getHeader('RateLimit-Remaining'),
-            'limit'     => (int)(string)$this->response->getHeader('RateLimit-Limit'),
-        ];
-    }
-
-    /**
      * @param Event $event
      *
      * @throws \RuntimeException|ExceptionInterface
@@ -176,5 +166,19 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
         $loginData = $this->post('login', [], $authRequestData);
 
         return json_decode($loginData);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getLatestResponseHeaders()
+    {
+        if (null === $this->response) {
+            return null;
+        }
+
+        return [
+            'x-tracing-id' => (string)$this->response->getHeader('x-tracing-id'),
+        ];
     }
 }

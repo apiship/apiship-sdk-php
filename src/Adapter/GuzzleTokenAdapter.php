@@ -27,11 +27,11 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
     protected $exception;
 
     /**
-     * @param string $accessToken
-     * @param bool $test (optional)
-     * @param ClientInterface $client (optional)
+     * @param string             $accessToken
+     * @param bool               $test      (optional)
+     * @param ClientInterface    $client    (optional)
      * @param ExceptionInterface $exception (optional)
-     * @param string $platform (optional)
+     * @param string             $platform  (optional)
      */
     public function __construct(
         $accessToken,
@@ -44,8 +44,8 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
 
         $this->test = (bool)$test;
 
-        $that = $this;
-        $this->client = $client ?: new Client();
+        $that            = $this;
+        $this->client    = $client ?: new Client();
         $this->exception = isset($exception) ? $exception : new ResponseException();
 
         $this->client
@@ -97,8 +97,8 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
     public function put($url, array $headers = [], $content = '')
     {
         $headers['content-type'] = 'application/json';
-        $request = $this->client->put($this->getUrl() . $url, $headers, $content);
-        $this->response = $request->send();
+        $request                 = $this->client->put($this->getUrl() . $url, $headers, $content);
+        $this->response          = $request->send();
 
         return $this->response->getBody(true);
     }
@@ -109,26 +109,10 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
     public function post($url, array $headers = [], $content = '')
     {
         $headers['content-type'] = 'application/json';
-        $request = $this->client->post($this->getUrl() . $url, $headers, $content);
-        $this->response = $request->send();
+        $request                 = $this->client->post($this->getUrl() . $url, $headers, $content);
+        $this->response          = $request->send();
 
         return $this->response->getBody(true);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getLatestResponseHeaders()
-    {
-        if (null === $this->response) {
-            return null;
-        }
-
-        return [
-            'reset'     => (int)(string)$this->response->getHeader('RateLimit-Reset'),
-            'remaining' => (int)(string)$this->response->getHeader('RateLimit-Remaining'),
-            'limit'     => (int)(string)$this->response->getHeader('RateLimit-Limit'),
-        ];
     }
 
     /**
@@ -176,5 +160,19 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
     public function getAccessToken()
     {
         return $this->accessToken;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getLatestResponseHeaders()
+    {
+        if (null === $this->response) {
+            return null;
+        }
+
+        return [
+            'x-tracing-id' => (string)$this->response->getHeader('x-tracing-id'),
+        ];
     }
 }

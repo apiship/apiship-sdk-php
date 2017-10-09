@@ -8,7 +8,6 @@
     "REST"
   ],
   "minimum-stability": "dev",
-  "license": "proprietary",
   "type": "extension",
   "authors": [
     {
@@ -26,8 +25,5 @@
   },
   "require-dev": {
     "guzzle/guzzle": "3.9.*@dev"
-  },
-  "suggest": {
-    "guzzle/guzzle": "To use GuzzleAdapter, require guzzle/guzzle:3.9.*@dev"
   }
 }
