@@ -4,10 +4,13 @@ namespace Apiship\Adapter;
 
 use Apiship\Exception\ExceptionInterface;
 use Apiship\Exception\ResponseException;
-use Guzzle\Common\Event;
-use Guzzle\Http\Client;
-use Guzzle\Http\ClientInterface;
-use Guzzle\Http\Message\Response;
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7\Response;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
 {
@@ -51,29 +54,39 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
                 'Property "' . get_class($this) . '::login" and "' . get_class($this) . '::password" might be a non empty string.'
             );
         }
-
+        
         $this->test = (bool)$test;
 
         $that            = $this;
-        $this->client    = $client ?: new Client();
         $this->exception = isset($exception) ? $exception : new ResponseException();
-
-        $this->client
-            // Set default Authorization header for all request
-            ->setDefaultOption('headers/Authorization', $this->getAccessToken())
-            // Subscribe completed request event
-            ->setDefaultOption('events/request.complete', function (Event $event) use ($that) {
-                $that->handleResponse($event);
-                $event->stopPropagation();
-            });
+        
+        $options = [];
 
         if (isset($_SERVER['X-Tracing-Id'])) {
-            $this->client->setDefaultOption('query/X-Tracing-Id', $_SERVER['X-Tracing-Id']);
+            $options['query'] = ['X-Tracing-Id' => $_SERVER['X-Tracing-Id']];
         }
 
         if ($platform) {
-            $this->client->setDefaultOption('headers/platform', $platform);
+            $options['headers'] = ['platform' => $platform];
         }
+        
+        $handler = HandlerStack::create();
+        $handler->push(Middleware::mapRequest(function (RequestInterface $request) use ($that) {
+            return $request->withHeader('Authorization', $that->getAccessToken());
+        }));
+        
+        $handler->push(Middleware::mapResponse(function (ResponseInterface $response) use ($that) {
+            if ($this->accessToken && $this->tokenRequested) {
+                $this->tokenRequested = false;
+            }
+            
+            $that->handleResponse($response);
+            return $response;
+        }));
+        
+        $options['handler'] = $handler;
+        
+        $this->client = $client ?: new Client($options);
     }
 
     /**
@@ -81,13 +94,12 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function get($url, array $headers = [], array $query = [])
     {
-        $this->response = $this->client->get(
-            $this->getUrl() . $url,
-            $headers,
-            ['query' => $query]
-        )->send();
+        $options['headers'] = $headers;
+        $options['query']   = $query;
+        
+        $this->response = $this->client->request("GET", $this->getUrl() . $url, $options);
 
-        return $this->response->getBody(true);
+        return (string) $this->response->getBody();
     }
 
     /**
@@ -95,9 +107,11 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function delete($url, array $headers = [])
     {
-        $this->response = $this->client->delete($this->getUrl() . $url, $headers)->send();
+        $options['headers'] = $headers;
+        
+        $this->response = $this->client->request("DELETE", $this->getUrl() . $url, $options);
 
-        return $this->response->getBody(true);
+        return (string) $this->response->getBody();
     }
 
     /**
@@ -105,11 +119,11 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function put($url, array $headers = [], $content = '')
     {
-        $headers['content-type'] = 'application/json';
-        $request                 = $this->client->put($this->getUrl() . $url, $headers, $content);
-        $this->response          = $request->send();
+        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
+        $options['body']    = $content;
+        $this->response     = $this->client->request("PUT", $this->getUrl() . $url, $options);
 
-        return $this->response->getBody(true);
+        return (string) $this->response->getBody();
     }
 
     /**
@@ -117,28 +131,28 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
      */
     public function post($url, array $headers = [], $content = '')
     {
-        $headers['content-type'] = 'application/json';
-        $request                 = $this->client->post($this->getUrl() . $url, $headers, $content);
-        $this->response          = $request->send();
+        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
+        $options['body']    = $content;
+        $this->response     = $this->client->request("POST", $this->getUrl() . $url, $options);
 
-        return $this->response->getBody(true);
+        return (string) $this->response->getBody();
     }
 
     /**
-     * @param Event $event
+     * @param ResponseInterface $response
      *
      * @throws \RuntimeException|ExceptionInterface
      */
-    protected function handleResponse(Event $event)
+    protected function handleResponse(ResponseInterface $response)
     {
-        $this->response = $event['response'];
+        $this->response = $response;
+        $code = $this->response->getStatusCode();
 
-        if ($this->response->isSuccessful()) {
+        if (($code >= 200 && $code < 300) || $code == 304) {
             return;
         }
 
-        $body = $this->response->getBody(true);
-        $code = $this->response->getStatusCode();
+        $body = $this->response->getBody();
 
         if ($this->exception) {
             throw $this->exception->create($body, $code);
@@ -162,7 +176,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
             'login'    => $this->login,
             'password' => $this->password,
         ]);
-
+        
         $loginData = $this->post('login', [], $authRequestData);
 
         return json_decode($loginData);

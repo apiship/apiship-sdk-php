@@ -30,6 +30,11 @@ abstract class AbstractAdapter
     protected $accessToken;
 
     /**
+     * @var bool
+     */
+    protected $tokenRequested;
+
+    /**
      * Whether to use test api url
      *
      * @var bool
@@ -41,7 +46,9 @@ abstract class AbstractAdapter
      */
     public function getAccessToken()
     {
-        if (!$this->accessToken) {
+        if (!$this->accessToken && !$this->tokenRequested) {
+            $this->tokenRequested = true;
+            
             if (!$this->accessToken = $this->getToken()) {
                 /** @var \StdClass $loginData */
                 $loginData = $this->login();
