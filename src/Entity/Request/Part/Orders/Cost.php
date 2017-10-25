@@ -16,6 +16,10 @@ class Cost extends AbstractRequestPart
      */
     protected $deliveryCost;
     /**
+     * @var float Стоимость доставки включая НДС
+     */
+    protected $deliveryCostVat;
+    /**
      * @var float Стоимость наложенного платежа
      */
     protected $codCost;
@@ -66,6 +70,25 @@ class Cost extends AbstractRequestPart
     public function setDeliveryCost($deliveryCost)
     {
         $this->deliveryCost = $deliveryCost;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getDeliveryCostVat()
+    {
+        return $this->deliveryCostVat;
+    }
+
+    /**
+     * @param float $deliveryCostVat
+     *
+     * @return Cost
+     */
+    public function setDeliveryCostVat($deliveryCostVat)
+    {
+        $this->deliveryCostVat = $deliveryCostVat;
         return $this;
     }
 

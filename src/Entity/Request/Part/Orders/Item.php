@@ -44,6 +44,10 @@ class Item extends AbstractRequestPart
      */
     protected $cost;
     /**
+     * @var float Стоимость единицы товара включая НДС
+     */
+    protected $costVat;
+    /**
      * @var int Количество товара
      */
     protected $quantity;
@@ -223,6 +227,25 @@ class Item extends AbstractRequestPart
     public function setCost($cost)
     {
         $this->cost = $cost;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCostVat()
+    {
+        return $this->costVat;
+    }
+
+    /**
+     * @param float $costVat
+     *
+     * @return Item
+     */
+    public function setCostVat($costVat)
+    {
+        $this->costVat = $costVat;
         return $this;
     }
 

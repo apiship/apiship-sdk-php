@@ -28,6 +28,10 @@ class Place extends AbstractRequestPart
      */
     protected $height;
     /**
+     * @var string Штрихкод
+     */
+    protected $barcode;
+    /**
      * @var Item[] Массив с вложениями
      */
     protected $items;
@@ -131,6 +135,25 @@ class Place extends AbstractRequestPart
     public function setWidth($width)
     {
         $this->width = $width;
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getBarcode()
+    {
+        return $this->barcode;
+    }
+
+    /**
+     * @param string $barcode
+     *
+     * @return Place
+     */
+    public function setBarcode($barcode)
+    {
+        $this->barcode = $barcode;
         return $this;
     }
 
