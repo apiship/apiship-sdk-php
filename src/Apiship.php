@@ -13,7 +13,7 @@ class Apiship
     /**
      * @var AdapterInterface
      */
-    protected $adapter;
+    public $adapter;
 
     /**
      * @param AdapterInterface $adapter
