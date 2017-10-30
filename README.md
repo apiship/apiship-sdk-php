@@ -13,3 +13,12 @@
 ### Получение X-Tracing-Id
 
 Для получения уникального идентификатора запроса к api используется метод **getLatestResponseHeaders** у адаптеров GuzzleAdapter и GuzzleTokenAdapter
+
+```php
+$adapter = new GuzzleAdapter('test', 'test', true);
+$apiship = new Apiship($adapter);
+$providersResult = $apiship->lists()->getPoints();
+
+$headers = $apiship->adapter->getLatestResponseHeaders();
+$xTraingId = $headers['x-tracing-id'];
+```
