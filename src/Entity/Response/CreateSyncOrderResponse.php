@@ -30,7 +30,7 @@ class CreateSyncOrderResponse extends AbstractResponse
     /**
      * @param int $orderId
      *
-     * @return CreateOrderResponse
+     * @return CreateSyncOrderResponse
      */
     public function setOrderId($orderId)
     {
@@ -49,7 +49,7 @@ class CreateSyncOrderResponse extends AbstractResponse
     /**
      * @param string $providerNumber
      *
-     * @return CreateOrderResponse
+     * @return CreateSyncOrderResponse
      */
     public function setProviderNumber($providerNumber)
     {
@@ -68,7 +68,7 @@ class CreateSyncOrderResponse extends AbstractResponse
     /**
      * @param string $created
      *
-     * @return CreateOrderResponse
+     * @return CreateSyncOrderResponse
      */
     public function setCreated($created)
     {
