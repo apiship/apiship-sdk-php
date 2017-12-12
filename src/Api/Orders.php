@@ -80,7 +80,7 @@ class Orders extends AbstractApi
      */
     public function createSync(CreateOrderRequest $request)
     {
-        $resultJson = $this->adapter->post('orders', [], $request->asJson());
+        $resultJson = $this->adapter->post('orders/sync', [], $request->asJson());
         $result     = json_decode($resultJson);
 
         $response = new CreateOrderResponse();
