@@ -72,6 +72,32 @@ class Orders extends AbstractApi
     }
 
     /**
+     * Создание синхронного заказа в системе
+     *
+     * @param CreateOrderRequest $request
+     *
+     * @return CreateOrderResponse
+     */
+    public function createSync(CreateOrderRequest $request)
+    {
+        $resultJson = $this->adapter->post('orders', [], $request->asJson());
+        $result     = json_decode($resultJson);
+
+        $response = new CreateOrderResponse();
+        $response->setOriginJson($resultJson);
+
+        foreach ($result as $key => $value) {
+            try {
+                $response->$key = $value;
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        return $response;
+    }
+
+    /**
      * Изменение заказа в системе
      *
      * @param int $orderId
