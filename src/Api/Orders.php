@@ -5,6 +5,7 @@ namespace Apiship\Api;
 use Apiship\Entity\Request\CreateOrderRequest;
 use Apiship\Entity\Response\CancelOrderResponse;
 use Apiship\Entity\Response\CreateOrderResponse;
+use Apiship\Entity\Response\CreateSyncOrderResponse;
 use Apiship\Entity\Response\Part\Meta;
 use Apiship\Entity\Response\Part\Order\FailedOrder;
 use Apiship\Entity\Response\Part\Order\OrderInfo;
@@ -12,10 +13,10 @@ use Apiship\Entity\Response\Part\Order\OrderStatus;
 use Apiship\Entity\Response\Part\Order\StatusHistory;
 use Apiship\Entity\Response\Part\Order\SucceedOrder;
 use Apiship\Entity\Response\StatusesByDateResponse;
+use Apiship\Entity\Response\StatusesResponse;
 use Apiship\Entity\Response\StatusHistoryByDateResponse;
 use Apiship\Entity\Response\StatusHistoryResponse;
 use Apiship\Entity\Response\StatusResponse;
-use Apiship\Entity\Response\StatusesResponse;
 
 class Orders extends AbstractApi
 {
@@ -76,14 +77,14 @@ class Orders extends AbstractApi
      *
      * @param CreateOrderRequest $request
      *
-     * @return CreateOrderResponse
+     * @return CreateSyncOrderResponse
      */
     public function createSync(CreateOrderRequest $request)
     {
         $resultJson = $this->adapter->post('orders/sync', [], $request->asJson());
         $result     = json_decode($resultJson);
 
-        $response = new CreateOrderResponse();
+        $response = new CreateSyncOrderResponse();
         $response->setOriginJson($resultJson);
 
         foreach ($result as $key => $value) {
