@@ -191,12 +191,7 @@ class GuzzleAdapter extends AbstractAdapter implements AdapterInterface
             return null;
         }
         
-        // Версия php >= 7
-        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
-            $xTracingId = (string) isset($this->response->getHeader('x-tracing-id')[0]) ? $this->response->getHeader('x-tracing-id')[0] : '';
-        } else {
-            $xTracingId = (string) $this->response->getHeader('x-tracing-id');
-        }
+        $xTracingId = (string) isset($this->response->getHeader('x-tracing-id')[0]) ? $this->response->getHeader('x-tracing-id')[0] : '';
 
         return [
             'x-tracing-id' => $xTracingId,
