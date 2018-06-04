@@ -12,11 +12,13 @@ use Apiship\Entity\Response\Part\Order\OrderInfo;
 use Apiship\Entity\Response\Part\Order\OrderStatus;
 use Apiship\Entity\Response\Part\Order\StatusHistory;
 use Apiship\Entity\Response\Part\Order\SucceedOrder;
+use Apiship\Entity\Response\Part\Order\WaybillItem;
 use Apiship\Entity\Response\StatusesByDateResponse;
 use Apiship\Entity\Response\StatusesResponse;
 use Apiship\Entity\Response\StatusHistoryByDateResponse;
 use Apiship\Entity\Response\StatusHistoryResponse;
 use Apiship\Entity\Response\StatusResponse;
+use Apiship\Entity\Response\WaybillsResponse;
 
 class Orders extends AbstractApi
 {
@@ -474,6 +476,57 @@ class Orders extends AbstractApi
             }
 
             $response->setMeta($meta);
+        }
+
+        return $response;
+    }
+    
+    /**
+     * Получение актов приема-передачи заказов
+     * 
+     * @param array $orderIds
+     * @return WaybillsResponse
+     */
+    public function getWaybills(array $orderIds)
+    {
+        $resultJson = $this->adapter->post('orders/waybills', [], json_encode(['orderIds' => $orderIds]));
+        $result     = json_decode($resultJson);
+
+        $response = new WaybillsResponse();
+        $response->setOriginJson($resultJson);
+
+        if (!empty($result->waybillItems)) {
+            foreach ($result->waybillItems as $waybillItem) {
+                $waybillItemResult = new WaybillItem();
+                
+                    if (!empty($waybillItem->providerKey)){
+                        $waybillItemResult->setProviderKey($waybillItem->providerKey);
+                    }
+                    if (!empty($waybillItem->file)){
+                        $waybillItemResult->setFile($waybillItem->file);
+                    }
+                    if (!empty($waybillItem->orderIds)){
+                        $waybillItemResult->setOrderIds($waybillItem->orderIds);
+                    }
+                    
+                $response->addWaybillItem($waybillItemResult);
+            }
+        }
+
+        if (!empty($result->failedOrders)) {
+            foreach ($result->failedOrders as $failedOrder) {
+                $failedOrderResult = new FailedOrder();
+
+                foreach ($failedOrder as $key => $value) {
+                    try {
+                        $failedOrderResult->$key = $value;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                }
+
+                $response->addFailedOrders($failedOrderResult);
+            }
         }
 
         return $response;
