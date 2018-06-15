@@ -23,7 +23,33 @@ abstract class FromToAbstract extends AbstractRequestPart
      * @var string Код страны в соответствии с ISO 3166-1 alpha-2
      */
     public $countryCode;
-
+    
+    /**
+     * @var string Тип города (город, село и т.д.)
+     */
+    public $cityType;
+    
+    /**
+     * @var string Почтовый индекс
+     */
+    public $index;
+    /**
+     * @var string Адрес одной строкой
+     */
+    public $addressString;
+    /**
+     * @var float Широта
+     */
+    public $lat;
+    /**
+     * @var float Долгота
+     */
+    public $lng;
+    /**
+     * @var string ФИАС улицы
+     */
+    public $streetGuid;
+    
     /**
      * @return string
      * @throws RequiredParameterException
@@ -113,4 +139,118 @@ abstract class FromToAbstract extends AbstractRequestPart
         $this->countryCode = $countryCode;
         return $this;
     }
+    /**
+     * @return string
+     */
+    function getCityType()
+    {
+        return $this->cityType;
+    }
+    
+    /**
+     * @return string
+     */
+    function getIndex()
+    {
+        return $this->index;
+    }
+
+    /**
+     * @return string
+     */
+    function getAddressString()
+    {
+        return $this->addressString;
+    }
+
+    /**
+     * @return int
+     */
+    function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
+     * @return int
+     */
+    function getLng()
+    {
+        return $this->lng;
+    }
+
+    /**
+     * @return string
+     */
+    function getStreetGuid()
+    {
+        return $this->streetGuid;
+    }
+
+     /**
+     * @param string $cityType
+     *
+     * @return FromToAbstract
+     */
+    function setCityType($cityType)
+    {
+        $this->cityType = $cityType;
+        return $this;
+    }
+
+     /**
+     * @param string $index
+     *
+     * @return FromToAbstract
+     */
+    function setIndex($index)
+    {
+        $this->index = $index;
+        return $this;
+    }
+
+     /**
+     * @param string $addressString
+     *
+     * @return FromToAbstract
+     */
+    function setAddressString($addressString)
+    {
+        $this->addressString = $addressString;
+        return $this;
+    }
+
+     /**
+     * @param int $lat
+     *
+     * @return FromToAbstract
+     */
+    function setLat($lat)
+    {
+        $this->lat = $lat;
+        return $this;
+    }
+
+     /**
+     * @param int $lng
+     *
+     * @return FromToAbstract
+     */
+    function setLng($lng)
+    {
+        $this->lng = $lng;
+        return $this;
+    }
+
+     /**
+     * @param string $streetGuid
+     *
+     * @return FromToAbstract
+     */
+    function setStreetGuid($streetGuid)
+    {
+        $this->streetGuid = $streetGuid;
+        return $this;
+    }
+
 }
