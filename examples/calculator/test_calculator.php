@@ -29,6 +29,9 @@ try {
         ->setLength(30)
         ->setAssessedCost(100.6)
         ->setCodCost(0)
+        ->setDeliveryTypes([1])
+        ->setPickupTypes([1])
+        ->setIncludeFees(true)
         ->setProviderKeys(['cdek']);
 
     $calculatorResult = $apiship->calculator()->calculate($calculatorRequest);

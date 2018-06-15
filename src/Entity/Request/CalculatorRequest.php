@@ -38,6 +38,14 @@ class CalculatorRequest extends AbstractRequest
      */
     public $pickupDate;
     /**
+     * @var array Типы приема груза 
+     */
+    public $pickupTypes;
+    /**
+     * @var array Типы доставки груза
+     */
+    public $deliveryTypes;
+    /**
      * @var boolean|null Самопривоз на терминал (если не указана выводятся для каждого)
      */
     public $selfPickup;
@@ -54,6 +62,10 @@ class CalculatorRequest extends AbstractRequest
      */
     public $codCost;
     /**
+     * @var boolean Суммировать к итоговой стоимости все сборы СД (по-умолчанию FALSE)
+     */
+    public $includeFees;
+    /**
      * @var array Массив ключей СД, для которых вызывать метод калькуляции
      */
     public $providerKeys;
@@ -62,7 +74,7 @@ class CalculatorRequest extends AbstractRequest
      * которые не успели в указанное время, выдаваться не будут. Если не указывать, будет ожидаться ответ от всех.
      */
     public $timeout;
-
+    
     /**
      * @return From
      * @throws RequiredParameterException
@@ -181,7 +193,7 @@ class CalculatorRequest extends AbstractRequest
 
         return $this->height;
     }
-
+    
     /**
      * @param int $height
      *
@@ -237,7 +249,45 @@ class CalculatorRequest extends AbstractRequest
         $this->pickupDate = $pickupDate;
         return $this;
     }
+    
+    /**
+     * @return array
+     */
+    function getPickupTypes()
+    {
+        return $this->pickupTypes;
+    }
 
+    /**
+     * @return array
+     */
+    function getDeliveryTypes()
+    {
+        return $this->deliveryTypes;
+    }
+    
+    /**
+     * @param array $pickupTypes
+     * 
+     * @return CalculatorRequest
+     */
+    function setPickupTypes($pickupTypes)
+    {
+        $this->pickupTypes = $pickupTypes;
+        return $this;
+    }
+    
+    /**
+     * @param array $deliveryTypes
+     * 
+     * @return CalculatorRequest
+     */
+    function setDeliveryTypes($deliveryTypes)
+    {
+        $this->deliveryTypes = $deliveryTypes;
+        return $this;
+    }
+    
     /**
      * @return bool|null
      */
@@ -313,7 +363,25 @@ class CalculatorRequest extends AbstractRequest
         $this->codCost = $codCost;
         return $this;
     }
-
+    
+    /**
+     * @return boolean
+     */
+    function getIncludeFees()
+    {
+        return $this->includeFees;
+    }
+    
+    /**
+     * @param boolean $includeFees
+     *
+     * @return CalculatorRequest
+     */
+    function setIncludeFees($includeFees)
+    {
+        $this->includeFees = $includeFees;
+        return $this;
+    }
     /**
      * @return array
      */
