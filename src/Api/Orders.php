@@ -6,6 +6,7 @@ use Apiship\Entity\Request\CreateOrderRequest;
 use Apiship\Entity\Response\CancelOrderResponse;
 use Apiship\Entity\Response\CreateOrderResponse;
 use Apiship\Entity\Response\CreateSyncOrderResponse;
+use Apiship\Entity\Response\DeleteOrderResponse;
 use Apiship\Entity\Response\Part\Meta;
 use Apiship\Entity\Response\Part\Order\FailedOrder;
 use Apiship\Entity\Response\Part\Order\OrderInfo;
@@ -35,6 +36,32 @@ class Orders extends AbstractApi
         $result     = json_decode($resultJson);
 
         $response = new CancelOrderResponse();
+        $response->setOriginJson($resultJson);
+
+        foreach ($result as $key => $value) {
+            try {
+                $response->$key = $value;
+            } catch (\Exception $e) {
+                continue;
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Метод удаляет заказ из ApiShip
+     *
+     * @param int $orderId
+     *
+     * @return DeleteOrderResponse
+     */
+    public function delete($orderId)
+    {
+        $resultJson = $this->adapter->delete('orders/'.$orderId, []);
+        $result     = json_decode($resultJson);
+
+        $response = new DeleteOrderResponse();
         $response->setOriginJson($resultJson);
 
         foreach ($result as $key => $value) {
