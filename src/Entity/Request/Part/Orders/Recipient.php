@@ -69,6 +69,11 @@ class Recipient extends AbstractRequestPart
     protected $comment;
 
     /**
+     * @var string Адрес строкой
+     */
+    protected $addressString;
+
+    /**
      * @return string
      */
     public function getPostIndex()
@@ -400,6 +405,26 @@ class Recipient extends AbstractRequestPart
     public function setComment($comment)
     {
         $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddressString()
+    {
+        return $this->addressString;
+    }
+    
+    /**
+     * @param string $addressString
+     *
+     * @return Recipient
+     */
+    public function setAddressString($addressString)
+    {
+        $this->addressString = $addressString;
+
         return $this;
     }
 }
