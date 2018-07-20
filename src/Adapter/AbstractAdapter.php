@@ -40,6 +40,11 @@ abstract class AbstractAdapter
      * @var bool
      */
     protected $test;
+    
+    /**
+     * @var string Custom url to be used for request
+     */
+    protected $customUrl;
 
     /**
      * @return string
@@ -112,6 +117,10 @@ abstract class AbstractAdapter
      */
     public function getUrl()
     {
+        if ($this->getCustomUrl()) {
+            return $this->getCustomUrl();
+        }
+        
         return $this->isTest() ? self::TEST_API_URL : self::API_URL;
     }
 
@@ -132,4 +141,21 @@ abstract class AbstractAdapter
         $this->accessToken = $token;
     }
 
+    /**
+     * Sets the custom url to be used for request
+     * 
+     * @param string $customUrl
+     */
+    public function setCustomUrl($customUrl)
+    {
+        $this->customUrl = $customUrl;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getCustomUrl()
+    {
+        return $this->customUrl;
+    }
 }
