@@ -14,6 +14,7 @@ use Apiship\Entity\Response\Part\Order\OrderStatus;
 use Apiship\Entity\Response\Part\Order\StatusHistory;
 use Apiship\Entity\Response\Part\Order\SucceedOrder;
 use Apiship\Entity\Response\Part\Order\WaybillItem;
+use Apiship\Entity\Response\ResendOrderResponse;
 use Apiship\Entity\Response\StatusesByDateResponse;
 use Apiship\Entity\Response\StatusesResponse;
 use Apiship\Entity\Response\StatusHistoryByDateResponse;
@@ -553,6 +554,32 @@ class Orders extends AbstractApi
                 }
 
                 $response->addFailedOrders($failedOrderResult);
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Повторно отправляет заказ в СД
+     *
+     * @param integer $orderId
+     *
+     * @return ResendOrderResponse
+     */
+    public function resend($orderId)
+    {
+        $resultJson = $this->adapter->post('orders/' . trim($orderId) . '/resend', [], json_encode(['orderId' => $orderId]));
+        $result     = json_decode($resultJson);
+
+        $response = new ResendOrderResponse();
+        $response->setOriginJson($resultJson);
+
+        foreach ($result as $key => $value) {
+            try {
+                $response->$key = $value;
+            } catch (\Exception $e) {
+                continue;
             }
         }
 
