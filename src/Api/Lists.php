@@ -2,7 +2,6 @@
 
 namespace Apiship\Api;
 
-use Apiship\Entity\Response\GetRegionResponse;
 use Apiship\Entity\Response\ListsPointsResponse;
 use Apiship\Entity\Response\ListsProvidersResponse;
 use Apiship\Entity\Response\Part\Lists\Point;
@@ -65,9 +64,10 @@ class Lists extends AbstractApi
      *
      * @param int    $offset
      * @param string $filter Возможна фильтрация по полям key, name
+     * @param boolean $stateCheckOff Если stateCheckOff=1 отдаются также ПВЗ у которых указан не точный адрес расположения
      * @return ListsPointsResponse
      */
-    public function getPoints($limit = 20, $offset = 0, $filter = '')
+    public function getPoints($limit = 20, $offset = 0, $filter = '', $stateCheckOff = false)
     {
         if (!is_int($limit) || $limit < 0) {
             $limit = 20;
@@ -78,11 +78,14 @@ class Lists extends AbstractApi
         }
 
         $resultJson = $this->adapter->get('lists/points/', [],
-            ['limit'  => $limit,
-             'offset' => $offset,
-             'filter' => $filter
+            [
+                'limit'         => $limit,
+                'offset'        => $offset,
+                'filter'        => $filter,
+                'stateCheckOff' => $stateCheckOff,
             ]);
-        $result     = json_decode($resultJson);
+
+        $result = json_decode($resultJson);
 
         $response = new ListsPointsResponse();
         $response->setOriginJson($resultJson);
