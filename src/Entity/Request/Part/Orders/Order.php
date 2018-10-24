@@ -40,6 +40,10 @@ class Order extends AbstractRequestPart
      */
     protected $providerKey;
     /**
+     * @var int ID подключения вашей компании к СД
+     */
+    protected $providerConnectId;
+    /**
      * @var int Тип приема товара
      */
     protected $pickupType;
@@ -456,6 +460,22 @@ class Order extends AbstractRequestPart
     {
         $this->deliveryTimeEnd = $deliveryTimeEnd;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getProviderConnectId()
+    {
+        return $this->providerConnectId;
+    }
+
+    /**
+     * @param int $providerConnectId
+     */
+    public function setProviderConnectId($providerConnectId)
+    {
+        $this->providerConnectId = $providerConnectId;
     }
 
 }
