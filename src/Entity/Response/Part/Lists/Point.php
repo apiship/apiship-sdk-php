@@ -561,4 +561,26 @@ class Point extends AbstractResponsePart
      * @var array Изображения
      */
     protected $photos;
+    
+    /**
+     * @var Прием оплаты при получении
+     */
+    protected $cod;
+    
+    /**
+     * @return int|null
+     */
+    public function getCod() {
+        return $this->cod;
+    }
+    
+    /**
+     * @param int $cod
+     * @return $this
+     */
+    public function setCod($cod) {
+        $this->cod = $cod;
+        
+        return $this;
+    }
 }
