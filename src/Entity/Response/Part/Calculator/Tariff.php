@@ -32,10 +32,33 @@ class Tariff extends AbstractResponsePart
      */
     protected $daysMax;
 
-    /*
+    /**
      * @var array Список ID ПВЗ
      */
     protected $pointIds = [];
+
+    /**
+     * @var string|null Кастомное описание тарифа
+     */
+    protected $tariffDescription = null;
+
+    /**
+     * @return string|null
+     */
+    public function getTariffDescription()
+    {
+        return $this->tariffDescription;
+    }
+
+    /**
+     * @param string|null $tariffDescription
+     * @return Tariff
+     */
+    public function setTariffDescription($tariffDescription)
+    {
+        $this->tariffDescription = $tariffDescription;
+        return $this;
+    }
 
     /**
      * @return int
