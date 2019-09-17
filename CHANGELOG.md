@@ -1,6 +1,10 @@
 ApiShip SDK Change Log
 ==========================
 
+1.1.15 2019-09-17
+--------------------
+- Добавлено поле barcode,pickupTimeStart,pickupTimeEnd
+
 1.1.14 2019-07-15
 --------------------
 - Добавлено поле tariffDescription
