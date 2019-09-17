@@ -16,6 +16,10 @@ class Order extends AbstractRequestPart
      */
     protected $providerNumber;
     /**
+     * @var string Штрих-код
+     */
+    protected $barcode;
+    /**
      * @var string Описание заказа
      */
     protected $description;
@@ -83,6 +87,14 @@ class Order extends AbstractRequestPart
      * @var string Конечное время доставки
      */
     protected $deliveryTimeEnd;
+    /**
+     * @var string Начальное время забора груза
+     */
+    protected $pickupTimeStart;
+    /**
+     * @var string Конечное время забора груза
+     */
+    protected $pickupTimeEnd;
 
     /**
      * @return string
@@ -478,4 +490,57 @@ class Order extends AbstractRequestPart
         $this->providerConnectId = $providerConnectId;
     }
 
+    /**
+     * @return string
+     */
+    public function getBarcode()
+    {
+        return $this->barcode;
+    }
+
+    /**
+     * @param string $barcode
+     * @return Order
+     */
+    public function setBarcode($barcode)
+    {
+        $this->barcode = $barcode;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPickupTimeStart()
+    {
+        return $this->pickupTimeStart;
+    }
+
+    /**
+     * @param string $pickupTimeStart
+     * @return Order
+     */
+    public function setPickupTimeStart($pickupTimeStart)
+    {
+        $this->pickupTimeStart = $pickupTimeStart;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPickupTimeEnd()
+    {
+        return $this->pickupTimeEnd;
+    }
+
+    /**
+     * @param string $pickupTimeEnd
+     * @return Order
+     */
+    public function setPickupTimeEnd($pickupTimeEnd)
+    {
+        $this->pickupTimeEnd = $pickupTimeEnd;
+        return $this;
+    }
 }

@@ -9,9 +9,10 @@ try {
     $apiship = new Apiship($adapter);
 
     $order = (new \Apiship\Entity\Request\Part\Orders\Order())
-        ->setProviderKey('box2box')
+        ->setProviderKey('cdek')
         ->setClientNumber('testNumber1')
         ->setDescription('Очень важный заказ')
+        ->setBarcode('123456')
         ->setHeight(40)
         ->setLength(40)
         ->setWidth(40)
@@ -21,6 +22,8 @@ try {
         ->setTariffId(9)
         ->setPointOutId(249)
         ->setPickupDate("2017-12-25")
+        ->setPickupTimeStart("10:00")
+        ->setPickupTimeEnd("12:00")
         ->setDeliveryDate("2017-12-30")
         ->setDeliveryTimeStart("15:10")
         ->setDeliveryTimeEnd("18:10")
