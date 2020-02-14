@@ -111,6 +111,15 @@ class Point extends AbstractResponsePart
      */
     protected $cod;
 
+    /**
+     * @var string Полый адрес
+     */
+    protected $address;
+
+    /**
+     * @var string Описание ПВЗ
+     */
+    protected $description;
 
     /**
      * @return string
@@ -582,6 +591,42 @@ class Point extends AbstractResponsePart
     public function setCod($cod) {
         $this->cod = $cod;
         
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     * @return $this
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
         return $this;
     }
 }
