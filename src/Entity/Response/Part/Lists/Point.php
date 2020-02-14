@@ -102,6 +102,17 @@ class Point extends AbstractResponsePart
     protected $name;
 
     /**
+     * @var array Изображения
+     */
+    protected $photos;
+
+    /**
+     * @var int|null Прием оплаты при получении
+     */
+    protected $cod;
+
+
+    /**
      * @return string
      */
     public function getName()
@@ -557,16 +568,6 @@ class Point extends AbstractResponsePart
         return $this;
     }
 
-    /**
-     * @var array Изображения
-     */
-    protected $photos;
-    
-    /**
-     * @var Прием оплаты при получении
-     */
-    protected $cod;
-    
     /**
      * @return int|null
      */
