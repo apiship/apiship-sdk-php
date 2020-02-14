@@ -3,8 +3,10 @@
 namespace Apiship\Api;
 
 use Apiship\Entity\Response\ListsPointsResponse;
+use Apiship\Entity\Response\ListsPointTypesResponse;
 use Apiship\Entity\Response\ListsProvidersResponse;
 use Apiship\Entity\Response\Part\Lists\Point;
+use Apiship\Entity\Response\Part\Lists\PointType;
 use Apiship\Entity\Response\Part\Lists\Provider;
 
 class Lists extends AbstractApi
@@ -103,6 +105,35 @@ class Lists extends AbstractApi
                 }
 
                 $response->addResult($pointResult);
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Получение списка типов точек приема/выдачи товаров
+     *
+     * @return ListsPointTypesResponse
+     */
+    public function getPointTypes()
+    {
+        $resultJson = $this->adapter->get('lists/pointTypes');
+        $result = json_decode($resultJson, true);
+        $response = (new ListsPointTypesResponse)->setOriginJson($resultJson);
+
+        if(!empty($result)) {
+            foreach ($result as $data) {
+                $pointType = new PointType();
+                foreach ($data as $key => $datum) {
+                    try {
+                        $pointType->$key = $datum;
+                    } catch (\Exception $e) {
+                        continue;
+                    }
+                }
+
+                $response->addResult($pointType);
             }
         }
 
