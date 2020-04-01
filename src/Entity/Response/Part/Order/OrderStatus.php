@@ -38,6 +38,10 @@ class OrderStatus extends AbstractResponsePart
      * @var string Дата создания статуса в системе службы доставки
      */
     protected $createdProvider;
+    /**
+     * @var string Коды ошибок: 100 - ошибка в ApiShip; 200 - ошибка в СД; 300 - ошибка клиента (некорректные данные).
+     */ 
+    protected $errorCode;
 
     /**
      * @return string
@@ -188,6 +192,17 @@ class OrderStatus extends AbstractResponsePart
     public function setCreatedProvider($createdProvider)
     {
         $this->createdProvider = $createdProvider;
+        return $this;
+    }
+
+    public function getErrorCode()
+    {
+        return $this->errorCode;
+    }    
+
+    public function setErrorCode($errorCode)
+    {
+        $this->errorCode = $errorCode;
         return $this;
     }
 }

@@ -1,5 +1,5 @@
 <?php
-require('../../vendor/autoload.php');
+require (__DIR__ . '/../../vendor/autoload.php');
 use Apiship\Adapter\GuzzleAdapter;
 use Apiship\Apiship;
 use Apiship\Exception\ResponseException;
