@@ -18,6 +18,14 @@ class OrderInfo extends AbstractResponsePart
      * @var string Номер заказа клиента
      */
     protected $clientNumber;
+    /**
+     * @var string Номер возврата заказа в системе службы доставки 
+     */ 
+    protected $returnProviderNumber;
+    /**
+     * @var string  Номер заказа для печати штрихкода
+     */
+     protected $barcode; 
 
     /**
      * @return int
@@ -73,6 +81,28 @@ class OrderInfo extends AbstractResponsePart
     public function setClientNumber($clientNumber)
     {
         $this->clientNumber = $clientNumber;
+        return $this;
+    }
+
+    public function getReturnProviderNumber(): ?string
+    {
+        return $this->returnProviderNumber;
+    }
+
+    public function setReturnProviderNumber(?string $returnProviderNumber)
+    {
+        $this->returnProviderNumber = $returnProviderNumber;
+        return $this;
+    }
+
+    public function getBarcode(): ?string
+    {
+        return $this->barcode;
+    }
+
+    public function setBarcode(?string $barcode)
+    {
+        $this->barcode = $barcode;
         return $this;
     }
 }
