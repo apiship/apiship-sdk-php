@@ -102,6 +102,26 @@ class Point extends AbstractResponsePart
     protected $name;
 
     /**
+     * @var array Изображения
+     */
+    protected $photos;
+
+    /**
+     * @var int|null Прием оплаты при получении
+     */
+    protected $cod;
+
+    /**
+     * @var string Полый адрес
+     */
+    protected $address;
+
+    /**
+     * @var string Описание ПВЗ
+     */
+    protected $description;
+
+    /**
      * @return string
      */
     public function getName()
@@ -558,16 +578,6 @@ class Point extends AbstractResponsePart
     }
 
     /**
-     * @var array Изображения
-     */
-    protected $photos;
-    
-    /**
-     * @var Прием оплаты при получении
-     */
-    protected $cod;
-    
-    /**
      * @return int|null
      */
     public function getCod() {
@@ -581,6 +591,42 @@ class Point extends AbstractResponsePart
     public function setCod($cod) {
         $this->cod = $cod;
         
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param string $address
+     * @return $this
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
         return $this;
     }
 }
