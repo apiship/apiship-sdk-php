@@ -122,6 +122,11 @@ class Point extends AbstractResponsePart
     protected $description;
 
     /**
+     * @var array Лимиты весогабаритов ПВЗ
+     */
+    protected $limits;
+
+    /**
      * @return string
      */
     public function getName()
@@ -583,14 +588,14 @@ class Point extends AbstractResponsePart
     public function getCod() {
         return $this->cod;
     }
-    
+
     /**
      * @param int $cod
      * @return $this
      */
     public function setCod($cod) {
         $this->cod = $cod;
-        
+
         return $this;
     }
 
@@ -627,6 +632,24 @@ class Point extends AbstractResponsePart
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLimits()
+    {
+        return $this->limits;
+    }
+
+    /**
+     * @param array $limits
+     * @return $this
+     */
+    public function setLimits($limits)
+    {
+        $this->limits = $limits;
         return $this;
     }
 }
