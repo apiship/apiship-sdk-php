@@ -451,9 +451,9 @@ class CalculatorRequest extends AbstractRequest
      *
      * @return self
      */
-    public function addExtraParam($extraParam)
+    public function addExtraParam($extraParamName, $extraParamValue)
     {
-        $this->extraParams[] = $extraParam;
+        $this->extraParams[$extraParamName] = $extraParamValue;
         return $this;
     }
 
