@@ -112,6 +112,16 @@ class Point extends AbstractResponsePart
     protected $cod;
 
     /**
+     * @var int|null Возможность оплаты наличными
+     */
+    protected $paymentCash;
+
+    /**
+     * @var int|null Возможность оплаты картой
+     */
+    protected $paymentCard;
+
+    /**
      * @var string Полый адрес
      */
     protected $address;
@@ -596,6 +606,44 @@ class Point extends AbstractResponsePart
     public function setCod($cod) {
         $this->cod = $cod;
 
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPaymentCash()
+    {
+        return $this->paymentCash;
+    }
+
+    /**
+     * @param int|null $paymentCash
+     *
+     * @return $this
+     */
+    public function setPaymentCash($paymentCash)
+    {
+        $this->paymentCash = $paymentCash;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPaymentCard()
+    {
+        return $this->paymentCard;
+    }
+
+    /**
+     * @param int|null $paymentCard
+     *
+     * @return $this
+     */
+    public function setPaymentCard($paymentCard)
+    {
+        $this->paymentCard = $paymentCard;
         return $this;
     }
 
