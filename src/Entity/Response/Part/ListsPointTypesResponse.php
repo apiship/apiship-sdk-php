@@ -4,7 +4,7 @@
  * @copyright Serge Rodovnichenko, 2020
  */
 
-namespace Apiship\Entity\Response;
+namespace Apiship\Entity\Response\Part;
 
 use Apiship\Entity\AbstractResponse;
 use Apiship\Entity\Response\Part\Lists\PointType;
