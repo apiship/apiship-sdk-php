@@ -3,7 +3,7 @@
 namespace Apiship\Api;
 
 use Apiship\Entity\Response\ListsPointsResponse;
-use Apiship\Entity\Response\ListsPointTypesResponse;
+use Apiship\Entity\Response\Part\ListsPointTypesResponse;
 use Apiship\Entity\Response\ListsProvidersResponse;
 use Apiship\Entity\Response\Part\Lists\Point;
 use Apiship\Entity\Response\Part\Lists\PointType;
