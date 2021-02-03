@@ -81,6 +81,11 @@ class CalculatorRequest extends AbstractRequest
      * @var array
      */
     public $extraParams;
+
+    /**
+     * @var bool Пропустить выполнения правил редактора тарифов
+     */
+    public $skipTariffRules;
     
     /**
      * @return From
@@ -454,6 +459,25 @@ class CalculatorRequest extends AbstractRequest
     public function addExtraParam($extraParamName, $extraParamValue)
     {
         $this->extraParams[$extraParamName] = $extraParamValue;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSkipTariffRules()
+    {
+        return $this->skipTariffRules;
+    }
+
+    /**
+     * @param bool $skipTariffRules
+     *
+     * @return self
+     */
+    public function setSkipTariffRules($skipTariffRules)
+    {
+        $this->skipTariffRules = $skipTariffRules;
         return $this;
     }
 
