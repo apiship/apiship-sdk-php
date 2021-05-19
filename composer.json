@@ -23,7 +23,7 @@
   "require": {
     "php": ">=5.5.0"
   },
-  "suggest": {
-     "guzzlehttp/guzzle": "Needed if you want to use guzzle adapter",
+  "suggests": {
+     "guzzlehttp/guzzle": "Needed if you want to use GuzzleAdapter"
   }
 }
