@@ -48,6 +48,10 @@ class Recipient extends AbstractRequestPart
      */
     protected $office;
     /**
+     * @var string ИНН компании (если юр.лицо)
+     */
+    protected $companyInn;
+    /**
      * @var string Название компании
      */
     protected $companyName;
@@ -73,6 +77,25 @@ class Recipient extends AbstractRequestPart
      */
     protected $addressString;
 
+    /**
+     * @return string
+     */
+    public function getCompanyInn()
+    {
+        return $this->companyInn;
+    }
+    
+    /**
+     * @param string $companyInn
+     *
+     * @return Recipient
+     */
+    public function setCompanyInn($companyInn)
+    {
+        $this->companyInn = $companyInn;
+        return $this;
+    }
+    
     /**
      * @return string
      */

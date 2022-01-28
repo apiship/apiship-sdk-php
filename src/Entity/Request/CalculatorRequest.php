@@ -74,6 +74,18 @@ class CalculatorRequest extends AbstractRequest
      * которые не успели в указанное время, выдаваться не будут. Если не указывать, будет ожидаться ответ от всех.
      */
     public $timeout;
+
+    /**
+     * Массив с доп.параметрами. Синтаксис '{providerKey}.{paramName} => {value}'
+     * Пример. "dpd.providerConnectId": 1234 - использовать для DPD определенное подключение.
+     * @var array
+     */
+    public $extraParams;
+
+    /**
+     * @var bool Пропустить выполнения правил редактора тарифов
+     */
+    public $skipTariffRules;
     
     /**
      * @return From
@@ -419,4 +431,54 @@ class CalculatorRequest extends AbstractRequest
         $this->timeout = $timeout;
         return $this;
     }
+
+    /**
+     * @return array
+     */
+    public function getExtraParams()
+    {
+        return $this->extraParams;
+    }
+
+    /**
+     * @param array $extraParams
+     *
+     * @return self
+     */
+    public function setExtraParams($extraParams)
+    {
+        $this->extraParams = $extraParams;
+        return $this;
+    }
+    
+    /**
+     * @param array $extraParams
+     *
+     * @return self
+     */
+    public function addExtraParam($extraParamName, $extraParamValue)
+    {
+        $this->extraParams[$extraParamName] = $extraParamValue;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSkipTariffRules()
+    {
+        return $this->skipTariffRules;
+    }
+
+    /**
+     * @param bool $skipTariffRules
+     *
+     * @return self
+     */
+    public function setSkipTariffRules($skipTariffRules)
+    {
+        $this->skipTariffRules = $skipTariffRules;
+        return $this;
+    }
+
 }

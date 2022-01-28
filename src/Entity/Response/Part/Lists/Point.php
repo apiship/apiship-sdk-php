@@ -112,6 +112,16 @@ class Point extends AbstractResponsePart
     protected $cod;
 
     /**
+     * @var int|null Возможность оплаты наличными
+     */
+    protected $paymentCash;
+
+    /**
+     * @var int|null Возможность оплаты картой
+     */
+    protected $paymentCard;
+
+    /**
      * @var string Полый адрес
      */
     protected $address;
@@ -120,6 +130,11 @@ class Point extends AbstractResponsePart
      * @var string Описание ПВЗ
      */
     protected $description;
+
+    /**
+     * @var array Лимиты весогабаритов ПВЗ
+     */
+    protected $limits;
 
     /**
      * @return string
@@ -583,14 +598,52 @@ class Point extends AbstractResponsePart
     public function getCod() {
         return $this->cod;
     }
-    
+
     /**
      * @param int $cod
      * @return $this
      */
     public function setCod($cod) {
         $this->cod = $cod;
-        
+
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPaymentCash()
+    {
+        return $this->paymentCash;
+    }
+
+    /**
+     * @param int|null $paymentCash
+     *
+     * @return $this
+     */
+    public function setPaymentCash($paymentCash)
+    {
+        $this->paymentCash = $paymentCash;
+        return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPaymentCard()
+    {
+        return $this->paymentCard;
+    }
+
+    /**
+     * @param int|null $paymentCard
+     *
+     * @return $this
+     */
+    public function setPaymentCard($paymentCard)
+    {
+        $this->paymentCard = $paymentCard;
         return $this;
     }
 
@@ -627,6 +680,24 @@ class Point extends AbstractResponsePart
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLimits()
+    {
+        return $this->limits;
+    }
+
+    /**
+     * @param array $limits
+     * @return $this
+     */
+    public function setLimits($limits)
+    {
+        $this->limits = $limits;
         return $this;
     }
 }

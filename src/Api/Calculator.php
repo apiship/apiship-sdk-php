@@ -13,12 +13,13 @@ class Calculator extends AbstractApi
      * Расчитывает стоимость доставки
      *
      * @param CalculatorRequest $request
+     * @param array             $headers
      *
      * @return CalculatorResponse
      */
-    public function calculate(CalculatorRequest $request)
+    public function calculate(CalculatorRequest $request, $headers = [])
     {
-        $resultJson = $this->adapter->post('calculator', [], $request->asJson());
+        $resultJson = $this->adapter->post('calculator', $headers, $request->asJson());
         $result     = json_decode($resultJson);
 
         $response = new CalculatorResponse();

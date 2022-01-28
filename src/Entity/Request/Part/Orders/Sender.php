@@ -48,6 +48,10 @@ class Sender extends AbstractRequestPart
      */
     protected $office;
     /**
+     * @var string Название брэнда
+     */
+    protected $brandName;
+    /**
      * @var string Название компании
      */
     protected $companyName;
@@ -292,7 +296,26 @@ class Sender extends AbstractRequestPart
         $this->office = $office;
         return $this;
     }
+    
+    /**
+     * @return string
+     */
+    public function getBrandName()
+    {
+        return $this->brandName;
+    }
 
+    /**
+     * @param string $brandName
+     *
+     * @return Sender
+     */
+    public function setBrandName($brandName)
+    {
+        $this->brandName = $brandName;
+        return $this;
+    }
+    
     /**
      * @return string
      */

@@ -15,6 +15,10 @@ class OrderInfo extends AbstractResponsePart
      */
     protected $providerNumber;
     /**
+     * @var string Доп. ключ провайдера (СД)
+     */
+    protected $additionalProviderNumber;
+    /**
      * @var string Номер заказа клиента
      */
     protected $clientNumber;
@@ -64,7 +68,26 @@ class OrderInfo extends AbstractResponsePart
         $this->providerNumber = $providerNumber;
         return $this;
     }
-
+    
+    /**
+     * @return string
+     */
+    public function getAdditionalProviderNumber()
+    {
+        return $this->additionalProviderNumber;
+    }
+        
+    /**
+     * @param $providerNumber
+     *
+     * @return $this
+     */
+    public function setAdditionalProviderNumber($additionalProviderNumber)
+    {
+        $this->additionalProviderNumber = $additionalProviderNumber;
+        return $this;
+    }
+    
     /**
      * @return string
      */
