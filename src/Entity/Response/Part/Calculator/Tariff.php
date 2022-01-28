@@ -43,6 +43,16 @@ class Tariff extends AbstractResponsePart
     protected $tariffDescription = null;
 
     /**
+     * @var array Типы забора
+     */
+    protected $pickupTypes = [];
+
+    /**
+     * @var array Типы доставки
+     */
+    protected $deliveryTypes = [];
+
+    /**
      * @return string|null
      */
     public function getTariffDescription()
@@ -191,6 +201,44 @@ class Tariff extends AbstractResponsePart
     public function setDaysMax($daysMax)
     {
         $this->daysMax = $daysMax;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPickupTypes()
+    {
+        return $this->pickupTypes;
+    }
+
+    /**
+     * @param array $pickupTypes
+     *
+     * @return Tariff
+     */
+    public function setPickupTypes(array $pickupTypes)
+    {
+        $this->pickupTypes = $pickupTypes;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDeliveryTypes()
+    {
+        return $this->deliveryTypes;
+    }
+
+    /**
+     * @param array $deliveryTypes
+     *
+     * @return Tariff
+     */
+    public function setDeliveryTypes(array $deliveryTypes)
+    {
+        $this->deliveryTypes = $deliveryTypes;
         return $this;
     }
 }
