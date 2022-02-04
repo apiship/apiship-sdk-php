@@ -4,6 +4,7 @@ namespace Apiship\Entity\Request;
 
 use Apiship\Entity\AbstractRequest;
 use Apiship\Entity\Request\Part\Calculator\From;
+use Apiship\Entity\Request\Part\Calculator\Place;
 use Apiship\Entity\Request\Part\Calculator\To;
 use Apiship\Exception\RequiredParameterException;
 
@@ -12,33 +13,37 @@ class CalculatorRequest extends AbstractRequest
     /**
      * @var From Информация о пункте отправления
      */
-    protected $from;
+    public $from;
     /**
      * @var To Информация о пункте получения
      */
-    protected $to;
+    public $to;
     /**
-     * @var integer Вес всего заказа (в граммах)
+     * @var Place[]
      */
-    protected $weight;
+    public $places = [];
     /**
-     * @var integer Ширина заказа (в сантиметрах)
+     * @var float Вес всего заказа (в граммах)
      */
-    protected $width;
+    public $weight;
     /**
-     * @var integer Высота заказа (в сантиметрах)
+     * @var int Ширина заказа (в сантиметрах)
      */
-    protected $height;
+    public $width;
     /**
-     * @var integer Длина заказа (в сантиметрах)
+     * @var int Высота заказа (в сантиметрах)
      */
-    protected $length;
+    public $height;
+    /**
+     * @var int Длина заказа (в сантиметрах)
+     */
+    public $length;
     /**
      * @var string Дата приёма груза (не обязательно, по умолчания берется текущая дата)
      */
     public $pickupDate;
     /**
-     * @var array Типы приема груза 
+     * @var array Типы приема груза
      */
     public $pickupTypes;
     /**
@@ -46,7 +51,7 @@ class CalculatorRequest extends AbstractRequest
      */
     public $deliveryTypes;
     /**
-     * @var boolean|null Самопривоз на терминал (если не указана выводятся для каждого)
+     * @var bool|null Самопривоз на терминал (если не указана выводятся для каждого)
      */
     public $selfPickup;
     /**
@@ -62,7 +67,7 @@ class CalculatorRequest extends AbstractRequest
      */
     public $codCost;
     /**
-     * @var boolean Суммировать к итоговой стоимости все сборы СД (по-умолчанию FALSE)
+     * @var bool Суммировать к итоговой стоимости все сборы СД (по-умолчанию FALSE)
      */
     public $includeFees;
     /**
@@ -70,23 +75,25 @@ class CalculatorRequest extends AbstractRequest
      */
     public $providerKeys;
     /**
-     * @var integer Время ожидания ответа от провайдера, результаты по провайдерам,
+     * @var int Время ожидания ответа от провайдера, результаты по провайдерам,
      * которые не успели в указанное время, выдаваться не будут. Если не указывать, будет ожидаться ответ от всех.
      */
     public $timeout;
-
     /**
      * Массив с доп.параметрами. Синтаксис '{providerKey}.{paramName} => {value}'
      * Пример. "dpd.providerConnectId": 1234 - использовать для DPD определенное подключение.
      * @var array
      */
     public $extraParams;
-
     /**
      * @var bool Пропустить выполнения правил редактора тарифов
      */
     public $skipTariffRules;
-    
+    /**
+     * @var string Промокод, нужен для выполнения правила в редакторе тарифов
+     */
+    public $promoCode;
+
     /**
      * @return From
      * @throws RequiredParameterException
@@ -95,8 +102,8 @@ class CalculatorRequest extends AbstractRequest
     {
         if (!$this->from) {
             throw new RequiredParameterException(
-                'Property "' . get_class($this) . '::from" is required.
-                ');
+                'Property "' . get_class($this) . '::from" is required.'
+            );
         }
 
         return $this->from;
@@ -121,8 +128,8 @@ class CalculatorRequest extends AbstractRequest
     {
         if (!$this->to) {
             throw new RequiredParameterException(
-                'Property "' . get_class($this) . '::to" is required.
-                ');
+                'Property "' . get_class($this) . '::to" is required.'
+            );
         }
 
         return $this->to;
@@ -140,22 +147,23 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @return int
+     * @return float
      * @throws RequiredParameterException
      */
     public function getWeight()
     {
-        if (!$this->weight) {
+        if (!$this->weight && empty($this->places)) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::weight" is required.
-                ');
+                '
+            );
         }
 
         return $this->weight;
     }
 
     /**
-     * @param int $weight
+     * @param float $weight
      *
      * @return CalculatorRequest
      */
@@ -171,10 +179,11 @@ class CalculatorRequest extends AbstractRequest
      */
     public function getWidth()
     {
-        if (!$this->width) {
+        if (!$this->width && empty($this->places)) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::width" is required.
-                ');
+                '
+            );
         }
 
         return $this->width;
@@ -197,15 +206,16 @@ class CalculatorRequest extends AbstractRequest
      */
     public function getHeight()
     {
-        if (!$this->height) {
+        if (!$this->height && empty($this->places)) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::height" is required.
-                ');
+                '
+            );
         }
 
         return $this->height;
     }
-    
+
     /**
      * @param int $height
      *
@@ -223,10 +233,11 @@ class CalculatorRequest extends AbstractRequest
      */
     public function getLength()
     {
-        if (!$this->length) {
+        if (!$this->length && empty($this->places)) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::length" is required.
-                ');
+                '
+            );
         }
 
         return $this->length;
@@ -261,7 +272,7 @@ class CalculatorRequest extends AbstractRequest
         $this->pickupDate = $pickupDate;
         return $this;
     }
-    
+
     /**
      * @return array
      */
@@ -277,10 +288,10 @@ class CalculatorRequest extends AbstractRequest
     {
         return $this->deliveryTypes;
     }
-    
+
     /**
      * @param array $pickupTypes
-     * 
+     *
      * @return CalculatorRequest
      */
     function setPickupTypes($pickupTypes)
@@ -288,10 +299,10 @@ class CalculatorRequest extends AbstractRequest
         $this->pickupTypes = $pickupTypes;
         return $this;
     }
-    
+
     /**
      * @param array $deliveryTypes
-     * 
+     *
      * @return CalculatorRequest
      */
     function setDeliveryTypes($deliveryTypes)
@@ -299,7 +310,7 @@ class CalculatorRequest extends AbstractRequest
         $this->deliveryTypes = $deliveryTypes;
         return $this;
     }
-    
+
     /**
      * @return bool|null
      */
@@ -375,7 +386,7 @@ class CalculatorRequest extends AbstractRequest
         $this->codCost = $codCost;
         return $this;
     }
-    
+
     /**
      * @return boolean
      */
@@ -383,7 +394,7 @@ class CalculatorRequest extends AbstractRequest
     {
         return $this->includeFees;
     }
-    
+
     /**
      * @param boolean $includeFees
      *
@@ -394,6 +405,7 @@ class CalculatorRequest extends AbstractRequest
         $this->includeFees = $includeFees;
         return $this;
     }
+
     /**
      * @return array
      */
@@ -450,10 +462,10 @@ class CalculatorRequest extends AbstractRequest
         $this->extraParams = $extraParams;
         return $this;
     }
-    
+
     /**
-     * @param array $extraParams
-     *
+     * @param string $extraParamName
+     * @param string|numeric|bool $extraParamValue
      * @return self
      */
     public function addExtraParam($extraParamName, $extraParamValue)
@@ -481,4 +493,49 @@ class CalculatorRequest extends AbstractRequest
         return $this;
     }
 
+    /**
+     * @return Place[]
+     */
+    public function getPlaces()
+    {
+        return $this->places;
+    }
+
+    /**
+     * @param Place[] $places
+     * @return $this
+     */
+    public function setPlaces($places)
+    {
+        $this->places = $places;
+        return $this;
+    }
+
+    /**
+     * @param Place $place
+     * @return $this
+     */
+    public function addPlace($place)
+    {
+        $this->places[] = $place;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPromoCode()
+    {
+        return $this->promoCode;
+    }
+
+    /**
+     * @param string $promoCode
+     * @return CalculatorRequest
+     */
+    public function setPromoCode($promoCode)
+    {
+        $this->promoCode = $promoCode;
+        return $this;
+    }
 }
