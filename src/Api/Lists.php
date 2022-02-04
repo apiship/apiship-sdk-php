@@ -3,11 +3,14 @@
 namespace Apiship\Api;
 
 use Apiship\Entity\Response\ListsPointsResponse;
-use Apiship\Entity\Response\Part\ListsPointTypesResponse;
 use Apiship\Entity\Response\ListsProvidersResponse;
+use Apiship\Entity\Response\ListsServicesResponse;
 use Apiship\Entity\Response\Part\Lists\Point;
 use Apiship\Entity\Response\Part\Lists\PointType;
 use Apiship\Entity\Response\Part\Lists\Provider;
+use Apiship\Entity\Response\Part\Lists\Service;
+use Apiship\Entity\Response\Part\ListsPointTypesResponse;
+use Exception;
 
 class Lists extends AbstractApi
 {
@@ -47,7 +50,7 @@ class Lists extends AbstractApi
                 foreach ($provider as $key => $value) {
                     try {
                         $providerResult->$key = $value;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
@@ -99,7 +102,7 @@ class Lists extends AbstractApi
                 foreach ($point as $key => $value) {
                     try {
                         $pointResult->$key = $value;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
@@ -128,12 +131,42 @@ class Lists extends AbstractApi
                 foreach ($data as $key => $datum) {
                     try {
                         $pointType->$key = $datum;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
 
                 $response->addResult($pointType);
+            }
+        }
+
+        return $response;
+    }
+
+
+    /**
+     * Получение списка дополнительных услуг службы доставки
+     * @param string|null $providerKey Если не указано, то возвращается список доп.услуг по всем службам доставки
+     * @return ListsServicesResponse
+     */
+    public function getServices($providerKey = null)
+    {
+        $resultJson = $this->adapter->get('lists/services', [], ['providerKey' => $providerKey]);
+        $result = json_decode($resultJson, true);
+
+        $response = (new ListsServicesResponse())->setOriginJson($resultJson);
+        if (!empty($result)) {
+            foreach ($result as $row) {
+                $service = new Service();
+                foreach ($row as $key => $value) {
+                    try {
+                        $service->$key = $value;
+                    } catch (Exception $e) {
+                        continue;
+                    }
+                }
+
+                $response->addResult($service);
             }
         }
 
