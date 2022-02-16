@@ -93,6 +93,10 @@ class CalculatorRequest extends AbstractRequest
      * @var string Промокод, нужен для выполнения правила в редакторе тарифов
      */
     public $promoCode;
+    /**
+     * @var string Пользовательское поле. В это поле можно передать, например, название сайта и по нему строить правила в редакторе сайтов.
+     */
+    public $customCode;
 
     /**
      * @return From
@@ -536,6 +540,24 @@ class CalculatorRequest extends AbstractRequest
     public function setPromoCode($promoCode)
     {
         $this->promoCode = $promoCode;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomCode()
+    {
+        return $this->customCode;
+    }
+
+    /**
+     * @param string $customCode
+     * @return CalculatorRequest
+     */
+    public function setCustomCode($customCode)
+    {
+        $this->customCode = $customCode;
         return $this;
     }
 }
