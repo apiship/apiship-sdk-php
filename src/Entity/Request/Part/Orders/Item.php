@@ -53,6 +53,11 @@ class Item extends AbstractRequestPart
     protected $quantity;
 
     /**
+     * @return string Код маркировки
+     */
+    protected $markCode;
+
+    /**
      * @return string
      */
     public function getBarcode()
@@ -272,6 +277,25 @@ class Item extends AbstractRequestPart
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMarkCode()
+    {
+        return $this->markCode;
+    }
+
+    /**
+     * @param string $markCode
+     *
+     * @return Item
+     */
+    public function setMarkCode($markCode)
+    {
+        $this->markCode = $markCode;
         return $this;
     }
 }
