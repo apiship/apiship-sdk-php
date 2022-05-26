@@ -21,7 +21,9 @@
     }
   },
   "require": {
-    "php": ">=5.5.0",
-    "guzzlehttp/guzzle": "~6.0"
+    "php": ">=5.5.0"
+  },
+  "suggests": {
+     "guzzlehttp/guzzle": "Needed if you want to use GuzzleAdapter"
   }
 }
