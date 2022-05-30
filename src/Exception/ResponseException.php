@@ -2,7 +2,10 @@
 
 namespace Apiship\Exception;
 
-class ResponseException extends \RuntimeException implements ExceptionInterface
+use Exception;
+use RuntimeException;
+
+class ResponseException extends RuntimeException implements ExceptionInterface
 {
     /**
      * @var ExceptionReader
@@ -12,7 +15,7 @@ class ResponseException extends \RuntimeException implements ExceptionInterface
     /**
      * {@inheritdoc}
      */
-    public function __construct($message = '', $code = 0, \Exception $previous = null)
+    public function __construct($message = '', $code = 0, Exception $previous = null)
     {
         $this->exception = new ExceptionReader($message, $code);
 
@@ -22,7 +25,7 @@ class ResponseException extends \RuntimeException implements ExceptionInterface
     /**
      * {@inheritdoc}
      */
-    public static function create($message, $code = 0, \Exception $previous = null)
+    public static function create($message, $code = 0, Exception $previous = null)
     {
         return new self($message, $code, null);
     }

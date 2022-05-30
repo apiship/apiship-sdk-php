@@ -2,6 +2,8 @@
 
 namespace Apiship\Exception;
 
-class RequiredParameterException extends \Exception
+use Exception;
+
+class RequiredParameterException extends Exception
 {
 } 

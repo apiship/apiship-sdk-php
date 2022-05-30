@@ -37,7 +37,8 @@ class Cost extends AbstractRequestPart
         if (!$this->assessedCost) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::assessedCost" is required.
-                ');
+                '
+            );
         }
 
         return $this->assessedCost;
@@ -101,7 +102,8 @@ class Cost extends AbstractRequestPart
         if (!$this->codCost) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::codCost" is required.
-                ');
+                '
+            );
         }
 
         return $this->codCost;
@@ -119,7 +121,7 @@ class Cost extends AbstractRequestPart
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isIsDeliveryPayedByRecipient()
     {
@@ -127,7 +129,7 @@ class Cost extends AbstractRequestPart
     }
 
     /**
-     * @param boolean $isDeliveryPayedByRecipient
+     * @param bool $isDeliveryPayedByRecipient
      *
      * @return Cost
      */

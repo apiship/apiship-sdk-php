@@ -1,5 +1,7 @@
 <?php
+
 require('../../vendor/autoload.php');
+
 use Apiship\Adapter\GuzzleAdapter;
 use Apiship\Apiship;
 use Apiship\Exception\ResponseException;
@@ -10,7 +12,6 @@ try {
 
     $response = $apiship->orders()->delete(4526);
     print_r($response);
-
 } catch (ResponseException $e) {
     echo $e->getErrorApishipCode() . PHP_EOL;
     echo $e->getErrorMessage() . PHP_EOL;

@@ -21,6 +21,7 @@ use Apiship\Entity\Response\StatusHistoryByDateResponse;
 use Apiship\Entity\Response\StatusHistoryResponse;
 use Apiship\Entity\Response\StatusResponse;
 use Apiship\Entity\Response\WaybillsResponse;
+use Exception;
 
 class Orders extends AbstractApi
 {
@@ -33,8 +34,8 @@ class Orders extends AbstractApi
      */
     public function cancel($orderId)
     {
-        $resultJson = $this->adapter->get('orders/'.$orderId.'/cancel', []);
-        $result     = json_decode($resultJson);
+        $resultJson = $this->adapter->get('orders/' . $orderId . '/cancel', []);
+        $result = json_decode($resultJson);
 
         $response = new CancelOrderResponse();
         $response->setOriginJson($resultJson);
@@ -42,7 +43,7 @@ class Orders extends AbstractApi
         foreach ($result as $key => $value) {
             try {
                 $response->$key = $value;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
         }
@@ -59,8 +60,8 @@ class Orders extends AbstractApi
      */
     public function delete($orderId)
     {
-        $resultJson = $this->adapter->delete('orders/'.$orderId, []);
-        $result     = json_decode($resultJson);
+        $resultJson = $this->adapter->delete('orders/' . $orderId, []);
+        $result = json_decode($resultJson);
 
         $response = new DeleteOrderResponse();
         $response->setOriginJson($resultJson);
@@ -68,7 +69,7 @@ class Orders extends AbstractApi
         foreach ($result as $key => $value) {
             try {
                 $response->$key = $value;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
         }
@@ -86,7 +87,7 @@ class Orders extends AbstractApi
     public function create(CreateOrderRequest $request)
     {
         $resultJson = $this->adapter->post('orders', [], $request->asJson());
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new CreateOrderResponse();
         $response->setOriginJson($resultJson);
@@ -94,7 +95,7 @@ class Orders extends AbstractApi
         foreach ($result as $key => $value) {
             try {
                 $response->$key = $value;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
         }
@@ -112,7 +113,7 @@ class Orders extends AbstractApi
     public function createSync(CreateOrderRequest $request)
     {
         $resultJson = $this->adapter->post('orders/sync', [], $request->asJson());
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new CreateSyncOrderResponse();
         $response->setOriginJson($resultJson);
@@ -120,7 +121,7 @@ class Orders extends AbstractApi
         foreach ($result as $key => $value) {
             try {
                 $response->$key = $value;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
         }
@@ -139,8 +140,8 @@ class Orders extends AbstractApi
      */
     public function update($orderId, CreateOrderRequest $request)
     {
-        $resultJson = $this->adapter->put('orders/'.$orderId, [], $request->asJson());
-        $result     = json_decode($resultJson);
+        $resultJson = $this->adapter->put('orders/' . $orderId, [], $request->asJson());
+        $result = json_decode($resultJson);
 
         $response = new CreateOrderResponse();
         $response->setOriginJson($resultJson);
@@ -148,7 +149,7 @@ class Orders extends AbstractApi
         foreach ($result as $key => $value) {
             try {
                 $response->$key = $value;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
         }
@@ -166,7 +167,7 @@ class Orders extends AbstractApi
     public function getStatusByOrderId($orderId)
     {
         $resultJson = $this->adapter->get('orders/' . trim($orderId) . '/status');
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new StatusResponse();
         $response->setOriginJson($resultJson);
@@ -176,7 +177,7 @@ class Orders extends AbstractApi
             foreach ($result->orderInfo as $key => $value) {
                 try {
                     $orderInfo->$key = $value;
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     continue;
                 }
             }
@@ -188,7 +189,7 @@ class Orders extends AbstractApi
             foreach ($result->status as $key => $value) {
                 try {
                     $orderStatus->$key = $value;
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     continue;
                 }
             }
@@ -208,7 +209,7 @@ class Orders extends AbstractApi
     public function getStatusByClientNumber($clientNumber)
     {
         $resultJson = $this->adapter->get('orders/status', [], ['clientNumber' => trim($clientNumber)]);
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new StatusResponse();
         $response->setOriginJson($resultJson);
@@ -218,7 +219,7 @@ class Orders extends AbstractApi
             foreach ($result->orderInfo as $key => $value) {
                 try {
                     $orderInfo->$key = $value;
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     continue;
                 }
             }
@@ -230,7 +231,7 @@ class Orders extends AbstractApi
             foreach ($result->status as $key => $value) {
                 try {
                     $orderStatus->$key = $value;
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     continue;
                 }
             }
@@ -250,7 +251,7 @@ class Orders extends AbstractApi
     public function getStatuses(array $orderIds)
     {
         $resultJson = $this->adapter->post('orders/statuses', [], json_encode(['orderIds' => $orderIds]));
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new StatusesResponse();
         $response->setOriginJson($resultJson);
@@ -264,7 +265,7 @@ class Orders extends AbstractApi
                     foreach ($succeedOrder->orderInfo as $key => $value) {
                         try {
                             $orderInfo->$key = $value;
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             continue;
                         }
                     }
@@ -277,7 +278,7 @@ class Orders extends AbstractApi
                     foreach ($succeedOrder->status as $key => $value) {
                         try {
                             $orderStatus->$key = $value;
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             continue;
                         }
                     }
@@ -295,7 +296,7 @@ class Orders extends AbstractApi
                 foreach ($failedOrder as $key => $value) {
                     try {
                         $failedOrderResult->$key = $value;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
@@ -317,7 +318,7 @@ class Orders extends AbstractApi
     public function getStatusesByDate($date)
     {
         $resultJson = $this->adapter->get('orders/statuses/date/' . urlencode(trim($date)));
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new StatusesByDateResponse();
         $response->setOriginJson($resultJson);
@@ -331,7 +332,7 @@ class Orders extends AbstractApi
                     foreach ($order->orderInfo as $key => $value) {
                         try {
                             $orderInfo->$key = $value;
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             continue;
                         }
                     }
@@ -344,7 +345,7 @@ class Orders extends AbstractApi
                     foreach ($order->status as $key => $value) {
                         try {
                             $orderStatus->$key = $value;
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             continue;
                         }
                     }
@@ -361,9 +362,9 @@ class Orders extends AbstractApi
     /**
      * Получение истории изменения всех статусов с определенной даты
      *
-     * @param string $date   Дата заказов (в формате '2015-07-30T13:14:37+03:00'), с которой необходимо получить историю статусов
-     * @param int    $limit  Лимит выборки
-     * @param int    $offset Смещение выборки
+     * @param string $date Дата заказов (в формате '2015-07-30T13:14:37+03:00'), с которой необходимо получить историю статусов
+     * @param int $limit Лимит выборки
+     * @param int $offset Смещение выборки
      *
      * @return StatusHistoryByDateResponse
      */
@@ -378,7 +379,7 @@ class Orders extends AbstractApi
         }
 
         $resultJson = $this->adapter->get('orders/statuses/history/date/' . urlencode(trim($date)), [], $queryParams);
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new StatusHistoryByDateResponse();
         $response->setOriginJson($resultJson);
@@ -392,7 +393,7 @@ class Orders extends AbstractApi
                     foreach ($statusHistory->orderInfo as $key => $value) {
                         try {
                             $orderInfo->$key = $value;
-                        } catch (\Exception $e) {
+                        } catch (Exception $e) {
                             continue;
                         }
                     }
@@ -406,7 +407,7 @@ class Orders extends AbstractApi
                         foreach ($status as $key => $value) {
                             try {
                                 $orderStatus->$key = $value;
-                            } catch (\Exception $e) {
+                            } catch (Exception $e) {
                                 continue;
                             }
                         }
@@ -424,7 +425,7 @@ class Orders extends AbstractApi
             foreach ($result->meta as $key => $value) {
                 try {
                     $meta->$key = $value;
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     continue;
                 }
             }
@@ -438,10 +439,10 @@ class Orders extends AbstractApi
     /**
      * Получение истории изменения всех статусов с определенной даты
      *
-     * @param int    $orderId ID заказа
-     * @param int    $limit   Лимит выборки
-     * @param int    $offset  Смещение выборки
-     * @param string $filter  Возможна фильтрация по полям created
+     * @param int $orderId ID заказа
+     * @param int $limit Лимит выборки
+     * @param int $offset Смещение выборки
+     * @param string $filter Возможна фильтрация по полям created
      *
      * @return StatusHistoryResponse
      */
@@ -459,7 +460,7 @@ class Orders extends AbstractApi
         }
 
         $resultJson = $this->adapter->get('orders/' . trim($orderId) . '/statusHistory', [], $queryParams);
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new StatusHistoryResponse();
         $response->setOriginJson($resultJson);
@@ -469,7 +470,7 @@ class Orders extends AbstractApi
             foreach ($result->orderInfo as $key => $value) {
                 try {
                     $orderInfo->$key = $value;
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     continue;
                 }
             }
@@ -483,7 +484,7 @@ class Orders extends AbstractApi
                 foreach ($status as $key => $value) {
                     try {
                         $statusResult->$key = $value;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
@@ -498,7 +499,7 @@ class Orders extends AbstractApi
             foreach ($result->meta as $key => $value) {
                 try {
                     $meta->$key = $value;
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     continue;
                 }
             }
@@ -508,17 +509,17 @@ class Orders extends AbstractApi
 
         return $response;
     }
-    
+
     /**
      * Получение актов приема-передачи заказов
-     * 
+     *
      * @param array $orderIds
      * @return WaybillsResponse
      */
     public function getWaybills(array $orderIds)
     {
         $resultJson = $this->adapter->post('orders/waybills', [], json_encode(['orderIds' => $orderIds]));
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new WaybillsResponse();
         $response->setOriginJson($resultJson);
@@ -526,17 +527,17 @@ class Orders extends AbstractApi
         if (!empty($result->waybillItems)) {
             foreach ($result->waybillItems as $waybillItem) {
                 $waybillItemResult = new WaybillItem();
-                
-                    if (!empty($waybillItem->providerKey)){
-                        $waybillItemResult->setProviderKey($waybillItem->providerKey);
-                    }
-                    if (!empty($waybillItem->file)){
-                        $waybillItemResult->setFile($waybillItem->file);
-                    }
-                    if (!empty($waybillItem->orderIds)){
-                        $waybillItemResult->setOrderIds($waybillItem->orderIds);
-                    }
-                    
+
+                if (!empty($waybillItem->providerKey)) {
+                    $waybillItemResult->setProviderKey($waybillItem->providerKey);
+                }
+                if (!empty($waybillItem->file)) {
+                    $waybillItemResult->setFile($waybillItem->file);
+                }
+                if (!empty($waybillItem->orderIds)) {
+                    $waybillItemResult->setOrderIds($waybillItem->orderIds);
+                }
+
                 $response->addWaybillItem($waybillItemResult);
             }
         }
@@ -548,7 +549,7 @@ class Orders extends AbstractApi
                 foreach ($failedOrder as $key => $value) {
                     try {
                         $failedOrderResult->$key = $value;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
@@ -563,14 +564,18 @@ class Orders extends AbstractApi
     /**
      * Повторно отправляет заказ в СД
      *
-     * @param integer $orderId
+     * @param int $orderId
      *
      * @return ResendOrderResponse
      */
     public function resend($orderId)
     {
-        $resultJson = $this->adapter->post('orders/' . trim($orderId) . '/resend', [], json_encode(['orderId' => $orderId]));
-        $result     = json_decode($resultJson);
+        $resultJson = $this->adapter->post(
+            'orders/' . trim($orderId) . '/resend',
+            [],
+            json_encode(['orderId' => $orderId])
+        );
+        $result = json_decode($resultJson);
 
         $response = new ResendOrderResponse();
         $response->setOriginJson($resultJson);
@@ -578,7 +583,7 @@ class Orders extends AbstractApi
         foreach ($result as $key => $value) {
             try {
                 $response->$key = $value;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 continue;
             }
         }

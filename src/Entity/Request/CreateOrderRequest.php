@@ -3,13 +3,13 @@
 namespace Apiship\Entity\Request;
 
 use Apiship\Entity\AbstractRequest;
-use Apiship\Entity\Request\Part\Orders\Order;
 use Apiship\Entity\Request\Part\Orders\Cost;
-use Apiship\Entity\Request\Part\Orders\Sender;
-use Apiship\Entity\Request\Part\Orders\Recipient;
-use Apiship\Entity\Request\Part\Orders\Item;
-use Apiship\Entity\Request\Part\Orders\Place;
 use Apiship\Entity\Request\Part\Orders\ExtraParam;
+use Apiship\Entity\Request\Part\Orders\Item;
+use Apiship\Entity\Request\Part\Orders\Order;
+use Apiship\Entity\Request\Part\Orders\Place;
+use Apiship\Entity\Request\Part\Orders\Recipient;
+use Apiship\Entity\Request\Part\Orders\Sender;
 use Apiship\Exception\RequiredParameterException;
 
 class CreateOrderRequest extends AbstractRequest
@@ -23,7 +23,7 @@ class CreateOrderRequest extends AbstractRequest
      */
     protected $cost;
     /**
-     * @var Sender Инфрмация об отправителе
+     * @var Sender Информация об отправителе
      */
     protected $sender;
     /**
@@ -52,7 +52,8 @@ class CreateOrderRequest extends AbstractRequest
         if (!$this->order) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::order" is required.
-                ');
+                '
+            );
         }
 
         return $this->order;
@@ -78,7 +79,8 @@ class CreateOrderRequest extends AbstractRequest
         if (!$this->cost) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::cost" is required.
-                ');
+                '
+            );
         }
 
         return $this->cost;
@@ -104,7 +106,8 @@ class CreateOrderRequest extends AbstractRequest
         if (!$this->sender) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::sender" is required.
-                ');
+                '
+            );
         }
 
         return $this->sender;
@@ -130,7 +133,8 @@ class CreateOrderRequest extends AbstractRequest
         if (!$this->recipient) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::recipient" is required.
-                ');
+                '
+            );
         }
 
         return $this->recipient;

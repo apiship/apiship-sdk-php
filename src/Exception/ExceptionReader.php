@@ -38,16 +38,16 @@ class ExceptionReader
      * Ошибки в формате Apiship
      *
      * @param string $content
-     * @param int    $code (optional)
+     * @param int $code (optional)
      */
     public function __construct($content, $code = 0)
     {
-        $content           = json_decode($content, true);
-        $this->apishipCode  = !empty($content['code']) ? $content['code'] : null;
-        $this->message     = !empty($content['message']) ? $content['message'] : 'Request not processed.';
+        $content = json_decode($content, true);
+        $this->apishipCode = !empty($content['code']) ? $content['code'] : null;
+        $this->message = !empty($content['message']) ? $content['message'] : 'Request not processed.';
         $this->description = !empty($content['description']) ? $content['description'] : null;
-        $this->moreInfo    = !empty($content['moreInfo']) ? $content['moreInfo'] : null;
-        $this->errors      = !empty($content['errors']) ? $content['errors'] : null;
+        $this->moreInfo = !empty($content['moreInfo']) ? $content['moreInfo'] : null;
+        $this->errors = !empty($content['errors']) ? $content['errors'] : null;
 
         $this->code = $code;
     }

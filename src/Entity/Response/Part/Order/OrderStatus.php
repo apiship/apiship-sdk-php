@@ -40,7 +40,7 @@ class OrderStatus extends AbstractResponsePart
     protected $createdProvider;
     /**
      * @var string Коды ошибок: 100 - ошибка в ApiShip; 200 - ошибка в СД; 300 - ошибка клиента (некорректные данные).
-     */ 
+     */
     protected $errorCode;
 
     /**
@@ -198,7 +198,7 @@ class OrderStatus extends AbstractResponsePart
     public function getErrorCode()
     {
         return $this->errorCode;
-    }    
+    }
 
     public function setErrorCode($errorCode)
     {

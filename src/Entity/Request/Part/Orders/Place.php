@@ -83,7 +83,8 @@ class Place extends AbstractRequestPart
         if (!$this->weight) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::weight" is required.
-                ');
+                '
+            );
         }
 
         return $this->weight;
@@ -137,7 +138,7 @@ class Place extends AbstractRequestPart
         $this->width = $width;
         return $this;
     }
-    
+
     /**
      * @return string
      */

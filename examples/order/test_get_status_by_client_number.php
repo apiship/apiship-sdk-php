@@ -1,5 +1,7 @@
 <?php
-require (__DIR__ . '/../../vendor/autoload.php');
+
+require(__DIR__ . '/../../vendor/autoload.php');
+
 use Apiship\Adapter\GuzzleAdapter;
 use Apiship\Apiship;
 use Apiship\Exception\ResponseException;
@@ -11,7 +13,6 @@ try {
     $statusResult = $apiship->orders()->getStatusByClientNumber('testNumber1');
 
     print_r($statusResult);
-
 } catch (ResponseException $e) {
     echo $e->getErrorApishipCode() . PHP_EOL;
     echo $e->getErrorMessage() . PHP_EOL;

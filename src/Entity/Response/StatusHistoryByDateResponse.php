@@ -3,8 +3,8 @@
 namespace Apiship\Entity\Response;
 
 use Apiship\Entity\AbstractResponse;
-use Apiship\Entity\Response\Part\Order\StatusHistory;
 use Apiship\Entity\Response\Part\Meta;
+use Apiship\Entity\Response\Part\Order\StatusHistory;
 
 class StatusHistoryByDateResponse extends AbstractResponse
 {

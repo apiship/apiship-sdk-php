@@ -3,10 +3,10 @@
 namespace Apiship;
 
 use Apiship\Adapter\AdapterInterface;
+use Apiship\Api\Autocomplete;
+use Apiship\Api\Calculator;
 use Apiship\Api\Lists;
 use Apiship\Api\Orders;
-use Apiship\Api\Calculator;
-use Apiship\Api\Autocomplete;
 
 class Apiship
 {

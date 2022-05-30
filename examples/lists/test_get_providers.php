@@ -1,8 +1,11 @@
 <?php
+
 require('../../vendor/autoload.php');
+
 use Apiship\Adapter\GuzzleAdapter;
 use Apiship\Apiship;
 use Apiship\Exception\ResponseException;
+
 try {
     $adapter = new GuzzleAdapter('test', 'test', true);
     $apiship = new Apiship($adapter);
@@ -10,7 +13,6 @@ try {
     $providersResult = $apiship->lists()->getProviders();
 
     print_r($providersResult);
-
 } catch (ResponseException $e) {
     echo $e->getErrorApishipCode() . PHP_EOL;
     echo $e->getErrorMessage() . PHP_EOL;

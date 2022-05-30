@@ -18,7 +18,7 @@ class PointType extends AbstractResponsePart
     protected $id;
 
     /** @var string */
-    protected $description='';
+    protected $description = '';
 
     /**
      * @return int

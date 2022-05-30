@@ -6,11 +6,14 @@ use Apiship\Exception\ExceptionInterface;
 use Apiship\Exception\ResponseException;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use RuntimeException;
+use StdClass;
 
 class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
 {
@@ -30,11 +33,11 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
     protected $exception;
 
     /**
-     * @param string             $accessToken
-     * @param bool               $test      (optional)
-     * @param ClientInterface    $client    (optional)
-     * @param ExceptionInterface $exception (optional)
-     * @param string             $platform  (optional)
+     * @param string $accessToken
+     * @param bool $test (optional)
+     * @param ClientInterface|null $client (optional)
+     * @param ExceptionInterface|null $exception (optional)
+     * @param null $platform (optional)
      */
     public function __construct(
         $accessToken,
@@ -47,9 +50,9 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
 
         $this->test = (bool)$test;
 
-        $that            = $this;
+        $that = $this;
         $this->exception = isset($exception) ? $exception : new ResponseException();
-        
+
         $options = [];
 
         if (isset($_SERVER['X-Tracing-Id'])) {
@@ -59,80 +62,42 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
         if ($platform) {
             $options['headers'] = ['platform' => $platform];
         }
-        
+
         $handler = HandlerStack::create();
-        $handler->push(Middleware::mapRequest(function (RequestInterface $request) use ($that) {
-            return $request->withHeader('Authorization', $that->getAccessToken());
-        }));
-        
-        $handler->push(Middleware::mapResponse(function (ResponseInterface $response) use ($that) {
-            if ($this->accessToken && $this->tokenRequested) {
-                $this->tokenRequested = false;
-            }
-            
-            $that->handleResponse($response);
-            return $response;
-        }));
-        
+        $handler->push(
+            Middleware::mapRequest(function (RequestInterface $request) use ($that) {
+                return $request->withHeader('Authorization', $that->getAccessToken());
+            })
+        );
+
+        $handler->push(
+            Middleware::mapResponse(function (ResponseInterface $response) use ($that) {
+                if ($this->accessToken && $this->tokenRequested) {
+                    $this->tokenRequested = false;
+                }
+
+                $that->handleResponse($response);
+                return $response;
+            })
+        );
+
         $options['handler'] = $handler;
-        
+
         $this->client = $client ?: new Client($options);
     }
 
     /**
-     * {@inheritdoc}
-     * @throws \GuzzleHttp\Exception\RequestException
+     * @return string
      */
-    public function get($url, array $headers = [], array $query = [])
+    public function getAccessToken()
     {
-        $options['headers'] = $headers;
-        $options['query']   = $query;
-        
-        $this->response = $this->client->request("GET", $this->getUrl() . $url, $options);
-
-        return (string) $this->response->getBody();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function delete($url, array $headers = [])
-    {
-        $options['headers'] = $headers;
-        
-        $this->response = $this->client->request("DELETE", $this->getUrl() . $url, $options);
-
-        return (string) $this->response->getBody();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function put($url, array $headers = [], $content = '')
-    {
-        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
-        $options['body']    = $content;
-        $this->response     = $this->client->request("PUT", $this->getUrl() . $url, $options);
-
-        return (string) $this->response->getBody();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function post($url, array $headers = [], $content = '')
-    {
-        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
-        $options['body']    = $content;
-        $this->response     = $this->client->request("POST", $this->getUrl() . $url, $options);
-
-        return (string) $this->response->getBody();
+        return $this->accessToken;
     }
 
     /**
      * @param ResponseInterface $response
      *
-     * @throws \RuntimeException|ExceptionInterface
+     * @throws RuntimeException|ExceptionInterface
      */
     protected function handleResponse(ResponseInterface $response)
     {
@@ -149,31 +114,63 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
             throw $this->exception->create($body, $code);
         }
 
-        /** @var \StdClass $content */
+        /** @var StdClass $content */
         $content = json_decode($body);
 
-        throw new \RuntimeException(
+        throw new RuntimeException(
             sprintf('[%d]: %s (%s. %s)', $content->code, $content->message, $content->description, $content->moreInfo),
             $code
         );
     }
 
     /**
-     * Performs login request and returns auth result data
-     *
-     * @return mixed
+     * {@inheritdoc}
+     * @throws RequestException
      */
-    protected function login()
+    public function get($url, array $headers = [], array $query = [])
     {
-        return $this->accessToken;
+        $options['headers'] = $headers;
+        $options['query'] = $query;
+
+        $this->response = $this->client->request("GET", $this->getUrl() . $url, $options);
+
+        return (string)$this->response->getBody();
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
-    public function getAccessToken()
+    public function delete($url, array $headers = [])
     {
-        return $this->accessToken;
+        $options['headers'] = $headers;
+
+        $this->response = $this->client->request("DELETE", $this->getUrl() . $url, $options);
+
+        return (string)$this->response->getBody();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function put($url, array $headers = [], $content = '')
+    {
+        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
+        $options['body'] = $content;
+        $this->response = $this->client->request("PUT", $this->getUrl() . $url, $options);
+
+        return (string)$this->response->getBody();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function post($url, array $headers = [], $content = '')
+    {
+        $options['headers'] = array_merge($headers, ['content-type' => 'application/json']);
+        $options['body'] = $content;
+        $this->response = $this->client->request("POST", $this->getUrl() . $url, $options);
+
+        return (string)$this->response->getBody();
     }
 
     /**
@@ -186,7 +183,17 @@ class GuzzleTokenAdapter extends AbstractAdapter implements AdapterInterface
         }
 
         return [
-            'x-tracing-id' => (string)$this->response->getHeader('x-tracing-id'),
+            'x-tracing-id' => $this->response->getHeaderLine('x-tracing-id'),
         ];
+    }
+
+    /**
+     * Performs login request and returns auth result data
+     *
+     * @return mixed
+     */
+    protected function login()
+    {
+        return $this->accessToken;
     }
 }

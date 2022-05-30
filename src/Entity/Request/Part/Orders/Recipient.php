@@ -28,7 +28,7 @@ class Recipient extends AbstractRequestPart
      */
     protected $city;
     /**
-     * @var string Фиас для города/села/поселка
+     * @var string ФИАС для города/села/поселка
      */
     protected $cityGuid;
     /**
@@ -64,7 +64,7 @@ class Recipient extends AbstractRequestPart
      */
     protected $phone;
     /**
-     * @var string Имейл контактного лица
+     * @var string Email контактного лица
      */
     protected $email;
     /**
@@ -84,7 +84,7 @@ class Recipient extends AbstractRequestPart
     {
         return $this->companyInn;
     }
-    
+
     /**
      * @param string $companyInn
      *
@@ -95,7 +95,7 @@ class Recipient extends AbstractRequestPart
         $this->companyInn = $companyInn;
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -124,7 +124,8 @@ class Recipient extends AbstractRequestPart
         if (!$this->countryCode) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::countryCode" is required.
-                ');
+                '
+            );
         }
 
         return $this->countryCode;
@@ -150,7 +151,8 @@ class Recipient extends AbstractRequestPart
         if (!$this->region && !$this->cityGuid) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::region" is required when "' . get_class($this) . '::cityGuid" is empty.
-                ');
+                '
+            );
         }
 
         return $this->region;
@@ -195,7 +197,8 @@ class Recipient extends AbstractRequestPart
         if (!$this->city && !$this->cityGuid) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::city" is required when "' . get_class($this) . '::cityGuid" is empty.
-                ');
+                '
+            );
         }
 
         return $this->city;
@@ -240,7 +243,8 @@ class Recipient extends AbstractRequestPart
         if (!$this->street) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::street" is required.
-                ');
+                '
+            );
         }
 
         return $this->street;
@@ -266,7 +270,8 @@ class Recipient extends AbstractRequestPart
         if (!$this->house) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::house" is required.
-                ');
+                '
+            );
         }
 
         return $this->house;
@@ -349,7 +354,8 @@ class Recipient extends AbstractRequestPart
         if (!$this->contactName) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::contactName" is required.
-                ');
+                '
+            );
         }
 
         return $this->contactName;
@@ -375,7 +381,8 @@ class Recipient extends AbstractRequestPart
         if (!$this->phone) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::phone" is required.
-                ');
+                '
+            );
         }
 
         return $this->phone;
@@ -438,7 +445,7 @@ class Recipient extends AbstractRequestPart
     {
         return $this->addressString;
     }
-    
+
     /**
      * @param string $addressString
      *

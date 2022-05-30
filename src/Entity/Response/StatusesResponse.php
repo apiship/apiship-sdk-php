@@ -3,8 +3,8 @@
 namespace Apiship\Entity\Response;
 
 use Apiship\Entity\AbstractResponse;
-use Apiship\Entity\Response\Part\Order\SucceedOrder;
 use Apiship\Entity\Response\Part\Order\FailedOrder;
+use Apiship\Entity\Response\Part\Order\SucceedOrder;
 
 class StatusesResponse extends AbstractResponse
 {

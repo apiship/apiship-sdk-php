@@ -23,12 +23,12 @@ abstract class FromToAbstract extends AbstractRequestPart
      * @var string Код страны в соответствии с ISO 3166-1 alpha-2
      */
     public $countryCode;
-    
+
     /**
      * @var string Тип города (город, село и т.д.)
      */
     public $cityType;
-    
+
     /**
      * @var string Почтовый индекс
      */
@@ -49,7 +49,7 @@ abstract class FromToAbstract extends AbstractRequestPart
      * @var string ФИАС улицы
      */
     public $streetGuid;
-    
+
     /**
      * @return string
      * @throws RequiredParameterException
@@ -59,7 +59,8 @@ abstract class FromToAbstract extends AbstractRequestPart
         if (!$this->cityGuid && !$this->city) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::cityGuid" is required when "' . get_class($this) . '::city" is empty.
-                ');
+                '
+            );
         }
 
         return $this->cityGuid;
@@ -104,7 +105,8 @@ abstract class FromToAbstract extends AbstractRequestPart
         if (!$this->cityGuid && !$this->city) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::city" is required when "' . get_class($this) . '::cityGuid" is empty.
-                ');
+                '
+            );
         }
 
         return $this->city;
@@ -139,115 +141,116 @@ abstract class FromToAbstract extends AbstractRequestPart
         $this->countryCode = $countryCode;
         return $this;
     }
+
     /**
      * @return string
      */
-    function getCityType()
+    public function getCityType()
     {
         return $this->cityType;
     }
-    
-    /**
-     * @return string
-     */
-    function getIndex()
-    {
-        return $this->index;
-    }
 
     /**
-     * @return string
-     */
-    function getAddressString()
-    {
-        return $this->addressString;
-    }
-
-    /**
-     * @return int
-     */
-    function getLat()
-    {
-        return $this->lat;
-    }
-
-    /**
-     * @return int
-     */
-    function getLng()
-    {
-        return $this->lng;
-    }
-
-    /**
-     * @return string
-     */
-    function getStreetGuid()
-    {
-        return $this->streetGuid;
-    }
-
-     /**
      * @param string $cityType
      *
      * @return FromToAbstract
      */
-    function setCityType($cityType)
+    public function setCityType($cityType)
     {
         $this->cityType = $cityType;
         return $this;
     }
 
-     /**
+    /**
+     * @return string
+     */
+    public function getIndex()
+    {
+        return $this->index;
+    }
+
+    /**
      * @param string $index
      *
      * @return FromToAbstract
      */
-    function setIndex($index)
+    public function setIndex($index)
     {
         $this->index = $index;
         return $this;
     }
 
-     /**
+    /**
+     * @return string
+     */
+    public function getAddressString()
+    {
+        return $this->addressString;
+    }
+
+    /**
      * @param string $addressString
      *
      * @return FromToAbstract
      */
-    function setAddressString($addressString)
+    public function setAddressString($addressString)
     {
         $this->addressString = $addressString;
         return $this;
     }
 
-     /**
+    /**
+     * @return int
+     */
+    public function getLat()
+    {
+        return $this->lat;
+    }
+
+    /**
      * @param int $lat
      *
      * @return FromToAbstract
      */
-    function setLat($lat)
+    public function setLat($lat)
     {
         $this->lat = $lat;
         return $this;
     }
 
-     /**
+    /**
+     * @return int
+     */
+    public function getLng()
+    {
+        return $this->lng;
+    }
+
+    /**
      * @param int $lng
      *
      * @return FromToAbstract
      */
-    function setLng($lng)
+    public function setLng($lng)
     {
         $this->lng = $lng;
         return $this;
     }
 
-     /**
+    /**
+     * @return string
+     */
+    public function getStreetGuid()
+    {
+        return $this->streetGuid;
+    }
+
+    /**
      * @param string $streetGuid
      *
      * @return FromToAbstract
      */
-    function setStreetGuid($streetGuid)
+    public function setStreetGuid($streetGuid)
     {
         $this->streetGuid = $streetGuid;
         return $this;

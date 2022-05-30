@@ -3,8 +3,8 @@
 namespace Apiship\Entity\Response;
 
 use Apiship\Entity\AbstractResponse;
-use Apiship\Entity\Response\Part\Order\WaybillItem;
 use Apiship\Entity\Response\Part\Order\FailedOrder;
+use Apiship\Entity\Response\Part\Order\WaybillItem;
 
 class WaybillsResponse extends AbstractResponse
 {
@@ -62,7 +62,7 @@ class WaybillsResponse extends AbstractResponse
     /**
      * @param FailedOrder[] $failedOrders
      *
-     * @return StatusesResponse
+     * @return WaybillsResponse
      */
     public function setFailedOrders(array $failedOrders)
     {
@@ -76,7 +76,7 @@ class WaybillsResponse extends AbstractResponse
     /**
      * @param FailedOrder $failedOrder
      *
-     * @return StatusesResponse
+     * @return WaybillsResponse
      */
     public function addFailedOrders(FailedOrder $failedOrder)
     {

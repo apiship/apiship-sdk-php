@@ -1,14 +1,22 @@
 <?php
+
 require('../../vendor/autoload.php');
+
 use Apiship\Adapter\GuzzleAdapter;
 use Apiship\Apiship;
+use Apiship\Entity\Request\CreateOrderRequest;
+use Apiship\Entity\Request\Part\Orders\Cost;
+use Apiship\Entity\Request\Part\Orders\Item;
+use Apiship\Entity\Request\Part\Orders\Order;
+use Apiship\Entity\Request\Part\Orders\Recipient;
+use Apiship\Entity\Request\Part\Orders\Sender;
 use Apiship\Exception\ResponseException;
 
 try {
     $adapter = new GuzzleAdapter('test', 'test', true);
     $apiship = new Apiship($adapter);
 
-    $order = (new \Apiship\Entity\Request\Part\Orders\Order())
+    $order = (new Order())
         ->setProviderKey('box2box')
         ->setClientNumber('testNumber1')
         ->setDescription('Очень важный заказ')
@@ -26,7 +34,7 @@ try {
         ->setDeliveryTimeEnd("18:10")
         ->setPaymentMethod(1);
 
-    $sender = (new \Apiship\Entity\Request\Part\Orders\Sender())
+    $sender = (new Sender())
         ->setPostIndex('162604')
         ->setCountryCode('RU')
         ->setCityGuid('49333ad7-781c-4248-96a6-c006177294ec')
@@ -40,7 +48,7 @@ try {
         ->setEmail('info@domain.com')
         ->setComment('Comment');
 
-    $recipient = (new \Apiship\Entity\Request\Part\Orders\Recipient())
+    $recipient = (new Recipient())
         ->setPostIndex('162604')
         ->setCountryCode('RU')
         ->setCityGuid('ecf48498-25d0-43db-8b68-25112143f95d')
@@ -54,12 +62,12 @@ try {
         ->setEmail('info@domain.com')
         ->setComment('Comment');
 
-    $cost = (new \Apiship\Entity\Request\Part\Orders\Cost())
+    $cost = (new Cost())
         ->setAssessedCost(40)
         ->setDeliveryCost(255.05)
         ->setCodCost(0);
 
-    $items[] = (new \Apiship\Entity\Request\Part\Orders\Item())
+    $items[] = (new Item())
         ->setArticul('001189')
         ->setDescription('Товар 1')
         ->setQuantity(2)
@@ -71,7 +79,7 @@ try {
         ->setWidth(20)
         ->setWeight(750);
 
-    $orderRequest = (new \Apiship\Entity\Request\CreateOrderRequest())
+    $orderRequest = (new CreateOrderRequest())
         ->setOrder($order)
         ->setCost($cost)
         ->setRecipient($recipient)
@@ -81,7 +89,6 @@ try {
     $createOrderResult = $apiship->orders()->create($orderRequest);
 
     print_r($createOrderResult);
-
 } catch (ResponseException $e) {
     echo $e->getErrorApishipCode() . PHP_EOL;
     echo $e->getErrorMessage() . PHP_EOL;

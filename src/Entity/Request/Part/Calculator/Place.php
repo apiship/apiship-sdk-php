@@ -3,7 +3,6 @@
 namespace Apiship\Entity\Request\Part\Calculator;
 
 use Apiship\Entity\AbstractRequestPart;
-use Apiship\Exception\RequiredParameterException;
 
 class Place extends AbstractRequestPart
 {
@@ -12,15 +11,15 @@ class Place extends AbstractRequestPart
      */
     public $weight;
     /**
-     * @var integer Ширина заказа (в сантиметрах)
+     * @var int Ширина заказа (в сантиметрах)
      */
     public $width;
     /**
-     * @var integer Высота заказа (в сантиметрах)
+     * @var int Высота заказа (в сантиметрах)
      */
     public $height;
     /**
-     * @var integer Длина заказа (в сантиметрах)
+     * @var int Длина заказа (в сантиметрах)
      */
     public $length;
 

@@ -2,14 +2,15 @@
 
 namespace Apiship\Api;
 
-use Apiship\Entity\Response\GetRegionResponse;
 use Apiship\Entity\Response\GetAreaResponse;
 use Apiship\Entity\Response\GetCityResponse;
+use Apiship\Entity\Response\GetRegionResponse;
 use Apiship\Entity\Response\GetStreetResponse;
-use Apiship\Entity\Response\Part\Autocomplete\Region;
 use Apiship\Entity\Response\Part\Autocomplete\Area;
 use Apiship\Entity\Response\Part\Autocomplete\City;
+use Apiship\Entity\Response\Part\Autocomplete\Region;
 use Apiship\Entity\Response\Part\Autocomplete\Street;
+use Exception;
 
 class Autocomplete extends AbstractApi
 {
@@ -17,7 +18,7 @@ class Autocomplete extends AbstractApi
      * Автодополнение по наименованию региона
      *
      * @param string $query Наименование региона
-     * @param int    $limit
+     * @param int $limit
      *
      * @return GetRegionResponse
      */
@@ -28,7 +29,7 @@ class Autocomplete extends AbstractApi
         }
 
         $resultJson = $this->adapter->get('autocomplete/region/' . urlencode(trim($query)), [], ['limit' => $limit]);
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new GetRegionResponse();
         $response->setOriginJson($resultJson);
@@ -40,7 +41,7 @@ class Autocomplete extends AbstractApi
                 foreach ($region as $key => $value) {
                     try {
                         $regionResult->$key = $value;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
@@ -56,7 +57,7 @@ class Autocomplete extends AbstractApi
      * Автодополнение района
      *
      * @param string $query Наименование района
-     * @param int    $limit
+     * @param int $limit
      *
      * @return GetAreaResponse
      */
@@ -67,7 +68,7 @@ class Autocomplete extends AbstractApi
         }
 
         $resultJson = $this->adapter->get('autocomplete/area/' . urlencode(trim($query)), [], ['limit' => $limit]);
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new GetAreaResponse();
         $response->setOriginJson($resultJson);
@@ -79,7 +80,7 @@ class Autocomplete extends AbstractApi
                 foreach ($region as $key => $value) {
                     try {
                         $regionResult->$key = $value;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
@@ -95,7 +96,7 @@ class Autocomplete extends AbstractApi
      * Автодополнение по городу
      *
      * @param string $query Наименование населённого пункта
-     * @param int    $limit
+     * @param int $limit
      *
      * @return GetCityResponse
      */
@@ -106,7 +107,7 @@ class Autocomplete extends AbstractApi
         }
 
         $resultJson = $this->adapter->get('autocomplete/city/' . urlencode(trim($query)), [], ['limit' => $limit]);
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new GetCityResponse();
         $response->setOriginJson($resultJson);
@@ -118,7 +119,7 @@ class Autocomplete extends AbstractApi
                 foreach ($region as $key => $value) {
                     try {
                         $regionResult->$key = $value;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }
@@ -135,8 +136,8 @@ class Autocomplete extends AbstractApi
      * Возвращает список подходящих улиц.
      *
      * @param string $query Наименование населённого пункта
-     * @param string $guid  GUID города в системе ФИАС
-     * @param int    $limit
+     * @param string $guid GUID города в системе ФИАС
+     * @param int $limit
      *
      * @return GetStreetResponse
      */
@@ -146,9 +147,12 @@ class Autocomplete extends AbstractApi
             $limit = 20;
         }
 
-        $resultJson = $this->adapter->get('autocomplete/street/' . urlencode(trim($query)), [],
-            ['guid' => $guid, 'limit' => $limit]);
-        $result     = json_decode($resultJson);
+        $resultJson = $this->adapter->get(
+            'autocomplete/street/' . urlencode(trim($query)),
+            [],
+            ['guid' => $guid, 'limit' => $limit]
+        );
+        $result = json_decode($resultJson);
 
         $response = new GetStreetResponse();
         $response->setOriginJson($resultJson);
@@ -160,7 +164,7 @@ class Autocomplete extends AbstractApi
                 foreach ($region as $key => $value) {
                     try {
                         $regionResult->$key = $value;
-                    } catch (\Exception $e) {
+                    } catch (Exception $e) {
                         continue;
                     }
                 }

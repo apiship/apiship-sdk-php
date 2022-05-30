@@ -7,7 +7,7 @@ use Apiship\Entity\AbstractResponsePart;
 class Point extends AbstractResponsePart
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
     /**
@@ -56,7 +56,7 @@ class Point extends AbstractResponsePart
     protected $city;
 
     /**
-     * @var string Фиас для города/села/поселка
+     * @var string ФИАС для города/села/поселка
      */
     protected $cityGuid;
     /**
@@ -132,7 +132,7 @@ class Point extends AbstractResponsePart
     protected $description;
 
     /**
-     * @var array Лимиты весогабаритов ПВЗ
+     * @var array Лимиты ВГX ПВЗ
      */
     protected $limits;
 
@@ -595,7 +595,8 @@ class Point extends AbstractResponsePart
     /**
      * @return int|null
      */
-    public function getCod() {
+    public function getCod()
+    {
         return $this->cod;
     }
 
@@ -603,7 +604,8 @@ class Point extends AbstractResponsePart
      * @param int $cod
      * @return $this
      */
-    public function setCod($cod) {
+    public function setCod($cod)
+    {
         $this->cod = $cod;
 
         return $this;

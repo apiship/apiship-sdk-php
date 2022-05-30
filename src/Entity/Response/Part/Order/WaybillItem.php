@@ -10,12 +10,12 @@ class WaybillItem extends AbstractResponsePart
      * @var string Имя провайдера
      */
     protected $providerKey;
-    
+
     /**
      * @var string Ссылка на файл
      */
     protected $file;
-    
+
     /**
      * @var array ID заказов в данном файле
      */
@@ -24,52 +24,52 @@ class WaybillItem extends AbstractResponsePart
     /**
      * @return string
      */
-    function getProviderKey()
+    public function getProviderKey()
     {
         return $this->providerKey;
-    }
-
-    /**
-     * @return string
-     */
-    function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * @return array
-     */
-    function getOrderIds()
-    {
-        return $this->orderIds;
     }
 
     /**
      * @param $providerKey
      * @return $this
      */
-    function setProviderKey($providerKey)
+    public function setProviderKey($providerKey)
     {
         $this->providerKey = $providerKey;
         return $this;
     }
 
     /**
+     * @return string
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
      * @param $file
      * @return $this
      */
-    function setFile($file)
+    public function setFile($file)
     {
         $this->file = $file;
         return $this;
     }
-    
+
+    /**
+     * @return array
+     */
+    public function getOrderIds()
+    {
+        return $this->orderIds;
+    }
+
     /**
      * @param $orderIds
      * @return $this
      */
-    function setOrderIds($orderIds)
+    public function setOrderIds($orderIds)
     {
         $this->orderIds = $orderIds;
         return $this;

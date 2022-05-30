@@ -38,7 +38,7 @@ class Tariff extends AbstractResponsePart
     protected $pointIds = [];
 
     /**
-     * @var string|null Кастомное описание тарифа
+     * @var string|null Измененное описание тарифа
      */
     protected $tariffDescription = null;
 

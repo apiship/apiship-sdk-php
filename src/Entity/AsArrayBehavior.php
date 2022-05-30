@@ -14,16 +14,18 @@ trait AsArrayBehavior
     {
         $reflectionClass = new ReflectionClass($this);
         $array = [];
-        foreach ($reflectionClass->getProperties(
-            ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED
-        ) as $property) {
+        foreach (
+            $reflectionClass->getProperties(
+                ReflectionProperty::IS_PUBLIC | ReflectionProperty::IS_PROTECTED
+            ) as $property
+        ) {
             $property->setAccessible(true);
             if ($property->isStatic()) {
                 continue;
             }
             // аналог для поля fieldName: $array["fieldName"] = $this->getFieldName();
             $value = $this->{$property->getName()};
-            if(!is_null($value)){
+            if (!is_null($value)) {
                 $array[$property->getName()] = $value;
             }
             $property->setAccessible(false);

@@ -3,9 +3,9 @@
 namespace Apiship\Entity\Response;
 
 use Apiship\Entity\AbstractResponse;
+use Apiship\Entity\Response\Part\Meta;
 use Apiship\Entity\Response\Part\Order\OrderInfo;
 use Apiship\Entity\Response\Part\Order\OrderStatus;
-use Apiship\Entity\Response\Part\Meta;
 
 class StatusHistoryResponse extends AbstractResponse
 {

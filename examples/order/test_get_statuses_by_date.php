@@ -1,5 +1,7 @@
 <?php
+
 require('../../vendor/autoload.php');
+
 use Apiship\Adapter\GuzzleAdapter;
 use Apiship\Apiship;
 use Apiship\Exception\ResponseException;
@@ -11,7 +13,6 @@ try {
     $statusResult = $apiship->orders()->getStatusesByDate('2015-11-03T13:14:37+03:00');
 
     print_r($statusResult);
-
 } catch (ResponseException $e) {
     echo $e->getErrorApishipCode() . PHP_EOL;
     echo $e->getErrorMessage() . PHP_EOL;

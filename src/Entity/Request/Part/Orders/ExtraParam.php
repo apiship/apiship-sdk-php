@@ -25,7 +25,8 @@ class ExtraParam extends AbstractRequestPart
         if (!$this->key) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::key" is required.
-                ');
+                '
+            );
         }
 
         return $this->key;
@@ -51,7 +52,8 @@ class ExtraParam extends AbstractRequestPart
         if (!$this->value) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::value" is required.
-                ');
+                '
+            );
         }
 
         return $this->value;

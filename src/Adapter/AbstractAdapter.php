@@ -2,17 +2,19 @@
 
 namespace Apiship\Adapter;
 
+use StdClass;
+
 abstract class AbstractAdapter
 {
     /**
      * Url Api
      */
-    const API_URL = 'https://api.apiship.ru/v1/';
+    public const API_URL = 'https://api.apiship.ru/v1/';
 
     /**
      * Test Url Api
      */
-    const TEST_API_URL = 'http://api.dev.apiship.ru/v1/';
+    public const TEST_API_URL = 'http://api.dev.apiship.ru/v1/';
 
     /**
      * @var string
@@ -40,7 +42,7 @@ abstract class AbstractAdapter
      * @var bool
      */
     protected $test;
-    
+
     /**
      * @var string Custom url to be used for request
      */
@@ -53,9 +55,9 @@ abstract class AbstractAdapter
     {
         if (!$this->accessToken && !$this->tokenRequested) {
             $this->tokenRequested = true;
-            
+
             if (!$this->accessToken = $this->getToken()) {
-                /** @var \StdClass $loginData */
+                /** @var StdClass $loginData */
                 $loginData = $this->login();
                 $this->accessToken = $loginData->accessToken;
                 $this->saveToken();
@@ -120,12 +122,30 @@ abstract class AbstractAdapter
         if ($this->getCustomUrl()) {
             return $this->getCustomUrl();
         }
-        
+
         return $this->isTest() ? self::TEST_API_URL : self::API_URL;
     }
 
     /**
-     * @return boolean
+     * @return string
+     */
+    public function getCustomUrl()
+    {
+        return $this->customUrl;
+    }
+
+    /**
+     * Sets the custom url to be used for request
+     *
+     * @param string $customUrl
+     */
+    public function setCustomUrl($customUrl)
+    {
+        $this->customUrl = $customUrl;
+    }
+
+    /**
+     * @return bool
      */
     public function isTest()
     {
@@ -139,23 +159,5 @@ abstract class AbstractAdapter
     protected function setToken($token)
     {
         $this->accessToken = $token;
-    }
-
-    /**
-     * Sets the custom url to be used for request
-     * 
-     * @param string $customUrl
-     */
-    public function setCustomUrl($customUrl)
-    {
-        $this->customUrl = $customUrl;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getCustomUrl()
-    {
-        return $this->customUrl;
     }
 }

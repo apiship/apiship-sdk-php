@@ -1,6 +1,6 @@
 {
   "name": "apiship/apiship-sdk-php",
-  "description": "Inegration (SDK) with Apiship API",
+  "description": "Integration (SDK) with Apiship API",
   "keywords": [
     "Apiship",
     "sdk",
@@ -21,7 +21,11 @@
     }
   },
   "require": {
-    "php": ">=5.5.0",
-    "guzzlehttp/guzzle": "~6.0"
+    "php": ">=7.2",
+    "guzzlehttp/guzzle": "~7.0",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-latest"
   }
 }

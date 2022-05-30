@@ -24,15 +24,15 @@ class Order extends AbstractRequestPart
      */
     protected $description;
     /**
-     * @var float Высота заказа в сантиметрaх
+     * @var float Высота заказа в сантиметрах
      */
     protected $height;
     /**
-     * @var float Длина заказа в сантиметрaх
+     * @var float Длина заказа в сантиметрах
      */
     protected $length;
     /**
-     * @var float Ширина заказа в сантиметрaх
+     * @var float Ширина заказа в сантиметрах
      */
     protected $width;
     /**
@@ -105,7 +105,8 @@ class Order extends AbstractRequestPart
         if (!$this->clientNumber) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::clientNumber" is required.
-                ');
+                '
+            );
         }
 
         return $this->clientNumber;
@@ -246,7 +247,8 @@ class Order extends AbstractRequestPart
         if (!$this->providerKey) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::providerKey" is required.
-                ');
+                '
+            );
         }
 
         return $this->providerKey;
@@ -272,7 +274,8 @@ class Order extends AbstractRequestPart
         if (!$this->pickupType) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::pickupType" is required.
-                ');
+                '
+            );
         }
 
         return $this->pickupType;
@@ -298,7 +301,8 @@ class Order extends AbstractRequestPart
         if (!$this->deliveryType) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::deliveryType" is required.
-                ');
+                '
+            );
         }
 
         return $this->deliveryType;
@@ -343,7 +347,8 @@ class Order extends AbstractRequestPart
         if (!$this->tariffId) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::tariffId" is required.
-                ');
+                '
+            );
         }
 
         return $this->tariffId;

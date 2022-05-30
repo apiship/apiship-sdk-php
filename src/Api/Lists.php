@@ -17,9 +17,9 @@ class Lists extends AbstractApi
     /**
      * Получение списка доступных СД
      *
-     * @param int    $limit
+     * @param int $limit
      *
-     * @param int    $offset
+     * @param int $offset
      * @param string $filter Возможна фильтрация по полям key, name
      * @return ListsProvidersResponse
      */
@@ -33,12 +33,16 @@ class Lists extends AbstractApi
             $offset = 0;
         }
 
-        $resultJson = $this->adapter->get('lists/providers/', [],
-            ['limit'  => $limit,
-             'offset' => $offset,
-             'filter' => $filter
-            ]);
-        $result     = json_decode($resultJson);
+        $resultJson = $this->adapter->get(
+            'lists/providers/',
+            [],
+            [
+                'limit'  => $limit,
+                'offset' => $offset,
+                'filter' => $filter
+            ]
+        );
+        $result = json_decode($resultJson);
 
         $response = new ListsProvidersResponse();
         $response->setOriginJson($resultJson);
@@ -65,11 +69,11 @@ class Lists extends AbstractApi
     /**
      * Получение списка ПВЗ
      *
-     * @param int    $limit
+     * @param int $limit
      *
-     * @param int    $offset
+     * @param int $offset
      * @param string $filter Возможна фильтрация по полям key, name
-     * @param boolean $stateCheckOff Если stateCheckOff=1 отдаются также ПВЗ у которых указан не точный адрес расположения
+     * @param bool $stateCheckOff Если stateCheckOff=1 отдаются также ПВЗ у которых указан не точный адрес расположения
      * @return ListsPointsResponse
      */
     public function getPoints($limit = 20, $offset = 0, $filter = '', $stateCheckOff = false)
@@ -82,13 +86,16 @@ class Lists extends AbstractApi
             $offset = 0;
         }
 
-        $resultJson = $this->adapter->get('lists/points/', [],
+        $resultJson = $this->adapter->get(
+            'lists/points/',
+            [],
             [
                 'limit'         => $limit,
                 'offset'        => $offset,
                 'filter'        => $filter,
                 'stateCheckOff' => $stateCheckOff,
-            ]);
+            ]
+        );
 
         $result = json_decode($resultJson);
 
@@ -123,9 +130,9 @@ class Lists extends AbstractApi
     {
         $resultJson = $this->adapter->get('lists/pointTypes');
         $result = json_decode($resultJson, true);
-        $response = (new ListsPointTypesResponse)->setOriginJson($resultJson);
+        $response = (new ListsPointTypesResponse())->setOriginJson($resultJson);
 
-        if(!empty($result)) {
+        if (!empty($result)) {
             foreach ($result as $data) {
                 $pointType = new PointType();
                 foreach ($data as $key => $datum) {
@@ -146,7 +153,7 @@ class Lists extends AbstractApi
 
     /**
      * Получение списка дополнительных услуг службы доставки
-     * @param string|null $providerKey Если не указано, то возвращается список доп.услуг по всем службам доставки
+     * @param string|null $providerKey Если не указано, то возвращается список доп. услуг по всем службам доставки
      * @return ListsServicesResponse
      */
     public function getServices($providerKey = null)

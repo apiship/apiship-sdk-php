@@ -10,17 +10,17 @@ use Apiship\Entity\Response\Part\Calculator\Tariff;
 class Calculator extends AbstractApi
 {
     /**
-     * Расчитывает стоимость доставки
+     * Рассчитывает стоимость доставки
      *
      * @param CalculatorRequest $request
-     * @param array             $headers
+     * @param array $headers
      *
      * @return CalculatorResponse
      */
     public function calculate(CalculatorRequest $request, $headers = [])
     {
         $resultJson = $this->adapter->post('calculator', $headers, $request->asJson());
-        $result     = json_decode($resultJson);
+        $result = json_decode($resultJson);
 
         $response = new CalculatorResponse();
         $response->setOriginJson($resultJson);
@@ -33,13 +33,13 @@ class Calculator extends AbstractApi
                     foreach ($item->tariffs as $itemTariff) {
                         $calculatorItemTariff = new Tariff();
                         $calculatorItemTariff->setTariffId(isset($itemTariff->tariffId) ? $itemTariff->tariffId : null)
-                                             ->setTariffName(isset($itemTariff->tariffName) ? $itemTariff->tariffName : null)
-                                             ->setFrom(isset($itemTariff->from) ? $itemTariff->from : null)
-                                             ->setDeliveryCost(isset($itemTariff->deliveryCost) ? $itemTariff->deliveryCost : null)
-                                             ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
-                                             ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
-                                             ->setPickupTypes(isset($itemTariff->pickupTypes) ? $itemTariff->pickupTypes : [])
-                                             ->setDeliveryTypes(isset($itemTariff->deliveryTypes) ? $itemTariff->deliveryTypes : []);
+                            ->setTariffName(isset($itemTariff->tariffName) ? $itemTariff->tariffName : null)
+                            ->setFrom(isset($itemTariff->from) ? $itemTariff->from : null)
+                            ->setDeliveryCost(isset($itemTariff->deliveryCost) ? $itemTariff->deliveryCost : null)
+                            ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
+                            ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
+                            ->setPickupTypes(isset($itemTariff->pickupTypes) ? $itemTariff->pickupTypes : [])
+                            ->setDeliveryTypes(isset($itemTariff->deliveryTypes) ? $itemTariff->deliveryTypes : []);
 
                         $calculatorItem->addTariff($calculatorItemTariff);
                     }
@@ -56,14 +56,14 @@ class Calculator extends AbstractApi
                     foreach ($item->tariffs as $itemTariff) {
                         $calculatorItemTariff = new Tariff();
                         $calculatorItemTariff->setTariffId(isset($itemTariff->tariffId) ? $itemTariff->tariffId : null)
-                                             ->setTariffName(isset($itemTariff->tariffName) ? $itemTariff->tariffName : null)
-                                             ->setFrom(isset($itemTariff->from) ? $itemTariff->from : null)
-                                             ->setDeliveryCost(isset($itemTariff->deliveryCost) ? $itemTariff->deliveryCost : null)
-                                             ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
-                                             ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
-                                             ->setPointIds(isset($itemTariff->pointIds) ? $itemTariff->pointIds : [])
-                                             ->setPickupTypes(isset($itemTariff->pickupTypes) ? $itemTariff->pickupTypes : [])
-                                             ->setDeliveryTypes(isset($itemTariff->deliveryTypes) ? $itemTariff->deliveryTypes : []);
+                            ->setTariffName(isset($itemTariff->tariffName) ? $itemTariff->tariffName : null)
+                            ->setFrom(isset($itemTariff->from) ? $itemTariff->from : null)
+                            ->setDeliveryCost(isset($itemTariff->deliveryCost) ? $itemTariff->deliveryCost : null)
+                            ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
+                            ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
+                            ->setPointIds(isset($itemTariff->pointIds) ? $itemTariff->pointIds : [])
+                            ->setPickupTypes(isset($itemTariff->pickupTypes) ? $itemTariff->pickupTypes : [])
+                            ->setDeliveryTypes(isset($itemTariff->deliveryTypes) ? $itemTariff->deliveryTypes : []);
 
                         $calculatorItem->addTariff($calculatorItemTariff);
                     }

@@ -23,13 +23,13 @@ class OrderInfo extends AbstractResponsePart
      */
     protected $clientNumber;
     /**
-     * @var string Номер возврата заказа в системе службы доставки 
-     */ 
+     * @var string Номер возврата заказа в системе службы доставки
+     */
     protected $returnProviderNumber;
     /**
-     * @var string  Номер заказа для печати штрихкода
+     * @var string  Номер заказа для печати ШК
      */
-     protected $barcode; 
+    protected $barcode;
 
     /**
      * @return int
@@ -68,7 +68,7 @@ class OrderInfo extends AbstractResponsePart
         $this->providerNumber = $providerNumber;
         return $this;
     }
-    
+
     /**
      * @return string
      */
@@ -76,7 +76,7 @@ class OrderInfo extends AbstractResponsePart
     {
         return $this->additionalProviderNumber;
     }
-        
+
     /**
      * @param $providerNumber
      *
@@ -87,7 +87,7 @@ class OrderInfo extends AbstractResponsePart
         $this->additionalProviderNumber = $additionalProviderNumber;
         return $this;
     }
-    
+
     /**
      * @return string
      */

@@ -280,17 +280,9 @@ class CalculatorRequest extends AbstractRequest
     /**
      * @return array
      */
-    function getPickupTypes()
+    public function getPickupTypes()
     {
         return $this->pickupTypes;
-    }
-
-    /**
-     * @return array
-     */
-    function getDeliveryTypes()
-    {
-        return $this->deliveryTypes;
     }
 
     /**
@@ -298,10 +290,18 @@ class CalculatorRequest extends AbstractRequest
      *
      * @return CalculatorRequest
      */
-    function setPickupTypes($pickupTypes)
+    public function setPickupTypes($pickupTypes)
     {
         $this->pickupTypes = $pickupTypes;
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDeliveryTypes()
+    {
+        return $this->deliveryTypes;
     }
 
     /**
@@ -309,7 +309,7 @@ class CalculatorRequest extends AbstractRequest
      *
      * @return CalculatorRequest
      */
-    function setDeliveryTypes($deliveryTypes)
+    public function setDeliveryTypes($deliveryTypes)
     {
         $this->deliveryTypes = $deliveryTypes;
         return $this;
@@ -335,7 +335,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isSelfDelivery()
     {
@@ -343,7 +343,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @param boolean $selfDelivery
+     * @param bool $selfDelivery
      *
      * @return CalculatorRequest
      */
@@ -392,19 +392,19 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    function getIncludeFees()
+    public function getIncludeFees()
     {
         return $this->includeFees;
     }
 
     /**
-     * @param boolean $includeFees
+     * @param bool $includeFees
      *
      * @return CalculatorRequest
      */
-    function setIncludeFees($includeFees)
+    public function setIncludeFees($includeFees)
     {
         $this->includeFees = $includeFees;
         return $this;

@@ -104,7 +104,8 @@ class Item extends AbstractRequestPart
         if (!$this->description) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::description" is required.
-                ');
+                '
+            );
         }
 
         return $this->description;
@@ -263,7 +264,8 @@ class Item extends AbstractRequestPart
         if (!$this->quantity) {
             throw new RequiredParameterException(
                 'Property "' . get_class($this) . '::quantity" is required.
-                ');
+                '
+            );
         }
 
         return $this->quantity;
