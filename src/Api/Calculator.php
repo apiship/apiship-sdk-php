@@ -36,6 +36,7 @@ class Calculator extends AbstractApi
                             ->setTariffName(isset($itemTariff->tariffName) ? $itemTariff->tariffName : null)
                             ->setFrom(isset($itemTariff->from) ? $itemTariff->from : null)
                             ->setDeliveryCost(isset($itemTariff->deliveryCost) ? $itemTariff->deliveryCost : null)
+                            ->setDeliveryCostOriginal($itemTariff->deliveryCostOriginal ?? null)
                             ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
                             ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
                             ->setPickupTypes(isset($itemTariff->pickupTypes) ? $itemTariff->pickupTypes : [])
