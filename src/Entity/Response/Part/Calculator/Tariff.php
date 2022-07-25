@@ -24,6 +24,10 @@ class Tariff extends AbstractResponsePart
      */
     protected $deliveryCost;
     /**
+     * @var float Стоимость доставки до применения правил
+     */
+    protected $deliveryCostOriginal;
+    /**
      * @var int Минимальное количество дней на доставку
      */
     protected $daysMin;
@@ -163,6 +167,18 @@ class Tariff extends AbstractResponsePart
     public function setDeliveryCost($deliveryCost)
     {
         $this->deliveryCost = $deliveryCost;
+        return $this;
+    }
+
+    public function getDeliveryCostOriginal()
+    {
+        return $this->deliveryCostOriginal;
+    }
+
+    public function setDeliveryCostOriginal($deliveryCostOriginal)
+    {
+        $this->deliveryCostOriginal = $deliveryCostOriginal;
+
         return $this;
     }
 
