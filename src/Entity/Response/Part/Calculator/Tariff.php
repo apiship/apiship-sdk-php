@@ -170,11 +170,19 @@ class Tariff extends AbstractResponsePart
         return $this;
     }
 
+    /**
+     * @return float
+     */
     public function getDeliveryCostOriginal()
     {
         return $this->deliveryCostOriginal;
     }
 
+    /**
+     * @param float $deliveryCostOriginal
+     *
+     * @return $this
+     */
     public function setDeliveryCostOriginal($deliveryCostOriginal)
     {
         $this->deliveryCostOriginal = $deliveryCostOriginal;
