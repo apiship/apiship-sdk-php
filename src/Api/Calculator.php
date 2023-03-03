@@ -32,11 +32,16 @@ class Calculator extends AbstractApi
                 if (isset($item->tariffs)) {
                     foreach ($item->tariffs as $itemTariff) {
                         $calculatorItemTariff = new Tariff();
-                        $calculatorItemTariff->setTariffId(isset($itemTariff->tariffId) ? $itemTariff->tariffId : null)
+                        $calculatorItemTariff
+                            ->setTariffProviderId($itemTariff->tariffProviderId ?? null)
+                            ->setTariffId(isset($itemTariff->tariffId) ? $itemTariff->tariffId : null)
                             ->setTariffName(isset($itemTariff->tariffName) ? $itemTariff->tariffName : null)
                             ->setFrom(isset($itemTariff->from) ? $itemTariff->from : null)
                             ->setDeliveryCost(isset($itemTariff->deliveryCost) ? $itemTariff->deliveryCost : null)
                             ->setDeliveryCostOriginal($itemTariff->deliveryCostOriginal ?? null)
+                            ->setFeesIncluded($itemTariff->feesIncluded ?? null)
+                            ->setInsuranceFee($itemTariff->insuranceFee ?? null)
+                            ->setCashServiceFee($itemTariff->cashServiceFee ?? null)
                             ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
                             ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
                             ->setPickupTypes(isset($itemTariff->pickupTypes) ? $itemTariff->pickupTypes : [])
@@ -56,11 +61,16 @@ class Calculator extends AbstractApi
                 if (isset($item->tariffs)) {
                     foreach ($item->tariffs as $itemTariff) {
                         $calculatorItemTariff = new Tariff();
-                        $calculatorItemTariff->setTariffId(isset($itemTariff->tariffId) ? $itemTariff->tariffId : null)
+                        $calculatorItemTariff
+                            ->setTariffProviderId($itemTariff->tariffProviderId ?? null)
+                            ->setTariffId(isset($itemTariff->tariffId) ? $itemTariff->tariffId : null)
                             ->setTariffName(isset($itemTariff->tariffName) ? $itemTariff->tariffName : null)
                             ->setFrom(isset($itemTariff->from) ? $itemTariff->from : null)
                             ->setDeliveryCost(isset($itemTariff->deliveryCost) ? $itemTariff->deliveryCost : null)
                             ->setDeliveryCostOriginal($itemTariff->deliveryCostOriginal ?? null)
+                            ->setFeesIncluded($itemTariff->feesIncluded ?? null)
+                            ->setInsuranceFee($itemTariff->insuranceFee ?? null)
+                            ->setCashServiceFee($itemTariff->cashServiceFee ?? null)
                             ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
                             ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
                             ->setPointIds(isset($itemTariff->pointIds) ? $itemTariff->pointIds : [])

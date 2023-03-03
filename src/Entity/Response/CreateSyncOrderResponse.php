@@ -15,6 +15,10 @@ class CreateSyncOrderResponse extends AbstractResponse
      */
     protected $providerNumber;
     /**
+     * @var string Дополнительный номер заказа в системе службы доставки
+     */
+    protected $additionalProviderNumber;
+    /**
      * @var string Дата/время создания
      */
     protected $created;
@@ -54,6 +58,17 @@ class CreateSyncOrderResponse extends AbstractResponse
     public function setProviderNumber($providerNumber)
     {
         $this->providerNumber = $providerNumber;
+        return $this;
+    }
+
+    public function getAdditionalProviderNumber(): ?string
+    {
+        return $this->additionalProviderNumber;
+    }
+
+    public function setAdditionalProviderNumber(?string $additionalProviderNumber): self
+    {
+        $this->additionalProviderNumber = $additionalProviderNumber;
         return $this;
     }
 

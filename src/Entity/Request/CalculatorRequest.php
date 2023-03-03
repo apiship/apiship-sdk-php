@@ -151,6 +151,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
+     * @deprecated
      * @return float
      * @throws RequiredParameterException
      */
@@ -167,6 +168,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
+     * @deprecated
      * @param float $weight
      *
      * @return CalculatorRequest
@@ -178,6 +180,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
+     * @deprecated
      * @return int
      * @throws RequiredParameterException
      */
@@ -194,6 +197,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
+     * @deprecated
      * @param int $width
      *
      * @return CalculatorRequest
@@ -205,6 +209,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
+     * @deprecated
      * @return int
      * @throws RequiredParameterException
      */
@@ -221,6 +226,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
+     * @deprecated
      * @param int $height
      *
      * @return CalculatorRequest
@@ -232,6 +238,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
+     * @deprecated
      * @return int
      * @throws RequiredParameterException
      */
@@ -248,6 +255,7 @@ class CalculatorRequest extends AbstractRequest
     }
 
     /**
+     * @deprecated
      * @param int $length
      *
      * @return CalculatorRequest

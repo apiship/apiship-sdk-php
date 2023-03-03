@@ -47,6 +47,10 @@ class Point extends AbstractResponsePart
      */
     protected $region;
     /**
+     * @var string Тип региона
+     */
+    protected $regionType;
+    /**
      * @var string Район
      */
     protected $area;
@@ -59,6 +63,22 @@ class Point extends AbstractResponsePart
      * @var string ФИАС для города/села/поселка
      */
     protected $cityGuid;
+    /**
+     * @var string Тип города
+     */
+    protected $cityType;
+    /**
+     * @var string Населенный пункт
+     */
+    protected $community;
+    /**
+     * @var string ФИАС-код населенного пункта
+     */
+    protected $communityGuid;
+    /**
+     * @var string Тип населенного пункта
+     */
+    protected $communityType;
     /**
      * @var string Улица/проспект
      */
@@ -95,6 +115,14 @@ class Point extends AbstractResponsePart
      * @var string Режим работы
      */
     protected $timetable;
+    /**
+     * @var array Режим работы по дням (1 - пн; 7 - вс) Отсутствие дня означает выходной
+     */
+    protected $worktime;
+    /**
+     * @var int
+     */
+    protected $fittingRoom;
 
     /**
      * @var string Наименование ПВЗ
@@ -105,6 +133,14 @@ class Point extends AbstractResponsePart
      * @var array Изображения
      */
     protected $photos;
+    /**
+     * @var Metro[]|null
+     */
+    protected $metro;
+    /**
+     * @var Extra[]|null
+     */
+    protected $extra;
 
     /**
      * @var int|null Прием оплаты при получении
@@ -120,6 +156,10 @@ class Point extends AbstractResponsePart
      * @var int|null Возможность оплаты картой
      */
     protected $paymentCard;
+    /**
+     * @var int Возможна ли выдача многоместных отправлений (null - нет данных, 1 - выдача возможна, 0 - выдача невозможна)
+     */
+    protected $multiplaceDeliveryAllowed;
 
     /**
      * @var string Полый адрес
@@ -700,6 +740,135 @@ class Point extends AbstractResponsePart
     public function setLimits($limits)
     {
         $this->limits = $limits;
+        return $this;
+    }
+
+    public function getRegionType(): ?string
+    {
+        return $this->regionType;
+    }
+
+    public function setRegionType(?string $regionType): self
+    {
+        $this->regionType = $regionType;
+        return $this;
+    }
+
+    public function getCityType(): ?string
+    {
+        return $this->cityType;
+    }
+
+    public function setCityType(?string $cityType): self
+    {
+        $this->cityType = $cityType;
+        return $this;
+    }
+
+    public function getCommunity(): ?string
+    {
+        return $this->community;
+    }
+    public function setCommunity(?string $community): self
+    {
+        $this->community = $community;
+        return $this;
+    }
+
+    public function getCommunityGuid(): ?string
+    {
+        return $this->communityGuid;
+    }
+
+    public function setCommunityGuid(?string $communityGuid): self
+    {
+        $this->communityGuid = $communityGuid;
+        return $this;
+    }
+
+    public function getCommunityType(): ?string
+    {
+        return $this->communityType;
+    }
+
+    public function setCommunityType(?string $communityType): self
+    {
+        $this->communityType = $communityType;
+        return $this;
+    }
+
+    public function getWorktime(): ?array
+    {
+        return $this->worktime;
+    }
+
+    public function setWorktime(?\stdClass $worktime): self
+    {
+        $this->worktime = (array)$worktime;
+        return $this;
+    }
+
+    public function getFittingRoom(): ?int
+    {
+        return $this->fittingRoom;
+    }
+
+    public function setFittingRoom(?int $fittingRoom): self
+    {
+        $this->fittingRoom = $fittingRoom;
+        return $this;
+    }
+
+    /**
+     * @return Metro[]|null
+     */
+    public function getMetro(): ?array
+    {
+        return $this->metro;
+    }
+
+    public function setMetro(?array $metro): self
+    {
+        $this->metro = [];
+
+        if (!empty($metro)) {
+            foreach ($metro as $item) {
+                $this->metro[] = new Metro((array)$item);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Extra[]|null
+     */
+    public function getExtra(): ?array
+    {
+        return $this->extra;
+    }
+
+    public function setExtra(?array $extra): self
+    {
+        $this->extra = [];
+
+        if (!empty($extra)) {
+            foreach ($extra as $item) {
+                $this->extra[] = new Extra($item);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getMultiplaceDeliveryAllowed(): ?int
+    {
+        return $this->multiplaceDeliveryAllowed;
+    }
+
+    public function setMultiplaceDeliveryAllowed(?int $multiplaceDeliveryAllowed): self
+    {
+        $this->multiplaceDeliveryAllowed = $multiplaceDeliveryAllowed;
         return $this;
     }
 }

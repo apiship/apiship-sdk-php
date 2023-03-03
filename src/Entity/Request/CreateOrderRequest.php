@@ -9,6 +9,7 @@ use Apiship\Entity\Request\Part\Orders\Item;
 use Apiship\Entity\Request\Part\Orders\Order;
 use Apiship\Entity\Request\Part\Orders\Place;
 use Apiship\Entity\Request\Part\Orders\Recipient;
+use Apiship\Entity\Request\Part\Orders\ReturnAddress;
 use Apiship\Entity\Request\Part\Orders\Sender;
 use Apiship\Exception\RequiredParameterException;
 
@@ -30,6 +31,10 @@ class CreateOrderRequest extends AbstractRequest
      * @var Recipient Информация о получателе
      */
     protected $recipient;
+    /**
+     * @var ReturnAddress
+     */
+    protected $returnAddress;
     /**
      * @var Item[] Массив с вложениями
      */
@@ -250,6 +255,17 @@ class CreateOrderRequest extends AbstractRequest
     {
         $this->extraParams[] = $extraParam;
 
+        return $this;
+    }
+
+    public function getReturnAddress(): ?ReturnAddress
+    {
+        return $this->returnAddress;
+    }
+
+    public function setReturnAddress(?ReturnAddress $returnAddress): self
+    {
+        $this->returnAddress = $returnAddress;
         return $this;
     }
 }

@@ -7,6 +7,10 @@ use Apiship\Entity\AbstractResponsePart;
 class Tariff extends AbstractResponsePart
 {
     /**
+     * @var string ID тарифа в службе доставки
+     */
+    protected $tariffProviderId;
+    /**
      * @var int ID тарифа
      */
     protected $tariffId;
@@ -27,6 +31,18 @@ class Tariff extends AbstractResponsePart
      * @var float Стоимость доставки до применения правил
      */
     protected $deliveryCostOriginal;
+    /**
+     * @var bool
+     */
+    protected $feesIncluded;
+    /**
+     * @var float
+     */
+    protected $insuranceFee;
+    /**
+     * @var float
+     */
+    protected $cashServiceFee;
     /**
      * @var int Минимальное количество дней на доставку
      */
@@ -263,6 +279,50 @@ class Tariff extends AbstractResponsePart
     public function setDeliveryTypes(array $deliveryTypes)
     {
         $this->deliveryTypes = $deliveryTypes;
+        return $this;
+    }
+
+    public function getTariffProviderId(): ?string
+    {
+        return $this->tariffProviderId;
+    }
+
+    public function setTariffProviderId(?string $tariffProviderId): self
+    {
+        $this->tariffProviderId = $tariffProviderId;
+        return $this;
+    }
+
+    public function getFeesIncluded(): ?bool
+    {
+        return $this->feesIncluded;
+    }
+
+    public function setFeesIncluded(?bool $feesIncluded): self
+    {
+        $this->feesIncluded = $feesIncluded;
+        return $this;
+    }
+
+    public function getInsuranceFee(): ?float
+    {
+        return $this->insuranceFee;
+    }
+
+    public function setInsuranceFee(?float $insuranceFee): self
+    {
+        $this->insuranceFee = $insuranceFee;
+        return $this;
+    }
+
+    public function getCashServiceFee(): ?float
+    {
+        return $this->cashServiceFee;
+    }
+
+    public function setCashServiceFee(?float $cashServiceFee): self
+    {
+        $this->cashServiceFee = $cashServiceFee;
         return $this;
     }
 }
