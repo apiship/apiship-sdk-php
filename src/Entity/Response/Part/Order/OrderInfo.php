@@ -11,6 +11,10 @@ class OrderInfo extends AbstractResponsePart
      */
     protected $orderId;
     /**
+     * @var string Код провайдера (СД)
+     */
+    protected $providerKey;
+    /**
      * @var string Ключ провайдера (СД)
      */
     protected $providerNumber;
@@ -30,6 +34,10 @@ class OrderInfo extends AbstractResponsePart
      * @var string  Номер заказа для печати ШК
      */
     protected $barcode;
+    /**
+     * @var string
+     */
+    protected $trackingUrl;
 
     /**
      * @return int
@@ -126,6 +134,28 @@ class OrderInfo extends AbstractResponsePart
     public function setBarcode(?string $barcode)
     {
         $this->barcode = $barcode;
+        return $this;
+    }
+
+    public function getProviderKey(): ?string
+    {
+        return $this->providerKey;
+    }
+
+    public function setProviderKey(string $providerKey): self
+    {
+        $this->providerKey = $providerKey;
+        return $this;
+    }
+
+    public function getTrackingUrl(): ?string
+    {
+        return $this->trackingUrl;
+    }
+
+    public function setTrackingUrl(string $trackingUrl): self
+    {
+        $this->trackingUrl = $trackingUrl;
         return $this;
     }
 }

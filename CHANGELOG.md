@@ -1,6 +1,22 @@
 ApiShip SDK Change Log
 ==========================
 
+1.2.3 2023-03-03
+--------------------
+ - Актуализированы поля запросов и ответов:
+   - Калькулятор: 
+     - в запросе помечены устаревшими поля weight, width, height, length
+     - в ответ добавлены поля tariffProviderId, feesIncluded, insuranceFee, cashServiceFee
+   - Создание заказа:
+     - в запрос добавлен объект returnAddress
+     - в Item добавлены поля companyName, companyInn, companyPhone
+     - в Recipient добавлены lat и lng
+     - в Sender добавлены lat, lng, companyInn, addressString
+   - Статусы заказа:
+     - добавлены поля в orderInfo: providerKey и trackingUrl
+   - Список точек:
+     - добавлены regionType, cityType, community, communityGuid, communityType, worktime, fittingRoom, metro и extra
+
 1.2.2 2022-08-18
 --------------------
 - Фикс. Добавлено поле deliveryCostOriginal для тарифов до ПВЗ

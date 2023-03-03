@@ -5,7 +5,7 @@ namespace Apiship\Entity\Request\Part\Orders;
 use Apiship\Entity\AbstractRequestPart;
 use Apiship\Exception\RequiredParameterException;
 
-class Sender extends AbstractRequestPart
+class ReturnAddress extends AbstractRequestPart
 {
     /**
      * @var string Индекс
@@ -56,17 +56,13 @@ class Sender extends AbstractRequestPart
      */
     protected $lng;
     /**
-     * @var string Название брэнда
+     * @var string ИНН компании (если юр.лицо)
      */
-    protected $brandName;
+    protected $companyInn;
     /**
      * @var string Название компании
      */
     protected $companyName;
-    /**
-     * @var string ИНН компании
-     */
-    protected $companyInn;
     /**
      * @var string Контактное лицо (ФИО)
      */
@@ -76,17 +72,37 @@ class Sender extends AbstractRequestPart
      */
     protected $phone;
     /**
-     * @var string email контактного лица
+     * @var string Email контактного лица
      */
     protected $email;
     /**
      * @var string Комментарий
      */
     protected $comment;
+
     /**
-     * @var string Полный адрес одной строкой
+     * @var string Адрес строкой
      */
     protected $addressString;
+
+    /**
+     * @return string
+     */
+    public function getCompanyInn()
+    {
+        return $this->companyInn;
+    }
+
+    /**
+     * @param string $companyInn
+     *
+     * @return ReturnAddress
+     */
+    public function setCompanyInn($companyInn)
+    {
+        $this->companyInn = $companyInn;
+        return $this;
+    }
 
     /**
      * @return string
@@ -99,7 +115,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $postIndex
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setPostIndex($postIndex)
     {
@@ -126,7 +142,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $countryCode
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setCountryCode($countryCode)
     {
@@ -153,7 +169,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $region
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setRegion($region)
     {
@@ -172,7 +188,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $area
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setArea($area)
     {
@@ -199,7 +215,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $city
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setCity($city)
     {
@@ -218,7 +234,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $cityGuid
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setCityGuid($cityGuid)
     {
@@ -245,7 +261,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $street
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setStreet($street)
     {
@@ -272,7 +288,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $house
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setHouse($house)
     {
@@ -291,7 +307,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $block
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setBlock($block)
     {
@@ -310,30 +326,11 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $office
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setOffice($office)
     {
         $this->office = $office;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getBrandName()
-    {
-        return $this->brandName;
-    }
-
-    /**
-     * @param string $brandName
-     *
-     * @return Sender
-     */
-    public function setBrandName($brandName)
-    {
-        $this->brandName = $brandName;
         return $this;
     }
 
@@ -348,7 +345,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $companyName
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setCompanyName($companyName)
     {
@@ -375,7 +372,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $contactName
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setContactName($contactName)
     {
@@ -402,7 +399,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $phone
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setPhone($phone)
     {
@@ -422,7 +419,7 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $email
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setEmail($email)
     {
@@ -441,11 +438,31 @@ class Sender extends AbstractRequestPart
     /**
      * @param string $comment
      *
-     * @return Sender
+     * @return ReturnAddress
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAddressString()
+    {
+        return $this->addressString;
+    }
+
+    /**
+     * @param string $addressString
+     *
+     * @return ReturnAddress
+     */
+    public function setAddressString($addressString)
+    {
+        $this->addressString = $addressString;
+
         return $this;
     }
 
@@ -454,7 +471,7 @@ class Sender extends AbstractRequestPart
         return $this->lat;
     }
 
-    public function setLat(?float $lat): ?self
+    public function setLat(?float $lat): self
     {
         $this->lat = $lat;
         return $this;
@@ -465,31 +482,9 @@ class Sender extends AbstractRequestPart
         return $this->lng;
     }
 
-    public function setLng(float $lng): ?self
+    public function setLng(?float $lng): self
     {
         $this->lng = $lng;
-        return $this;
-    }
-
-    public function getCompanyInn(): ?string
-    {
-        return $this->companyInn;
-    }
-
-    public function setCompanyInn(?string $companyInn): self
-    {
-        $this->companyInn = $companyInn;
-        return $this;
-    }
-
-    public function getAddressString(): ?string
-    {
-        return $this->addressString;
-    }
-
-    public function setAddressString(?string $addressString): self
-    {
-        $this->addressString = $addressString;
         return $this;
     }
 }

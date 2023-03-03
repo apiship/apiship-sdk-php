@@ -48,6 +48,14 @@ class Recipient extends AbstractRequestPart
      */
     protected $office;
     /**
+     * @var float Широта
+     */
+    protected $lat;
+    /**
+     * @var float Долгота
+     */
+    protected $lng;
+    /**
      * @var string ИНН компании (если юр.лицо)
      */
     protected $companyInn;
@@ -455,6 +463,28 @@ class Recipient extends AbstractRequestPart
     {
         $this->addressString = $addressString;
 
+        return $this;
+    }
+
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?float $lat): self
+    {
+        $this->lat = $lat;
+        return $this;
+    }
+
+    public function getLng(): ?float
+    {
+        return $this->lng;
+    }
+
+    public function setLng(?float $lng): self
+    {
+        $this->lng = $lng;
         return $this;
     }
 }

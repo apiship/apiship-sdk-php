@@ -51,11 +51,22 @@ class Item extends AbstractRequestPart
      * @var int Количество товара
      */
     protected $quantity;
-
     /**
      * @return string Код маркировки
      */
     protected $markCode;
+    /**
+     * @var string Наименование компании поставщика / продавца товара
+     */
+    protected $companyName;
+    /**
+     * @var string ИНН поставщика / продавца товара
+     */
+    protected $companyInn;
+    /**
+     * @var string Телефон поставщика / продавца товара
+     */
+    protected $companyPhone;
 
     /**
      * @return string
@@ -298,6 +309,39 @@ class Item extends AbstractRequestPart
     public function setMarkCode($markCode)
     {
         $this->markCode = $markCode;
+        return $this;
+    }
+
+    public function getCompanyName(): string
+    {
+        return $this->companyName;
+    }
+
+    public function setCompanyName(?string $companyName): self
+    {
+        $this->companyName = $companyName;
+        return $this;
+    }
+
+    public function getCompanyInn(): ?string
+    {
+        return $this->companyInn;
+    }
+
+    public function setCompanyInn(?string $companyInn): self
+    {
+        $this->companyInn = $companyInn;
+        return $this;
+    }
+
+    public function getCompanyPhone(): ?string
+    {
+        return $this->companyPhone;
+    }
+
+    public function setCompanyPhone(?string $companyPhone): self
+    {
+        $this->companyPhone = $companyPhone;
         return $this;
     }
 }
