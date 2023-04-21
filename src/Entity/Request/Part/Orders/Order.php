@@ -320,6 +320,7 @@ class Order extends AbstractRequestPart
     }
 
     /**
+     * @deprecated
      * @return int
      */
     public function getPaymentMethod()
@@ -328,6 +329,7 @@ class Order extends AbstractRequestPart
     }
 
     /**
+     * @deprecated
      * @param int $paymentMethod
      *
      * @return Order
