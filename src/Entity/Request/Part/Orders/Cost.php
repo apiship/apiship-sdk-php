@@ -27,6 +27,10 @@ class Cost extends AbstractRequestPart
      * @var bool Флаг для указания стороны которая платит за услуги доставки (false-отправитель, true-получатель)
      */
     protected $isDeliveryPayedByRecipient;
+    /**
+     * @var int Способ оплаты заказа
+     */
+    protected $paymentMethod;
 
     /**
      * @return float
@@ -136,6 +140,23 @@ class Cost extends AbstractRequestPart
     public function setIsDeliveryPayedByRecipient($isDeliveryPayedByRecipient)
     {
         $this->isDeliveryPayedByRecipient = $isDeliveryPayedByRecipient;
+        return $this;
+    }
+
+    /**
+     * @return ?int
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+    /**
+     * @param int $paymentMethod
+     */
+    public function setPaymentMethod($paymentMethod): self
+    {
+        $this->paymentMethod = $paymentMethod;
         return $this;
     }
 }
