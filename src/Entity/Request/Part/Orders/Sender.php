@@ -465,7 +465,7 @@ class Sender extends AbstractRequestPart
         return $this->lng;
     }
 
-    public function setLng(float $lng): ?self
+    public function setLng(?float $lng): ?self
     {
         $this->lng = $lng;
         return $this;
