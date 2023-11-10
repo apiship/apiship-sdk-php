@@ -71,6 +71,12 @@ class Recipient extends AbstractRequestPart
      * @var string Телефон контактного лица
      */
     protected $phone;
+
+    /**
+     * @var string|null Дополнительный телефон контактного лица
+     */
+    protected $additionalPhone;
+
     /**
      * @var string Email контактного лица
      */
@@ -487,4 +493,24 @@ class Recipient extends AbstractRequestPart
         $this->lng = $lng;
         return $this;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getAdditionalPhone(): ?string
+    {
+        return $this->additionalPhone;
+    }
+
+    /**
+     * @param string|null $additionalPhone
+     * @return Recipient
+     */
+    public function setAdditionalPhone(?string $additionalPhone): Recipient
+    {
+        $this->additionalPhone = $additionalPhone;
+        return $this;
+    }
+
+
 }
