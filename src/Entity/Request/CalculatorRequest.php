@@ -99,6 +99,21 @@ class CalculatorRequest extends AbstractRequest
     public $customCode;
 
     /**
+     * @var int Тариф по которому требуется вести расчет
+     */
+    public $tariffId;
+
+    /**
+     * @var int Идентификатор ПВЗ от которого вести расчет
+     */
+    public $pointInId;
+
+    /**
+     * @var int Идентификатор ПВЗ до которого вести расчет
+    */
+    public $pointOutId;
+
+    /**
      * @return From
      * @throws RequiredParameterException
      */
@@ -566,6 +581,39 @@ class CalculatorRequest extends AbstractRequest
     public function setCustomCode($customCode)
     {
         $this->customCode = $customCode;
+        return $this;
+    }
+
+    public function getTariffId(): int
+    {
+        return $this->tariffId;
+    }
+
+    public function setTariffId(int $tariffId): CalculatorRequest
+    {
+        $this->tariffId = $tariffId;
+        return $this;
+    }
+
+    public function getPointInId(): int
+    {
+        return $this->pointInId;
+    }
+
+    public function setPointInId(int $pointInId): CalculatorRequest
+    {
+        $this->pointInId = $pointInId;
+        return $this;
+    }
+
+    public function getPointOutId(): int
+    {
+        return $this->pointOutId;
+    }
+
+    public function setPointOutId(int $pointOutId): CalculatorRequest
+    {
+        $this->pointOutId = $pointOutId;
         return $this;
     }
 }
