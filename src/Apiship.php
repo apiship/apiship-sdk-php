@@ -4,6 +4,7 @@ namespace Apiship;
 
 use Apiship\Adapter\AdapterInterface;
 use Apiship\Api\Calculator;
+use Apiship\Api\CourierCall;
 use Apiship\Api\Lists;
 use Apiship\Api\Orders;
 
@@ -44,5 +45,13 @@ class Apiship
     public function lists()
     {
         return new Lists($this->adapter);
+    }
+
+    /**
+     * @return CourierCall
+     */
+    public function courierCall()
+    {
+        return new CourierCall($this->adapter);
     }
 }
