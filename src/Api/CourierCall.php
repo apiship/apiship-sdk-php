@@ -4,6 +4,7 @@ namespace Apiship\Api;
 
 use Apiship\Entity\Request\CourierCallRequest;
 use Apiship\Entity\Response\CancelCourierCallResponse;
+use Apiship\Entity\Response\CourierCallResponse;
 use Apiship\Entity\Response\CreateOrderResponse;
 use Exception;
 
@@ -40,14 +41,14 @@ class CourierCall extends AbstractApi
      *
      * @param CourierCallRequest $request
      *
-     * @return CreateOrderResponse
+     * @return CourierCallResponse
      */
     public function create(CourierCallRequest $request)
     {
         $resultJson = $this->adapter->post('courierCall', [], $request->asJson());
         $result = json_decode($resultJson);
 
-        $response = new CreateOrderResponse();
+        $response = new CourierCallResponse();
         $response->setOriginJson($resultJson);
 
         foreach ($result as $key => $value) {
