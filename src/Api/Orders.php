@@ -7,6 +7,7 @@ use Apiship\Entity\Response\CancelOrderResponse;
 use Apiship\Entity\Response\CreateOrderResponse;
 use Apiship\Entity\Response\CreateSyncOrderResponse;
 use Apiship\Entity\Response\DeleteOrderResponse;
+use Apiship\Entity\Response\OrderInfoResponse;
 use Apiship\Entity\Response\Part\Meta;
 use Apiship\Entity\Response\Part\Order\FailedOrder;
 use Apiship\Entity\Response\Part\Order\OrderInfo;
@@ -14,6 +15,14 @@ use Apiship\Entity\Response\Part\Order\OrderStatus;
 use Apiship\Entity\Response\Part\Order\StatusHistory;
 use Apiship\Entity\Response\Part\Order\SucceedOrder;
 use Apiship\Entity\Response\Part\Order\WaybillItem;
+use Apiship\Entity\Response\Part\OrderInfo\Cost;
+use Apiship\Entity\Response\Part\OrderInfo\ExtraParam;
+use Apiship\Entity\Response\Part\OrderInfo\Item;
+use Apiship\Entity\Response\Part\OrderInfo\Order;
+use Apiship\Entity\Response\Part\OrderInfo\Place;
+use Apiship\Entity\Response\Part\OrderInfo\Recipient;
+use Apiship\Entity\Response\Part\OrderInfo\ReturnAddress;
+use Apiship\Entity\Response\Part\OrderInfo\Sender;
 use Apiship\Entity\Response\ResendOrderResponse;
 use Apiship\Entity\Response\StatusesByDateResponse;
 use Apiship\Entity\Response\StatusesResponse;
@@ -354,6 +363,117 @@ class Orders extends AbstractApi
 
                 $response->addOrder($orderResult);
             }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Получает информацию по заказу
+     * @param int $orderId ID заказа
+     *
+     * @return OrderInfoResponse
+     */
+    public function getOrderInfo($orderId)
+    {
+        $resultJson = $this->adapter->get("orders/$orderId");
+        $result = json_decode($resultJson);
+
+        $response = new OrderInfoResponse();
+        $response->setOriginJson($resultJson);
+
+        if (!empty($result)) {
+            $order = new Order();
+            foreach ($result->order as $key => $value) {
+                try {
+                    $order->$key = $value;
+                } catch (Exception $e) {
+                    continue;
+                }
+            }
+            $response->setOrder($order);
+
+            $cost = new Cost();
+            foreach ($result->cost as $key => $value) {
+                try {
+                    $cost->$key = $value;
+                } catch (Exception $e) {
+                    continue;
+                }
+            }
+            $response->setCost($cost);
+
+            $sender = new Sender();
+            foreach ($result->sender as $key => $value) {
+                try {
+                    $sender->$key = $value;
+                } catch (Exception $e) {
+                    continue;
+                }
+            }
+            $response->setSender($sender);
+
+            $recipient = new Recipient();
+            foreach ($result->recipient as $key => $value) {
+                try {
+                    $recipient->$key = $value;
+                } catch (Exception $e) {
+                    continue;
+                }
+            }
+            $response->setRecipient($recipient);
+
+            $returnAddress = new ReturnAddress();
+            foreach ($result->returnAddress ?? [] as $key => $value) {
+                try {
+                    $returnAddress->$key = $value;
+                } catch (Exception $e) {
+                    continue;
+                }
+            }
+            $response->setReturnAddress($returnAddress);
+
+            $places = [];
+            foreach ($result->places ?? [] as $originPlace) {
+                $place = new Place();
+                foreach ($originPlace as $key => $value) {
+                    try {
+                        if ($key === 'items') {
+                            $items = [];
+                            foreach ($value as $originItem) {
+                                $item = new Item();
+                                foreach ($originItem as $iKey => $iValue) {
+                                    if (property_exists($item,$iKey)){
+                                        $item->$iKey = $iValue;
+                                    }
+                                }
+                                $items[] = $item;
+                            }
+                            $place->setItems($items);
+                            continue;
+                        }
+                        $place->$key = $value;
+                    } catch (Exception $e) {
+                        continue;
+                    }
+                }
+                $places[] = $place;
+            }
+            $response->setPlaces($places);
+
+            $extraParams = [];
+            foreach ($result->extraParams as $originExtraParams) {
+                try {
+                    $extraParam = new ExtraParam();
+                    foreach ($originExtraParams as $key => $value) {
+                        $extraParam->$key = $value;
+                    }
+                    $extraParams[] = $extraParam;
+                } catch (Exception $e) {
+                    continue;
+                }
+            }
+            $response->setExtraParams($extraParams);
         }
 
         return $response;
