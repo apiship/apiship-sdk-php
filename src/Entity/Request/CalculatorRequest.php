@@ -99,9 +99,12 @@ class CalculatorRequest extends AbstractRequest
     public $customCode;
 
     /**
+     * @deprecated
      * @var int Тариф по которому требуется вести расчет
      */
     public $tariffId;
+
+    public $tariffIds;
 
     /**
      * @var int Идентификатор ПВЗ от которого вести расчет
@@ -584,14 +587,31 @@ class CalculatorRequest extends AbstractRequest
         return $this;
     }
 
+    /**
+     * @deprecated
+     */
     public function getTariffId(): int
     {
         return $this->tariffId;
     }
 
+    /**
+     * @deprecated
+     */
     public function setTariffId(int $tariffId): CalculatorRequest
     {
         $this->tariffId = $tariffId;
+        return $this;
+    }
+
+    public function getTariffIds(): array
+    {
+        return $this->tariffIds;
+    }
+
+    public function setTariffIds($tariffIds): self
+    {
+        $this->tariffIds = $tariffIds;
         return $this;
     }
 
