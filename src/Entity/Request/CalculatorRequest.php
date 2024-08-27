@@ -604,12 +604,12 @@ class CalculatorRequest extends AbstractRequest
         return $this;
     }
 
-    public function getTariffIds(): array
+    public function getTariffIds(): ?array
     {
         return $this->tariffIds;
     }
 
-    public function setTariffIds($tariffIds): self
+    public function setTariffIds(?array $tariffIds): self
     {
         $this->tariffIds = $tariffIds;
         return $this;
