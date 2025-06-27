@@ -53,6 +53,24 @@ class Tariff extends AbstractResponsePart
     protected $daysMax;
 
     /**
+     * @var int Минимальное количество дней на доставку в календарных днях
+     */
+    protected $calendarDaysMin;
+    /**
+     * @var int Максимальное количество дней на доставку в календарных днях
+     */
+    protected $calendarDaysMax;
+
+    /**
+     * @var int Минимальное количество дней на доставку в рабочих днях
+     */
+    protected $workDaysMin;
+    /**
+     * @var int Минимальное количество дней на доставку в рабочих днях
+     */
+    protected $workDaysMax;
+
+    /**
      * @var array Список ID ПВЗ
      */
     protected $pointIds = [];
@@ -241,6 +259,50 @@ class Tariff extends AbstractResponsePart
     public function setDaysMax($daysMax)
     {
         $this->daysMax = $daysMax;
+        return $this;
+    }
+
+    public function getCalendarDaysMin(): ?int
+    {
+        return $this->calendarDaysMin;
+    }
+
+    public function setCalendarDaysMin(?int $calendarDaysMin): self
+    {
+        $this->calendarDaysMin = $calendarDaysMin;
+        return $this;
+    }
+
+    public function getCalendarDaysMax(): ?int
+    {
+        return $this->calendarDaysMax;
+    }
+
+    public function setCalendarDaysMax(?int $calendarDaysMax): self
+    {
+        $this->calendarDaysMax = $calendarDaysMax;
+        return $this;
+    }
+
+    public function getWorkDaysMin(): ?int
+    {
+        return $this->workDaysMin;
+    }
+
+    public function setWorkDaysMin(?int $workDaysMin): self
+    {
+        $this->workDaysMin = $workDaysMin;
+        return $this;
+    }
+
+    public function getWorkDaysMax(): ?int
+    {
+        return $this->workDaysMax;
+    }
+
+    public function setWorkDaysMax(?int $workDaysMax): self
+    {
+        $this->workDaysMax = $workDaysMax;
         return $this;
     }
 

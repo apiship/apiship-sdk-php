@@ -44,6 +44,10 @@ class Calculator extends AbstractApi
                             ->setCashServiceFee($itemTariff->cashServiceFee ?? null)
                             ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
                             ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
+                            ->setCalendarDaysMin(isset($itemTariff->calendarDaysMin) ? $itemTariff->calendarDaysMin : null)
+                            ->setCalendarDaysMax(isset($itemTariff->calendarDaysMax) ? $itemTariff->calendarDaysMax : null)
+                            ->setWorkDaysMin(isset($itemTariff->workDaysMin) ? $itemTariff->workDaysMin : null)
+                            ->setWorkDaysMax(isset($itemTariff->workDaysMax) ? $itemTariff->workDaysMax : null)
                             ->setPickupTypes(isset($itemTariff->pickupTypes) ? $itemTariff->pickupTypes : [])
                             ->setDeliveryTypes(isset($itemTariff->deliveryTypes) ? $itemTariff->deliveryTypes : []);
 
@@ -73,6 +77,10 @@ class Calculator extends AbstractApi
                             ->setCashServiceFee($itemTariff->cashServiceFee ?? null)
                             ->setDaysMin(isset($itemTariff->daysMin) ? $itemTariff->daysMin : null)
                             ->setDaysMax(isset($itemTariff->daysMax) ? $itemTariff->daysMax : null)
+                            ->setCalendarDaysMin(isset($itemTariff->calendarDaysMin) ? $itemTariff->calendarDaysMin : null)
+                            ->setCalendarDaysMax(isset($itemTariff->calendarDaysMax) ? $itemTariff->calendarDaysMax : null)
+                            ->setWorkDaysMin(isset($itemTariff->workDaysMin) ? $itemTariff->workDaysMin : null)
+                            ->setWorkDaysMax(isset($itemTariff->workDaysMax) ? $itemTariff->workDaysMax : null)
                             ->setPointIds(isset($itemTariff->pointIds) ? $itemTariff->pointIds : [])
                             ->setPickupTypes(isset($itemTariff->pickupTypes) ? $itemTariff->pickupTypes : [])
                             ->setDeliveryTypes(isset($itemTariff->deliveryTypes) ? $itemTariff->deliveryTypes : []);
