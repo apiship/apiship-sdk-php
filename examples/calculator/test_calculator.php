@@ -9,6 +9,8 @@ use Apiship\Entity\Request\Part\Calculator\From;
 use Apiship\Entity\Request\Part\Calculator\Place;
 use Apiship\Entity\Request\Part\Calculator\To;
 use Apiship\Exception\ResponseException;
+use Apiship\Enum\DeliveryTypes;
+use Apiship\Enum\PickupTypes;
 
 try {
     $adapter = new GuzzleAdapter('test', 'test', true);
@@ -31,8 +33,8 @@ try {
         ->setTo($to)
         ->setAssessedCost(100.6)
         ->setCodCost(0)
-        ->setDeliveryTypes([1])
-        ->setPickupTypes([1])
+        ->setDeliveryTypes([DeliveryTypes::TO_CUSTOMER_ADDRESS])
+        ->setPickupTypes([PickupTypes::FROM_DOOR])
         ->setIncludeFees(true)
         ->setProviderKeys(['cdek'])
         ->addPlace(

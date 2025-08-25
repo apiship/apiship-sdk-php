@@ -10,6 +10,9 @@ use Apiship\Entity\Request\Part\Orders\Item;
 use Apiship\Entity\Request\Part\Orders\Order;
 use Apiship\Entity\Request\Part\Orders\Recipient;
 use Apiship\Entity\Request\Part\Orders\Sender;
+use Apiship\Enum\PaymentMethods;
+use Apiship\Enum\DeliveryTypes;
+use Apiship\Enum\PickupTypes;
 use Apiship\Exception\ResponseException;
 
 try {
@@ -25,8 +28,8 @@ try {
         ->setLength(40)
         ->setWidth(40)
         ->setWeight(1500)
-        ->setPickupType(2)
-        ->setDeliveryType(1)
+        ->setPickupType(PickupTypes::FROM_DOOR)
+        ->setDeliveryType(DeliveryTypes::TO_CUSTOMER_ADDRESS)
         ->setTariffId(9)
         ->setPointOutId(249)
         ->setPickupDate("2017-12-25")
@@ -35,7 +38,7 @@ try {
         ->setDeliveryDate("2017-12-30")
         ->setDeliveryTimeStart("15:10")
         ->setDeliveryTimeEnd("18:10")
-        ->setPaymentMethod(1);
+        ->setPaymentMethod(PaymentMethods::CASH_PAYMENT);
 
     $sender = (new Sender())
         ->setPostIndex('162604')
