@@ -73,11 +73,11 @@ class Lists extends AbstractApi
      *
      * @param int $offset
      * @param string $filter Возможна фильтрация по полям key, name
-     * @param string $fields Указать, какие поля необходимо вернуть. Если пусто - вернуть всё.
      * @param bool $stateCheckOff Если stateCheckOff=1 отдаются также ПВЗ у которых указан не точный адрес расположения
+     * @param string $fields Указать, какие поля необходимо вернуть. Если пусто - вернуть всё.
      * @return ListsPointsResponse
      */
-    public function getPoints($limit = 20, $offset = 0, $filter = '', $fields = '', $stateCheckOff = false)
+    public function getPoints($limit = 20, $offset = 0, $filter = '', $stateCheckOff = false, $fields = '')
     {
         if (!is_int($limit) || $limit < 0) {
             $limit = 20;
