@@ -29,6 +29,11 @@ class Cost extends AbstractRequestPart
     protected $isDeliveryPayedByRecipient;
 
     /**
+     * @var int Способ оплаты заказа: - 1 - Наличные; - 2 - Карта; - 3 - Смешанная оплата(наличные и карта) - 4 - Безналичная оплата (по счету)
+     */
+    protected $paymentMethod;
+
+    /**
      * @return float
      * @throws RequiredParameterException
      */
@@ -136,6 +141,17 @@ class Cost extends AbstractRequestPart
     public function setIsDeliveryPayedByRecipient($isDeliveryPayedByRecipient)
     {
         $this->isDeliveryPayedByRecipient = $isDeliveryPayedByRecipient;
+        return $this;
+    }
+
+    public function getPaymentMethod(): int
+    {
+        return $this->paymentMethod;
+    }
+
+    public function setPaymentMethod(int $paymentMethod): Cost
+    {
+        $this->paymentMethod = $paymentMethod;
         return $this;
     }
 }
