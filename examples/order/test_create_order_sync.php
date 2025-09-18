@@ -68,7 +68,8 @@ try {
     $cost = (new Cost())
         ->setAssessedCost(40)
         ->setDeliveryCost(255.05)
-        ->setCodCost(0);
+        ->setCodCost(0)
+        ->setPaymentMethod(1);
 
     $items[] = (new Item())
         ->setArticul('001189')
