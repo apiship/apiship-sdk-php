@@ -56,6 +56,7 @@ class Order extends AbstractRequestPart
      */
     protected $deliveryType;
     /**
+     * @deprecated
      * @var int Метод оплаты
      */
     protected $paymentMethod;
@@ -320,6 +321,7 @@ class Order extends AbstractRequestPart
     }
 
     /**
+     * @deprecated
      * @return int
      */
     public function getPaymentMethod()
@@ -328,6 +330,7 @@ class Order extends AbstractRequestPart
     }
 
     /**
+     * @deprecated
      * @param int $paymentMethod
      *
      * @return Order

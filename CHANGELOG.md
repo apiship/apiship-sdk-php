@@ -1,7 +1,13 @@
 ApiShip SDK Change Log
 ==========================
 
+1.3.7 2025-09-18
+--------------------
+- Добавлено свойство paymentMethod в Cost
+- В теле Order свойство paymentMethod отмечено устаревшим
+
 1.3.6 2025-06-27
+--------------------
 - Добавлены поля calendarDaysMin, calendarDaysMax, workDaysMin, workDaysMax для тарифов калькулятора
 
 1.3.5 2024-08-27
