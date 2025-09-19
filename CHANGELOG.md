@@ -1,6 +1,10 @@
 ApiShip SDK Change Log
 ==========================
 
+1.3.8 2025-09-19
+--------------------
+- В метод getPoints добавлен параметр fields для указания возвращаемых по API полей. ([#42](https://github.com/apiship/apiship-sdk-php/pull/42))
+
 1.3.7 2025-09-18
 --------------------
 - Добавлено свойство paymentMethod в Cost
